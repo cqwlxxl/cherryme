@@ -40,6 +40,7 @@ private:
     void calcMovieTag1(int pid);            //计算tag1
     void calcMovieTag2(int pid);            //计算tag2
     void calcMovieTag3(int pid);            //计算tag3
+    void calcMovieRecent(int pid, int sid, QString name);   //更新最近观看
 
 private:
     QSqlDatabase        mDB;    //数据库

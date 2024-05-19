@@ -23,6 +23,7 @@ struct MovieRecentModeData
 {
     bool    enable {false}; //启用
     int     pid {0};        //pid
+    int     sid {0};        //sid
     QString name;           //季名称
 };
 
@@ -145,6 +146,8 @@ private:
     void showBarMovieId(int what);  //显示电影id条
     void genFindMovieSql();         //更新查找电影条件
     void setMovieRecentLabel();     //设置最近观看
+    void showMovieRecent(int index);    //显示最近观看
+    void closeMovieRecent(int index);   //关闭最近观看
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);  //事件过滤

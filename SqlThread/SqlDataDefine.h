@@ -23,14 +23,14 @@ enum SqlOperateType
 {
     SOT_CONNECT_MYSQL,        //连接MySQL
     //anime
-    SOT_GET_ANIME_IP,       //获取动漫ip
-    SOT_GET_ANIME_RECENT,   //获取动漫，最近观看
-    SOT_ANIME_IP_PAGE,      //动漫页面
-    SOT_GET_ANIME_SEASON,   //获取动漫季
-    SOT_ANIME_SEASON_PAGE,  //动漫季页面
-    SOT_GET_ANIME_EPISODE,  //获取动漫话
-    SOT_ANIME_EPISODE_PAGE, //动漫话页面
-    SOT_UPDATE_ANIME,                       //更新动漫
+    SOT_SELECT_ANIME_IP,            //获取动漫ip
+    SOT_SELECT_ANIME_SEASON,        //获取动漫季
+    SOT_SELECT_ANIME_EPISODE,       //获取动漫话
+    SOT_SELECT_ANIME_RECENT,        //获取动漫，最近观看
+    SOT_INFO_ANIME_IP_PAGE,         //动漫ip页面信息
+    SOT_INFO_ANIME_SEASON_PAGE,     //动漫季页面信息
+    SOT_INFO_ANIME_EPISODE_PAGE,    //动漫话页面信息
+    SOT_TELL_ANIME_RESHOW,                  //重新显示动漫
     SOT_UPDATE_ANIME_IP_NAME,               //更新动漫，名称
     SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
     SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
@@ -54,12 +54,12 @@ enum SqlOperateType
     SOT_DELETE_ANIME_EPISODE,   //删除动漫话
     SOT_DELETE_ANIME_RECENT,    //删除动漫最近观看
     //movie
-    SOT_GET_MOVIE_IP,           //获取电影ip
-    SOT_GET_MOVIE_RECENT,       //获取动漫，最近观看
-    SOT_MOVIE_IP_PAGE,          //电影页面
-    SOT_GET_MOVIE_SEASON,       //获取电影部
-    SOT_MOVIE_SEASON_PAGE,      //电影部页面
-    SOT_UPDATE_MOVIE,                       //更新电影
+    SOT_SELECT_MOVIE_IP,        //获取电影ip
+    SOT_SELECT_MOVIE_SEASON,    //获取电影部
+    SOT_SELECT_MOVIE_RECENT,    //获取动漫，最近观看
+    SOT_INFO_MOVIE_IP_PAGE,     //电影ip页面信息
+    SOT_INFO_MOVIE_SEASON_PAGE, //电影部页面信息
+    SOT_TELL_MOVIE_RESHOW,                  //重新显示电影
     SOT_UPDATE_MOVIE_IP_NAME,               //更新电影，名称
     SOT_UPDATE_MOVIE_IP_DISPLAY,            //更新电影，公开
     SOT_UPDATE_MOVIE_IP_KEYWORDS,           //更新电影，关键词
@@ -75,6 +75,7 @@ enum SqlOperateType
     SOT_INSERT_MOVIE_SEASON,    //新增电影部
     SOT_DELETE_MOVIE_IP,        //删除电影ip
     SOT_DELETE_MOVIE_SEASON,    //删除电影部
+    SOT_DELETE_MOVIE_RECENT,    //删除电影最近观看
 };
 
 struct AnimeIpData
@@ -170,7 +171,8 @@ struct MovieRecentData
 {
     int     id {0};             //id
     int     pid {0};            //pid
-    QString name;               //季度名称
+    int     sid {0};            //sid
+    QString name;               //部名称
     bool    display {false};    //可见
 };
 
