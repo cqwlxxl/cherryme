@@ -541,7 +541,7 @@ void Widget::on_checkBox_LimitAnime_clicked(bool checked)
         if(ui->lineEdit_LimitAnime->text() == "showmeall123")
         {
             mLimitAnime = false;
-            getAnime(1);
+            on_pushButton_FindAnime_clicked();
         }
         else
         {
@@ -551,7 +551,7 @@ void Widget::on_checkBox_LimitAnime_clicked(bool checked)
     else
     {
         mLimitAnime = true;
-        getAnime(1);
+        on_pushButton_FindAnime_clicked();
     }
     ui->lineEdit_LimitAnime->clear();
 }
