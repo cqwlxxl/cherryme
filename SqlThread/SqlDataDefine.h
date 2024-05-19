@@ -19,18 +19,18 @@
 enum SqlOperateType
 {
     SOT_LOGIN_ANIME,        //连接anime
-    SOT_GET_ANIME_ANIME,    //获取动漫
+    SOT_GET_ANIME_IP,       //获取动漫
     SOT_GET_ANIME_RECENT,   //获取动漫，最近观看
-    SOT_ANIME_ANIME_PAGE,   //动漫页面
+    SOT_ANIME_IP_PAGE,      //动漫页面
     SOT_GET_ANIME_SEASON,   //获取动漫季
     SOT_ANIME_SEASON_PAGE,  //动漫季页面
     SOT_GET_ANIME_EPISODE,  //获取动漫话
     SOT_ANIME_EPISODE_PAGE, //动漫话页面
     SOT_UPDATE_ANIME,                       //更新动漫
-    SOT_UPDATE_ANIME_ANIME_NAME,            //更新动漫，名称
-    SOT_UPDATE_ANIME_ANIME_KEYWORDS,        //更新动漫，关键词
-    SOT_UPDATE_ANIME_ANIME_ZHUIFAN,         //更新动漫，追番
-    SOT_UPDATE_ANIME_ANIME_DISPLAY,         //更新动漫，公开
+    SOT_UPDATE_ANIME_IP_NAME,               //更新动漫，名称
+    SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
+    SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
+    SOT_UPDATE_ANIME_IP_DISPLAY,            //更新动漫，公开
     SOT_UPDATE_ANIME_SEASON_COLLECT,        //更新动漫，收藏
     SOT_UPDATE_ANIME_SEASON_NAME,           //更新动漫季，名称
     SOT_UPDATE_ANIME_SEASON_RELEASE_DATE,   //更新动漫季，发布日期
@@ -42,10 +42,10 @@ enum SqlOperateType
     SOT_UPDATE_ANIME_EPISODE_TAG1,          //更新动漫话，tag1
     SOT_UPDATE_ANIME_EPISODE_TAG2,          //更新动漫话，tag2
     SOT_UPDATE_ANIME_EPISODE_TAG3,          //更新动漫话，tag3
-    SOT_INSERT_ANIME_ANIME,     //新增动漫
+    SOT_INSERT_ANIME_IP,        //新增动漫
     SOT_INSERT_ANIME_SEASON,    //新增动漫季
     SOT_INSERT_ANIME_EPISODE,   //新增动漫话
-    SOT_DELETE_ANIME_ANIME,     //删除动漫
+    SOT_DELETE_ANIME_IP,        //删除动漫
     SOT_DELETE_ANIME_SEASON,    //删除动漫季
     SOT_DELETE_ANIME_EPISODE,   //删除动漫话
     SOT_DELETE_ANIME_RECENT,    //删除动漫最近观看

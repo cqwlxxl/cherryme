@@ -52,7 +52,7 @@ void AnimeIpNewDialog::on_pushButton_Ok_clicked()
     //
     QVariant var_send;
     var_send.setValue(anime);
-    emit gIPD.SIGNALSendQuery(SOT_INSERT_ANIME_ANIME, var_send);
+    emit gIPD.SIGNALSendQuery(SOT_INSERT_ANIME_IP, var_send);
     this->accept();
 }
 

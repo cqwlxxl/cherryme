@@ -67,7 +67,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             ui->listWidget_AE->clear();
         }
         break;
-    case SOT_GET_ANIME_ANIME:
+    case SOT_GET_ANIME_IP:
     {
         gIPD.anime.animes = var.value<QList<AnimeData> >();
         gIPD.anime.items.clear();
@@ -126,7 +126,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         setAnimeRecentLabel();
     }
         break;
-    case SOT_ANIME_ANIME_PAGE:
+    case SOT_ANIME_IP_PAGE:
     {
         QStringList strs = var.toStringList();
         mAAPageTotal = strs[1].toInt();
@@ -313,7 +313,7 @@ void Widget::getAnime(int page)
     QStringList strs;
     strs << QString::number(page)
          << mFindAnimeSql;
-    emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_ANIME, strs);   //获取动漫
+    emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_IP, strs);   //获取动漫
 }
 
 ///获取动漫季
@@ -1006,7 +1006,7 @@ void Widget::on_checkBox_AA_Zhuifan_clicked(bool checked)
     anime.zhuifan = checked;
     QVariant var_send;
     var_send.setValue(anime);
-    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_ZHUIFAN, var_send);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_ZHUIFAN, var_send);
 }
 
 ///动漫公开提交
@@ -1019,7 +1019,7 @@ void Widget::on_checkBox_AP_Display_clicked(bool checked)
     anime.display = checked;
     QVariant var_send;
     var_send.setValue(anime);
-    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_DISPLAY, var_send);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_DISPLAY, var_send);
 }
 
 ///动漫季公开提交
@@ -1110,7 +1110,7 @@ void Widget::on_pushButton_AP_NaneOk_clicked()
     anime.name = ui->lineEdit_AP_Name->text().trimmed();
     QVariant var_send;
     var_send.setValue(anime);
-    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_NAME, var_send);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_NAME, var_send);
 }
 
 ///动漫关键词改变
@@ -1140,7 +1140,7 @@ void Widget::on_pushButton_AP_KeywordsOk_clicked()
     anime.keywords = ui->lineEdit_AP_Keyword->text().trimmed();
     QVariant var_send;
     var_send.setValue(anime);
-    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_KEYWORDS, var_send);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_KEYWORDS, var_send);
 }
 
 ///新增动漫
@@ -1163,7 +1163,7 @@ void Widget::on_pushButton_AP_Delete_clicked()
         int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除动漫《%1》?\n注意: 其包含的所有季度和话数据均会被关联删除!")).arg(gIPD.anime.animes.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
         if(ret == QMessageBox::Ok)
         {
-            emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_ANIME, gIPD.anime.animes.at(row).pid);
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_IP, gIPD.anime.animes.at(row).pid);
         }
     }
 }

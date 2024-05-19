@@ -34,7 +34,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_LOGIN_ANIME:
         emit SIGNALSendQueryData(SOT_LOGIN_ANIME, var.toBool()?login():logout());
         break;
-    case SOT_GET_ANIME_ANIME:
+    case SOT_GET_ANIME_IP:
     {
         QStringList strs = var.toStringList();
         int pagesize = 20;
@@ -72,7 +72,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
 
             QVariant sendVar;
             sendVar.setValue(animes);
-            emit SIGNALSendQueryData(SOT_GET_ANIME_ANIME, sendVar);
+            emit SIGNALSendQueryData(SOT_GET_ANIME_IP, sendVar);
         }
         cmd = QString("SELECT count(*) FROM `%1`").arg(TABLE_ANIME_IP);
         if(!strs[1].isEmpty())
@@ -88,7 +88,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         strs_send << QString::number(page)
                   << QString::number(total_page)
                   << QString::number(total);
-        emit SIGNALSendQueryData(SOT_ANIME_ANIME_PAGE, strs_send);
+        emit SIGNALSendQueryData(SOT_ANIME_IP_PAGE, strs_send);
     }
         break;
     case SOT_GET_ANIME_RECENT:
@@ -220,7 +220,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_ANIME_EPISODE_PAGE, strs_send);
     }
         break;
-    case SOT_UPDATE_ANIME_ANIME_NAME:
+    case SOT_UPDATE_ANIME_IP_NAME:
     {
         AnimeData anime = var.value<AnimeData>();
         anime.name.replace("'", "''");
@@ -230,7 +230,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
-    case SOT_UPDATE_ANIME_ANIME_KEYWORDS:
+    case SOT_UPDATE_ANIME_IP_KEYWORDS:
     {
         AnimeData anime = var.value<AnimeData>();
         anime.keywords.replace("'", "''");
@@ -240,7 +240,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
-    case SOT_UPDATE_ANIME_ANIME_ZHUIFAN:
+    case SOT_UPDATE_ANIME_IP_ZHUIFAN:
     {
         AnimeData anime = var.value<AnimeData>();
         cmd = QString("UPDATE `%3` SET zhuifan=%1 WHERE pid=%2").arg(anime.zhuifan?1:0).arg(anime.pid).arg(TABLE_ANIME_IP);
@@ -249,7 +249,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
-    case SOT_UPDATE_ANIME_ANIME_DISPLAY:
+    case SOT_UPDATE_ANIME_IP_DISPLAY:
     {
         AnimeData anime = var.value<AnimeData>();
         cmd = QString("UPDATE `%3` SET display=%1 WHERE pid=%2").arg(anime.display?1:0).arg(anime.pid).arg(TABLE_ANIME_IP);
@@ -378,7 +378,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
-    case SOT_INSERT_ANIME_ANIME:
+    case SOT_INSERT_ANIME_IP:
     {
         AnimeData anime = var.value<AnimeData>();
         anime.name.replace("'", "''");
@@ -432,7 +432,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
-    case SOT_DELETE_ANIME_ANIME:
+    case SOT_DELETE_ANIME_IP:
     {
         int pid = var.toInt();
         //删除关联话
