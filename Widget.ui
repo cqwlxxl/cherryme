@@ -29,7 +29,296 @@
       <attribute name="title">
        <string>动漫</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,1,0">
+       <item>
+        <layout class="QHBoxLayout" name="hLayout_A_Ids">
+         <item>
+          <widget class="QLabel" name="label_A_Ids">
+           <property name="text">
+            <string>导航信息</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarAP">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarA_PidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">PID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarA_Pid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarAS">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarA_SidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">SID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarA_Sid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarAE">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarA_EidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">EID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarA_Eid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="hSpacer_A_Ids">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_A_LockRecent">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_A_LockRecent">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #869dd5;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">已锁定显示 XXX PID/SID [000/000]</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_A_UnlockRecent">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
        <item>
         <layout class="QHBoxLayout" name="hLayout_A_Recent">
          <item>
@@ -2564,15 +2853,29 @@ QCheckBox::indicator:unchecked:disabled
          </widget>
         </widget>
        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_Movie">
+      <attribute name="title">
+       <string>电影</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0,0,1,0">
        <item>
-        <layout class="QHBoxLayout" name="hLayout_A_Ids">
+        <layout class="QHBoxLayout" name="hLayout_M_Ids">
          <item>
-          <layout class="QHBoxLayout" name="hLayout_BarAP">
+          <widget class="QLabel" name="label_M_Ids">
+           <property name="text">
+            <string>导航信息</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarMP">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarA_PidText">
+            <widget class="QLabel" name="label_BarM_PidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -2600,7 +2903,7 @@ QCheckBox::indicator:unchecked:disabled
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarA_Pid">
+            <widget class="QLabel" name="label_BarM_Pid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -2632,12 +2935,12 @@ QCheckBox::indicator:unchecked:disabled
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_BarAS">
+          <layout class="QHBoxLayout" name="hLayout_BarMS">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarA_SidText">
+            <widget class="QLabel" name="label_BarM_SidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -2665,7 +2968,7 @@ QCheckBox::indicator:unchecked:disabled
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarA_Sid">
+            <widget class="QLabel" name="label_BarM_Sid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -2697,72 +3000,7 @@ QCheckBox::indicator:unchecked:disabled
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_BarAE">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_BarA_EidText">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  padding-left: 2px;
-  padding-right: 2px;
-  border-left: 1px solid grey;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-  background-color: #ffb050;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">EID</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_BarA_Eid">
-             <property name="minimumSize">
-              <size>
-               <width>40</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>40</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  border: 1px solid grey;
-  background-color: #99cc99;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="hSpacer_A_Ids">
+          <spacer name="hSpacer_M_Ids">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -2775,12 +3013,12 @@ QCheckBox::indicator:unchecked:disabled
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_A_LockRecent">
+          <layout class="QHBoxLayout" name="hLayout_M_LockRecent">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_A_LockRecent">
+            <widget class="QLabel" name="label_M_LockRecent">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -2805,7 +3043,7 @@ QCheckBox::indicator:unchecked:disabled
 }</string>
              </property>
              <property name="text">
-              <string notr="true">已锁定显示 XXX PID/SID [000/000]</string>
+              <string notr="true">已锁定显示 XXX PID [000]</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -2813,7 +3051,7 @@ QCheckBox::indicator:unchecked:disabled
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_A_UnlockRecent">
+            <widget class="QLabel" name="label_M_UnlockRecent">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -2846,13 +3084,6 @@ QLabel:hover
          </item>
         </layout>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_Movie">
-      <attribute name="title">
-       <string>电影</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0,1,0,0">
        <item>
         <layout class="QHBoxLayout" name="hLayout_M_Recent">
          <item>
@@ -4851,15 +5082,29 @@ QCheckBox::indicator:unchecked:disabled
          </widget>
         </widget>
        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_Tv">
+      <attribute name="title">
+       <string>电视剧</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,0,0,1,0">
        <item>
-        <layout class="QHBoxLayout" name="hLayout_M_Ids">
+        <layout class="QHBoxLayout" name="hLayout_T_Ids">
          <item>
-          <layout class="QHBoxLayout" name="hLayout_BarMP">
+          <widget class="QLabel" name="label_T_Ids">
+           <property name="text">
+            <string>导航信息</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarTP">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarM_PidText">
+            <widget class="QLabel" name="label_BarT_PidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -4887,7 +5132,7 @@ QCheckBox::indicator:unchecked:disabled
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarM_Pid">
+            <widget class="QLabel" name="label_BarT_Pid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -4919,12 +5164,12 @@ QCheckBox::indicator:unchecked:disabled
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_BarMS">
+          <layout class="QHBoxLayout" name="hLayout_BarTS">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarM_SidText">
+            <widget class="QLabel" name="label_BarT_SidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -4952,7 +5197,7 @@ QCheckBox::indicator:unchecked:disabled
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarM_Sid">
+            <widget class="QLabel" name="label_BarT_Sid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -4984,7 +5229,72 @@ QCheckBox::indicator:unchecked:disabled
           </layout>
          </item>
          <item>
-          <spacer name="hSpacer_M_Ids">
+          <layout class="QHBoxLayout" name="hLayout_BarTE">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarT_EidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">EID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarT_Eid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="hSpacer_T_Ids">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -4997,12 +5307,12 @@ QCheckBox::indicator:unchecked:disabled
           </spacer>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_M_LockRecent">
+          <layout class="QHBoxLayout" name="hLayout_T_LockRecent">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_M_LockRecent">
+            <widget class="QLabel" name="label_T_LockRecent">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -5027,7 +5337,7 @@ QCheckBox::indicator:unchecked:disabled
 }</string>
              </property>
              <property name="text">
-              <string notr="true">已锁定显示 XXX PID [000]</string>
+              <string notr="true">已锁定显示 XXX PID/SID [000/000]</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -5035,7 +5345,7 @@ QCheckBox::indicator:unchecked:disabled
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_M_UnlockRecent">
+            <widget class="QLabel" name="label_T_UnlockRecent">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -5068,13 +5378,6 @@ QLabel:hover
          </item>
         </layout>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_Tv">
-      <attribute name="title">
-       <string>电视剧</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,0,1,0,0">
        <item>
         <layout class="QHBoxLayout" name="hLayout_T_Recent">
          <item>
@@ -7577,288 +7880,6 @@ QCheckBox::indicator:unchecked:disabled
           </layout>
          </widget>
         </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="hLayout_T_Ids">
-         <item>
-          <layout class="QHBoxLayout" name="hLayout_BarTP">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_BarT_PidText">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  padding-left: 2px;
-  padding-right: 2px;
-  border-left: 1px solid grey;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-  background-color: #ffb050;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">PID</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_BarT_Pid">
-             <property name="minimumSize">
-              <size>
-               <width>40</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  border: 1px solid grey;
-  background-color: #99cc99;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="hLayout_BarTS">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_BarT_SidText">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  padding-left: 2px;
-  padding-right: 2px;
-  border-left: 1px solid grey;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-  background-color: #ffb050;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">SID</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_BarT_Sid">
-             <property name="minimumSize">
-              <size>
-               <width>40</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>40</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  border: 1px solid grey;
-  background-color: #99cc99;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="hLayout_BarTE">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_BarT_EidText">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  padding-left: 2px;
-  padding-right: 2px;
-  border-left: 1px solid grey;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-  background-color: #ffb050;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">EID</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_BarT_Eid">
-             <property name="minimumSize">
-              <size>
-               <width>40</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>40</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  border: 1px solid grey;
-  background-color: #99cc99;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="hSpacer_T_Ids">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="hLayout_T_LockRecent">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="label_T_LockRecent">
-             <property name="minimumSize">
-              <size>
-               <width>40</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  padding-left: 2px;
-  padding-right: 2px;
-  border: 1px solid grey;
-  border-right: none;
-  background-color: #869dd5;
-  color: white;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">已锁定显示 XXX PID/SID [000/000]</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_T_UnlockRecent">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLabel
-{
-  padding-left: 2px;
-  padding-right: 2px;
-  border: 1px solid grey;
-  background-color: grey;
-  color: white;
-}
-QLabel:hover
-{
-  background-color: red;
-}</string>
-             </property>
-             <property name="text">
-              <string notr="true">×</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
        </item>
       </layout>
      </widget>

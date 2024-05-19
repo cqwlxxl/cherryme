@@ -669,7 +669,7 @@ void Widget::qian()
     mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent7_Name, ui->label_M_Recent7_Close));
     setMovieRecentLabel();
     ui->label_M_LockRecent->setVisible(false);
-    ui->label_A_UnlockRecent->setVisible(false);
+    ui->label_M_UnlockRecent->setVisible(false);
     mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent1_Name, ui->label_T_Recent1_Close));
     mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent2_Name, ui->label_T_Recent2_Close));
     mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent3_Name, ui->label_T_Recent3_Close));
