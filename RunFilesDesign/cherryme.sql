@@ -126,6 +126,7 @@ CREATE TABLE `movie_ip` (
 CREATE TABLE `movie_recent` (
   `id` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
   `name` text NOT NULL,
   `display` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
