@@ -34,6 +34,7 @@ private slots:
 
 private:
     void updateEpisodePreview();    //更新集序号预览
+    QString getCnTitles(int index); //获取中文集数标题
 
 private:
     int     mPid {0};
@@ -43,6 +44,7 @@ private:
     int     mEpBegin {1};           //开始序号
     int     mEpFillZeroNum {2};     //补零
     QStringList     mEpisodes;
+    QStringList     mTitles;        //中文集数标题，如：第三十六集
 };
 
 #endif // TVEPISODENEWDIALOG_H

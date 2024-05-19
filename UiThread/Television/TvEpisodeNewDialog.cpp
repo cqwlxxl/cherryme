@@ -51,6 +51,10 @@ void TvEpisodeNewDialog::on_pushButton_Ok_clicked()
     {
         TvEpisodeData ep_temp = ep;
         ep_temp.episode = mEpisodes.at(i);
+        if(ui->checkBox_UseCnTitles->isChecked() && mTitles.size() > i)
+        {
+            ep_temp.title = mTitles.at(i);
+        }
         eps.append(ep_temp);
     }
     gIPD.index_tv.p_click = true;
@@ -109,19 +113,27 @@ void TvEpisodeNewDialog::on_lineEdit_EpisodeCount_editingFinished()
 ///更新集序号预览
 void TvEpisodeNewDialog::updateEpisodePreview()
 {
+    mEpisodes.clear();
+    mTitles.clear();
     if(ui->radioButton_OneEpisode->isChecked())
     {   //单集
-        mEpisodes.clear();
         mEpisodes.append(ui->lineEdit_Episode->text());
+        if(ui->checkBox_UseCnTitles->isChecked())
+        {
+            mTitles.append(getCnTitles(ui->lineEdit_Episode->text().toInt()));
+        }
         ui->label_EpisodePreview->setText(mEpisodes.first());
     }
     else
     {   //多集
-        mEpisodes.clear();
         for(int i = 0; i < mEpCount; i++)
         {
             QString ep = mEpFormat;
             mEpisodes.append(ep.replace("[%ep%]", QString("%1").arg(mEpBegin+i, mEpFillZeroNum, 10, QLatin1Char('0'))));
+            if(ui->checkBox_UseCnTitles->isChecked())
+            {
+                mTitles.append(getCnTitles(mEpBegin+i));
+            }
         }
         QString ep_preview;
         if(mEpCount == 2)
@@ -142,6 +154,49 @@ void TvEpisodeNewDialog::updateEpisodePreview()
         }
         ui->label_EpisodePreview->setText(ep_preview);
     }
+}
+
+///获取中文集数标题
+QString TvEpisodeNewDialog::getCnTitles(int index)
+{
+    QString str = "";
+    int a = index / 10;
+    int b = index % 10;
+    QString first;
+    QString second;
+    if(index >= 1 && index <= 99)
+    {
+        switch(a)
+        {
+        case 0:     first = "";         break;
+        case 1:     first = "十";       break;
+        case 2:     first = "二十";     break;
+        case 3:     first = "三十";     break;
+        case 4:     first = "四十";     break;
+        case 5:     first = "五十";     break;
+        case 6:     first = "六十";     break;
+        case 7:     first = "七十";     break;
+        case 8:     first = "八十";     break;
+        case 9:     first = "九十";     break;
+        default:                        break;
+        }
+        switch(b)
+        {
+        case 0:     second = "";        break;
+        case 1:     second = "一";      break;
+        case 2:     second = "二";      break;
+        case 3:     second = "三";      break;
+        case 4:     second = "四";      break;
+        case 5:     second = "五";      break;
+        case 6:     second = "六";      break;
+        case 7:     second = "七";      break;
+        case 8:     second = "八";      break;
+        case 9:     second = "九";      break;
+        default:                        break;
+        }
+        str = QString("第%1%2集").arg(first, second);
+    }
+    return str;
 }
 
 ///补零位数变化
