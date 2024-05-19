@@ -1,6 +1,6 @@
-#include "AnimeAnimeNewDialog.h"
+#include "AnimeIpNewDialog.h"
 #include "UiThread/InterfacePublicData.h"
-#include "ui_AnimeAnimeNewDialog.h"
+#include "ui_AnimeIpNewDialog.h"
 
 #include <QMessageBox>
 
@@ -8,22 +8,22 @@
 
 Q_DECLARE_METATYPE(AnimeData)
 
-AnimeAnimeNewDialog::AnimeAnimeNewDialog(QWidget *parent) :
+AnimeIpNewDialog::AnimeIpNewDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AnimeAnimeNewDialog)
+    ui(new Ui::AnimeIpNewDialog)
 {
     ui->setupUi(this);
 
     this->setWindowFlags(Qt::Dialog | Qt::WindowCloseButtonHint);   //去掉标题栏的【？】
 }
 
-AnimeAnimeNewDialog::~AnimeAnimeNewDialog()
+AnimeIpNewDialog::~AnimeIpNewDialog()
 {
     delete ui;
 }
 
 ///显示
-void AnimeAnimeNewDialog::Hi()
+void AnimeIpNewDialog::Hi()
 {
     ui->lineEdit_Name->clear();
     ui->lineEdit_Keywords->clear();
@@ -33,7 +33,7 @@ void AnimeAnimeNewDialog::Hi()
 }
 
 ///确认
-void AnimeAnimeNewDialog::on_pushButton_Ok_clicked()
+void AnimeIpNewDialog::on_pushButton_Ok_clicked()
 {
     QString name = ui->lineEdit_Name->text().trimmed();
     QString keywords = ui->lineEdit_Keywords->text().trimmed();
@@ -57,7 +57,7 @@ void AnimeAnimeNewDialog::on_pushButton_Ok_clicked()
 }
 
 ///取消
-void AnimeAnimeNewDialog::on_pushButton_Cancel_clicked()
+void AnimeIpNewDialog::on_pushButton_Cancel_clicked()
 {
     this->reject();
 }

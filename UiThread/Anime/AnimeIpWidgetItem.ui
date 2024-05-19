@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AnimeAnimeWidgetItem</class>
- <widget class="QWidget" name="AnimeAnimeWidgetItem">
+ <class>AnimeIpWidgetItem</class>
+ <widget class="QWidget" name="AnimeIpWidgetItem">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -215,7 +215,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../Resource.qrc">
+           <iconset resource="../../Resource.qrc">
             <normaloff>:/File/img/collec_it.png</normaloff>
             <normalon>:/File/img/collec_ok.png</normalon>
             <disabledoff>:/File/img/collec_it.png</disabledoff>
@@ -260,7 +260,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../Resource.qrc"/>
+  <include location="../../Resource.qrc"/>
  </resources>
  <connections/>
 </ui>

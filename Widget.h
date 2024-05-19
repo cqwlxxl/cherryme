@@ -5,7 +5,7 @@
 #include <QWidget>
 
 #include "UiThread/InterfacePublicData.h"
-#include "UiThread/Anime/AnimeAnimeNewDialog.h"
+#include "UiThread/Anime/AnimeIpNewDialog.h"
 #include "UiThread/Anime/AnimeSeasonNewDialog.h"
 #include "UiThread/Anime/AnimeEpisodeNewDialog.h"
 
@@ -102,7 +102,7 @@ private:
     int     mASPageTotal {0};
     int     mAEPageTotal {0};
     QString mFindAnimeSql;
-    AnimeAnimeNewDialog     *mAnimeAnimeNewDialog {nullptr};
+    AnimeIpNewDialog     *mAnimeAnimeNewDialog {nullptr};
     AnimeSeasonNewDialog    *mAnimeSeasonNewDialog {nullptr};
     AnimeEpisodeNewDialog   *mAnimeEpisodeNewDialog {nullptr};
     QList<QPair<QLabel *, QLabel *> >   mAnimeRecentLabels;

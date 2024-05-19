@@ -1,21 +1,21 @@
-#ifndef ANIMEANIMEWIDGETITEM_H
-#define ANIMEANIMEWIDGETITEM_H
+#ifndef ANIMEIPWIDGETITEM_H
+#define ANIMEIPWIDGETITEM_H
 
 #include <QWidget>
 
 #include "SqlThread/SqlDataDefine.h"
 
 namespace Ui {
-class AnimeAnimeWidgetItem;
+class AnimeIpWidgetItem;
 }
 
-class AnimeAnimeWidgetItem : public QWidget
+class AnimeIpWidgetItem : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AnimeAnimeWidgetItem(AnimeData anime, QWidget *parent = nullptr);
-    ~AnimeAnimeWidgetItem();
+    explicit AnimeIpWidgetItem(AnimeData anime, QWidget *parent = nullptr);
+    ~AnimeIpWidgetItem();
 
 private:
     void setPoint(int point);   //设置评分
@@ -25,7 +25,7 @@ private:
     void setZhuifan(bool zhuifan);  //设置追番
 
 private:
-    Ui::AnimeAnimeWidgetItem *ui;
+    Ui::AnimeIpWidgetItem *ui;
 };
 
-#endif // ANIMEANIMEWIDGETITEM_H
+#endif // ANIMEIPWIDGETITEM_H

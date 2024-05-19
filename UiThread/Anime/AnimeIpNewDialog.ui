@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AnimeAnimeNewDialog</class>
- <widget class="QDialog" name="AnimeAnimeNewDialog">
+ <class>AnimeIpNewDialog</class>
+ <widget class="QDialog" name="AnimeIpNewDialog">
   <property name="geometry">
    <rect>
     <x>0</x>

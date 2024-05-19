@@ -1,11 +1,11 @@
-#include "AnimeAnimeWidgetItem.h"
-#include "ui_AnimeAnimeWidgetItem.h"
+#include "AnimeIpWidgetItem.h"
+#include "ui_AnimeIpWidgetItem.h"
 
 #include <QTimer>
 
-AnimeAnimeWidgetItem::AnimeAnimeWidgetItem(AnimeData anime, QWidget *parent) :
+AnimeIpWidgetItem::AnimeIpWidgetItem(AnimeData anime, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::AnimeAnimeWidgetItem)
+    ui(new Ui::AnimeIpWidgetItem)
 {
     ui->setupUi(this);
 
@@ -30,13 +30,13 @@ AnimeAnimeWidgetItem::AnimeAnimeWidgetItem(AnimeData anime, QWidget *parent) :
     });
 }
 
-AnimeAnimeWidgetItem::~AnimeAnimeWidgetItem()
+AnimeIpWidgetItem::~AnimeIpWidgetItem()
 {
     delete ui;
 }
 
 ///设置评分
-void AnimeAnimeWidgetItem::setPoint(int point)
+void AnimeIpWidgetItem::setPoint(int point)
 {
     if(point == 0)
     {
@@ -69,7 +69,7 @@ void AnimeAnimeWidgetItem::setPoint(int point)
     ui->label_Point->setStyleSheet(QString("QLabel{border:1px solid grey;color:white;background-color:%1;margin-left:3px;}").arg(color));
 }
 
-void AnimeAnimeWidgetItem::setTag1(bool tag1)
+void AnimeIpWidgetItem::setTag1(bool tag1)
 {
     ui->label_A->setVisible(tag1);
     if(tag1)
@@ -78,7 +78,7 @@ void AnimeAnimeWidgetItem::setTag1(bool tag1)
     }
 }
 
-void AnimeAnimeWidgetItem::setTag2(bool tag2)
+void AnimeIpWidgetItem::setTag2(bool tag2)
 {
     ui->label_B->setVisible(tag2);
     if(tag2)
@@ -87,7 +87,7 @@ void AnimeAnimeWidgetItem::setTag2(bool tag2)
     }
 }
 
-void AnimeAnimeWidgetItem::setTag3(bool tag3)
+void AnimeIpWidgetItem::setTag3(bool tag3)
 {
     ui->label_C->setVisible(tag3);
     if(tag3)
@@ -97,7 +97,7 @@ void AnimeAnimeWidgetItem::setTag3(bool tag3)
 }
 
 ///设置追番
-void AnimeAnimeWidgetItem::setZhuifan(bool zhuifan)
+void AnimeIpWidgetItem::setZhuifan(bool zhuifan)
 {
     ui->label_Zhuifan->setVisible(zhuifan);
     if(zhuifan)

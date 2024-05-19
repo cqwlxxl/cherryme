@@ -10,10 +10,10 @@ CONFIG += c++11
 
 SOURCES += \
     SqlThread/SqlThread.cpp \
-    UiThread/Anime/AnimeAnimeNewDialog.cpp \
-    UiThread/Anime/AnimeAnimeWidgetItem.cpp \
     UiThread/Anime/AnimeEpisodeNewDialog.cpp \
     UiThread/Anime/AnimeEpisodeWidgetItem.cpp \
+    UiThread/Anime/AnimeIpNewDialog.cpp \
+    UiThread/Anime/AnimeIpWidgetItem.cpp \
     UiThread/Anime/AnimeSeasonNewDialog.cpp \
     UiThread/Anime/AnimeSeasonWidgetItem.cpp \
     UiThread/InterfacePublicData.cpp \
@@ -24,20 +24,20 @@ HEADERS += \
     PublicData.h \
     SqlThread/SqlDataDefine.h \
     SqlThread/SqlThread.h \
-    UiThread/Anime/AnimeAnimeNewDialog.h \
-    UiThread/Anime/AnimeAnimeWidgetItem.h \
     UiThread/Anime/AnimeEpisodeNewDialog.h \
     UiThread/Anime/AnimeEpisodeWidgetItem.h \
+    UiThread/Anime/AnimeIpNewDialog.h \
+    UiThread/Anime/AnimeIpWidgetItem.h \
     UiThread/Anime/AnimeSeasonNewDialog.h \
     UiThread/Anime/AnimeSeasonWidgetItem.h \
     UiThread/InterfacePublicData.h \
     Widget.h
 
 FORMS += \
-    UiThread/Anime/AnimeAnimeNewDialog.ui \
-    UiThread/Anime/AnimeAnimeWidgetItem.ui \
     UiThread/Anime/AnimeEpisodeNewDialog.ui \
     UiThread/Anime/AnimeEpisodeWidgetItem.ui \
+    UiThread/Anime/AnimeIpNewDialog.ui \
+    UiThread/Anime/AnimeIpWidgetItem.ui \
     UiThread/Anime/AnimeSeasonNewDialog.ui \
     UiThread/Anime/AnimeSeasonWidgetItem.ui \
     Widget.ui

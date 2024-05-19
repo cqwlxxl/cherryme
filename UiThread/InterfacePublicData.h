@@ -7,14 +7,14 @@
 
 #include "PublicData.h"
 #include "SqlThread/SqlDataDefine.h"
-#include "UiThread/Anime/AnimeAnimeWidgetItem.h"
+#include "UiThread/Anime/AnimeIpWidgetItem.h"
 #include "UiThread/Anime/AnimeSeasonWidgetItem.h"
 #include "UiThread/Anime/AnimeEpisodeWidgetItem.h"
 
 struct AnimeItemData
 {
     QList<QListWidgetItem *> items;
-    QList<AnimeAnimeWidgetItem *> widgets;
+    QList<AnimeIpWidgetItem *> widgets;
     QList<AnimeData> animes;
 };
 

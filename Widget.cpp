@@ -5,7 +5,7 @@
 #include <QScrollBar>
 #include <QTimer>
 
-#include "UiThread/Anime/AnimeAnimeWidgetItem.h"
+#include "UiThread/Anime/AnimeIpWidgetItem.h"
 
 Q_DECLARE_METATYPE(AnimeData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
@@ -82,7 +82,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         for(int i = 0; i < gIPD.anime.animes.size(); i++)
         {
             QListWidgetItem *item = new QListWidgetItem();  //初始化item
-            AnimeAnimeWidgetItem *widget = new AnimeAnimeWidgetItem(gIPD.anime.animes.at(i), ui->listWidget_Anime_Anime);
+            AnimeIpWidgetItem *widget = new AnimeIpWidgetItem(gIPD.anime.animes.at(i), ui->listWidget_Anime_Anime);
             item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
             ui->listWidget_Anime_Anime->insertItem(i, item);
             ui->listWidget_Anime_Anime->setItemWidget(item, widget);
@@ -255,7 +255,7 @@ void Widget::on_pushButton_AnimeLogin_clicked(bool checked)
 ///init
 void Widget::qian()
 {
-    mAnimeAnimeNewDialog = new AnimeAnimeNewDialog(this);
+    mAnimeAnimeNewDialog = new AnimeIpNewDialog(this);
     mAnimeSeasonNewDialog = new AnimeSeasonNewDialog(this);
     mAnimeEpisodeNewDialog = new AnimeEpisodeNewDialog(this);
 
