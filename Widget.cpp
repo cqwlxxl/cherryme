@@ -46,12 +46,12 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     switch(operate)
     {
     case SOT_LOGIN_ANIME:
-        mConnectedAnime = var.toBool();
-        ui->pushButton_AnimeLogin->setText(mConnectedAnime?QString("%2:%1(%3)").arg(MYSQL_PORT).arg(MYSQL_IP, tr("点击断开")):tr("连接服务器"));
-        ui->pushButton_AnimeLogin->setChecked(mConnectedAnime);
-        if(mConnectedAnime)
+        mConnectedMysql = var.toBool();
+        ui->pushButton_ConnectMysql->setText(mConnectedMysql?QString("%2:%1(%3)").arg(MYSQL_PORT).arg(MYSQL_IP, tr("点击断开")):tr("连接服务器"));
+        ui->pushButton_ConnectMysql->setChecked(mConnectedMysql);
+        if(mConnectedMysql)
         {   //连接上服务器了
-            emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+            emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
         }
         else
@@ -218,11 +218,11 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         getAnime(ui->lineEdit_AP_Page->text().toInt());
         break;
     case SOT_UPDATE_ANIME_EPISODE_SEE:
-        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
         getAnime(ui->lineEdit_AP_Page->text().toInt());
         break;
     case SOT_DELETE_ANIME_RECENT:
-        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
         break;
     default:
         break;
@@ -243,12 +243,12 @@ void Widget::slotAnimeEpisodeSee(AnimeEpisodeData episode, int row)
 }
 
 /////连接|断开服务器
-void Widget::on_pushButton_AnimeLogin_clicked(bool checked)
+void Widget::on_pushButton_ConnectMysql_clicked(bool checked)
 {
     emit gIPD.SIGNALSendQuery(SOT_LOGIN_ANIME, checked);
     if(checked)
     {
-        ui->pushButton_AnimeLogin->setText(tr("连接中.."));
+        ui->pushButton_ConnectMysql->setText(tr("连接中.."));
     }
 }
 
@@ -323,7 +323,7 @@ void Widget::getAnimeSeason(int page)
     QStringList strs;
     strs << QString::number(gIPD.index_anime.pid)
          << QString::number(page)
-         << QString::number(mLimitAnime?1:0)
+         << QString::number(mLimit?1:0)
          << QString::number(mAnimeRecentMode.enable?mAnimeRecentMode.sid:-1);
     emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_SEASON, strs);   //获取动漫季
 }
@@ -411,7 +411,7 @@ void Widget::genFindAnimeSql()
     }
     else
     {   //正常检索模式
-        if(!ui->checkBox_LimitAnime->isChecked())
+        if(!ui->checkBox_Limit->isChecked())
         {
             mFindAnimeSql += " AND display = 1";
         }
@@ -705,7 +705,7 @@ void Widget::on_listWidget_AE_itemClicked(QListWidgetItem *item)
 ///动漫上一页
 void Widget::on_pushButton_AP_PrePage_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         int page = ui->lineEdit_AP_Page->text().toInt() - 1;
         if(page > 0)
@@ -718,7 +718,7 @@ void Widget::on_pushButton_AP_PrePage_clicked()
 ///动漫下一页
 void Widget::on_pushButton_AP_NextPage_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         int page = ui->lineEdit_AP_Page->text().toInt() + 1;
         if(page <= mAAPageTotal)
@@ -731,7 +731,7 @@ void Widget::on_pushButton_AP_NextPage_clicked()
 ///动漫季上一页
 void Widget::on_pushButton_AS_PrePage_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         int page = ui->lineEdit_AS_Page->text().toInt() - 1;
         if(page > 0)
@@ -744,7 +744,7 @@ void Widget::on_pushButton_AS_PrePage_clicked()
 ///动漫季下一页
 void Widget::on_pushButton_AS_NextPage_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         int page = ui->lineEdit_AS_Page->text().toInt() + 1;
         if(page <= mASPageTotal)
@@ -757,7 +757,7 @@ void Widget::on_pushButton_AS_NextPage_clicked()
 ///动漫话上一页
 void Widget::on_pushButton_AE_PrePage_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         int page = ui->lineEdit_AE_Page->text().toInt() - 1;
         if(page > 0)
@@ -770,7 +770,7 @@ void Widget::on_pushButton_AE_PrePage_clicked()
 ///动漫话下一页
 void Widget::on_pushButton_AE_NextPage_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         int page = ui->lineEdit_AE_Page->text().toInt() + 1;
         if(page <= mAEPageTotal)
@@ -780,29 +780,29 @@ void Widget::on_pushButton_AE_NextPage_clicked()
     }
 }
 
-///Limit Anime
-void Widget::on_checkBox_LimitAnime_clicked(bool checked)
+///Limit
+void Widget::on_checkBox_Limit_clicked(bool checked)
 {
     if(checked)
     {
-        if(ui->lineEdit_LimitAnime->text() == "showmeall123")
+        if(ui->lineEdit_Limit->text() == "showmeall123")
         {
-            mLimitAnime = false;
-            emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+            mLimit = false;
+            emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
         }
         else
         {
-            ui->checkBox_LimitAnime->setChecked(false);
+            ui->checkBox_Limit->setChecked(false);
         }
     }
     else
     {
-        mLimitAnime = true;
-        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+        mLimit = true;
+        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
         on_pushButton_FindAnime_clicked();
     }
-    ui->lineEdit_LimitAnime->clear();
+    ui->lineEdit_Limit->clear();
 }
 
 ///动漫话序号改变
@@ -1066,7 +1066,7 @@ void Widget::on_checkBox_AS_CollectOk_clicked(bool checked)
 ///检索动漫
 void Widget::on_pushButton_FindAnime_clicked()
 {
-    if(mConnectedAnime)
+    if(mConnectedMysql)
     {
         genFindAnimeSql();
         getAnime(1);

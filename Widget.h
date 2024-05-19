@@ -33,7 +33,7 @@ private slots:
     void slotSendQuery(SqlOperateType operate, QVariant var);
     void slotReceiveQueryData(SqlOperateType operate, QVariant var);    //接收sql结果槽函数
     void slotAnimeEpisodeSee(AnimeEpisodeData episode, int row);     //动漫话看完
-    void on_pushButton_AnimeLogin_clicked(bool checked);    //连接|断开服务器
+    void on_pushButton_ConnectMysql_clicked(bool checked);    //连接|断开服务器
     void on_listWidget_AP_itemClicked(QListWidgetItem *item);  //动漫点击
     void on_listWidget_AS_itemClicked(QListWidgetItem *item); //动漫季点击
     void on_listWidget_AE_itemClicked(QListWidgetItem *item);     //动漫话点击
@@ -43,7 +43,7 @@ private slots:
     void on_pushButton_AS_NextPage_clicked();   //动漫季下一页
     void on_pushButton_AE_PrePage_clicked();    //动漫话上一页
     void on_pushButton_AE_NextPage_clicked();   //动漫话下一页
-    void on_checkBox_LimitAnime_clicked(bool checked);  //Limit Anime
+    void on_checkBox_Limit_clicked(bool checked);  //Limit
 
     void on_lineEdit_AE_Episode_textChanged(const QString &arg1);   //动漫话序号改变
     void on_pushButton_AE_EpisodeOk_clicked();  //动漫话序号提交
@@ -94,8 +94,8 @@ private:
     Ui::Widget *ui;
 
 private:
-    bool    mConnectedAnime {false};
-    bool    mLimitAnime {true};
+    bool    mConnectedMysql {false};
+    bool    mLimit {true};
     AnimeRecentModeData mAnimeRecentMode;
     QPair<int, int>     mAnimeRecentIds;    //最近模式pid和sid
     int     mAAPageTotal {0};
