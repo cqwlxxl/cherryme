@@ -2124,7 +2124,7 @@ QLabel:hover
       <attribute name="title">
        <string>电影</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
+      <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0,1,0,0">
        <item>
         <layout class="QHBoxLayout" name="hLayout_M_Recent">
          <item>
@@ -3858,6 +3858,2096 @@ QLabel:hover
       <attribute name="title">
        <string>电视剧</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,0,1,0,0">
+       <item>
+        <layout class="QHBoxLayout" name="hLayout_T_Recent">
+         <item>
+          <widget class="QLabel" name="label_T_Recent">
+           <property name="text">
+            <string>最近观看</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent1">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent1_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent1_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent2">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent2_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">2</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent2_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent3_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">3</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent3_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent4_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">4</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent4_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent5">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent5_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">5</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent5_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent6">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent6_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">6</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent6_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_Recent7">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_Recent7_Name">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #99cc99;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: white;
+  color: #99cc99;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">7</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_Recent7_Close">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="hSpacer_T_Recent">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_FindTv" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_FindTvName"/>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_FindTvZhuiju">
+            <property name="text">
+             <string>追剧中</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_FindTvNotsee">
+            <property name="text">
+             <string>未看完</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_FindTvPoint">
+            <property name="text">
+             <string>评分</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_FindTvPointA">
+            <property name="minimumSize">
+             <size>
+              <width>72</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maxVisibleItems">
+             <number>13</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>未评 0</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>烂作 1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>不行 2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>极差 3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>很差 4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>略差 5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>及格 6</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>海星 7</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>一般 8</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>很好 9</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>完美 10</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>极好 11</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>神作 12</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_FindTvPointTo">
+            <property name="text">
+             <string notr="true">~</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_FindTvPointB">
+            <property name="minimumSize">
+             <size>
+              <width>72</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="currentIndex">
+             <number>12</number>
+            </property>
+            <property name="maxVisibleItems">
+             <number>13</number>
+            </property>
+            <item>
+             <property name="text">
+              <string>未评 0</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>烂作 1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>不行 2</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>极差 3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>很差 4</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>略差 5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>及格 6</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>海星 7</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>一般 8</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>很好 9</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>完美 10</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>极好 11</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>神作 12</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="hSpacer_FindTv">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>171</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_FindTvReset">
+            <property name="text">
+             <string>重置条件</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_FindTv">
+            <property name="text">
+             <string>检索</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayout_Main_T">
+         <item>
+          <layout class="QVBoxLayout" name="vLayout_TP">
+           <item>
+            <widget class="QListWidget" name="listWidget_TP"/>
+           </item>
+           <item>
+            <widget class="QWidget" name="widget_TP_Op" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_TP_PrePage">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">&lt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_TP_Page">
+                <property name="maximumSize">
+                 <size>
+                  <width>40</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TP_PageTotal">
+                <property name="text">
+                 <string notr="true">/0</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TP_NextPage">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TP_Total">
+                <property name="text">
+                 <string notr="true">共0个系列</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="hSpacer_TP_Op">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TP_New">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">+</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TP_Delete">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="vLayout_TS">
+           <item>
+            <widget class="QListWidget" name="listWidget_TS"/>
+           </item>
+           <item>
+            <widget class="QWidget" name="widget_TS_Op" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_TS_PrePage">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">&lt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_TS_Page">
+                <property name="maximumSize">
+                 <size>
+                  <width>40</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TS_PageTotal">
+                <property name="text">
+                 <string notr="true">/0</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TS_NextPage">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TS_Total">
+                <property name="text">
+                 <string notr="true">共0季</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="hSpacer_TS_Op">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TS_New">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">+</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TS_Delete">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="vLayout_TE">
+           <item>
+            <widget class="QListWidget" name="listWidget_TE"/>
+           </item>
+           <item>
+            <widget class="QWidget" name="widget_TE_Op" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="pushButton_TE_PrePage">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">&lt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_TE_Page">
+                <property name="maximumSize">
+                 <size>
+                  <width>40</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TE_PageTotal">
+                <property name="text">
+                 <string notr="true">/0</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TE_NextPage">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_TE_Total">
+                <property name="text">
+                 <string notr="true">共0话</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="hSpacer_TE_Op">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TE_New">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">+</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TE_Delete">
+                <property name="minimumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true">-</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="stackedWidget_Tv">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#stackedWidget_Tv
+{
+  border: 1px solid grey;
+}</string>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="page_TDefault">
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_TDefaultTips">
+             <property name="text">
+              <string>少女祈祷中..</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_TP">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_TP_Name">
+             <item>
+              <widget class="QLabel" name="label_TP_Name">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>名称</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_TP_Name">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_TP_NameOk">
+               <property name="minimumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">√</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TP_Display">
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="text">
+                <string>公开</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TP_Zhuiju">
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="text">
+                <string>追剧</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_TP_Keywords">
+             <item>
+              <widget class="QLabel" name="label_TP_Keyword">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>关键词</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_TP_Keyword">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_TP_KeywordsOk">
+               <property name="minimumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">√</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="vSpacer_TP">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_TS">
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_TS_Name">
+             <item>
+              <widget class="QLabel" name="label_TS_Name">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>名称</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_TS_Name">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_TS_NaneOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">√</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TS_Display">
+               <property name="text">
+                <string>公开</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_TS_Collect">
+             <item>
+              <widget class="QLabel" name="label_TS_ReleaseDate">
+               <property name="text">
+                <string>发布日期</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TS_ReleaseDateEnable">
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDateEdit" name="dateEdit_TS_ReleaseDate">
+               <property name="displayFormat">
+                <string notr="true">yyyy-MM-dd</string>
+               </property>
+               <property name="calendarPopup">
+                <bool>true</bool>
+               </property>
+               <property name="date">
+                <date>
+                 <year>1970</year>
+                 <month>1</month>
+                 <day>1</day>
+                </date>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_TS_ReleaseDateOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">√</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_TS_Point">
+               <property name="text">
+                <string>评分</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_TS_Point">
+               <property name="maxVisibleItems">
+                <number>13</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>未评 0</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>烂作 1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>不行 2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>极差 3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>很差 4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>略差 5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>及格 6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>海星 7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>一般 8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>很好 9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>完美 10</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>极好 11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>神作 12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TS_CollectIt">
+               <property name="text">
+                <string>要收藏</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TS_CollectOk">
+               <property name="text">
+                <string>已收藏</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="hSpacer_TS_Collect">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="vSpacer_TS">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>7</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_TE">
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_TE_Title">
+             <item>
+              <widget class="QLabel" name="label_TE_Episode">
+               <property name="text">
+                <string>序号</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_TE_Episode">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>60</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_TE_EpisodeOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">√</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_TE_Title">
+               <property name="text">
+                <string>标题</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_TE_Title">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_TE_TitleOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+               <property name="text">
+                <string notr="true">√</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_TE_Tag">
+             <item>
+              <widget class="QCheckBox" name="checkBox_TE_Tag1">
+               <property name="text">
+                <string>Tag1</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TE_Tag2">
+               <property name="text">
+                <string>Tag2</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_TE_Tag3">
+               <property name="text">
+                <string>Tag3</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="hSpacer_TE_Tag">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="vSpacer_TE">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hLayout_T_Ids">
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarTP">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarT_PidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">PID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarT_Pid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarTS">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarT_SidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">SID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarT_Sid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_BarTE">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_BarT_EidText">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 1px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #ffb050;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">EID</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_BarT_Eid">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>40</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  border: 1px solid grey;
+  background-color: #99cc99;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="hSpacer_T_Ids">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hLayout_T_LockRecent">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_T_LockRecent">
+             <property name="minimumSize">
+              <size>
+               <width>40</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  border-right: none;
+  background-color: #869dd5;
+  color: white;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">已锁定显示 XXX PID/SID [000/000]</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_T_UnlockRecent">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLabel
+{
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 1px solid grey;
+  background-color: grey;
+  color: white;
+}
+QLabel:hover
+{
+  background-color: red;
+}</string>
+             </property>
+             <property name="text">
+              <string notr="true">×</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_Link">
       <attribute name="title">

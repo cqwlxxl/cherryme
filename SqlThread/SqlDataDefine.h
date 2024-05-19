@@ -12,7 +12,7 @@
 #define TABLE_MOVIE_SEASON  "movie_season"
 #define TABLE_MOVIE_RECENT  "movie_recent"
 
-#define MYSQL_IP        "localhost"
+#define MYSQL_IP        "127.0.0.1"
 #define MYSQL_PORT      3306
 #define MYSQL_DATABASE  "cherryme"
 #define MYSQL_USER      "cherryme"
