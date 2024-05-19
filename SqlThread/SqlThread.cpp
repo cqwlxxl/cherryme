@@ -2,7 +2,6 @@
 
 #include <QTimer>
 #include <QtMath>
-#include <QDebug>   ///xxl_debug: qdb
 
 Q_DECLARE_METATYPE(AnimeIpData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
@@ -387,8 +386,8 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         AnimeIpData ip = var.value<AnimeIpData>();
         ip.name.replace("'", "''");
         ip.keywords.replace("'", "''");
-        cmd = QString("INSERT INTO `%1` (name, keywords, see, see_season, total_season, zhuifan, collect, point, display, tag1, tag2, tag3)"
-                      " VALUES ('%2', '%3', 0, 0, 0, %4, 0, 0, %5, 0, 0, 0)").arg(TABLE_ANIME_IP, ip.name, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
+        cmd = QString("INSERT INTO `%1` (name,keywords,see,see_season,total_season,zhuifan,collect,point,display,tag1,tag2,tag3)"
+                      " VALUES ('%2','%3',0,0,0,%4,0,0,%5,0,0,0)").arg(TABLE_ANIME_IP, ip.name, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -613,6 +612,67 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_MOVIE_SEASON_PAGE, strs_send);
     }
         break;
+    case SOT_INSERT_MOVIE_IP:
+    {
+        MovieIpData ip = var.value<MovieIpData>();
+        ip.name.replace("'", "''");
+        ip.keywords.replace("'", "''");
+        cmd = QString("INSERT INTO `%1` (name,keywords,see,see_season,total_season,collect,point,display,tag1,tag2,tag3)"
+                      " VALUES ('%2','%3',0,0,0,0,0,%5,0,0,0)").arg(TABLE_MOVIE_IP, ip.name, ip.keywords, ip.display?"1":"0");
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_MOVIE, QVariant());
+    }
+        break;
+    case SOT_DELETE_MOVIE_IP:
+    {
+        int pid = var.toInt();
+        //删除关联部
+        cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_MOVIE_SEASON);
+        //删除电影
+        cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_MOVIE_IP);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_MOVIE, QVariant());
+    }
+        break;
+    case SOT_INSERT_MOVIE_SEASON:
+    {
+        MovieSeasonData season = var.value<MovieSeasonData>();
+        season.name.replace("'", "''");
+        cmd = QString("INSERT INTO `%7` (pid,name,release_date,see,collect,point,tag1,tag2,tag3)"
+                      " VALUES (%1,'%8','%9',0,%2,%3,%4,%5,%6)")
+                .arg(season.pid).arg(season.collect).arg(season.point).arg(season.tag1?1:0).arg(season.tag2?1:0).arg(season.tag3?1:0)
+                .arg(TABLE_MOVIE_SEASON, season.name, season.release_date_valid?season.release_date.toString("yyyy-MM-dd"):"0000-00-00");
+        mQuery.exec(cmd);
+
+        calcMovieSee(season.pid);
+        calcMoviePoint(season.pid);
+        calcMovieCollect(season.pid);
+        calcMovieTag1(season.pid);
+        calcMovieTag2(season.pid);
+        calcMovieTag3(season.pid);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_MOVIE, QVariant());
+    }
+        break;
+    case SOT_DELETE_MOVIE_SEASON:
+    {
+        MovieSeasonData season = var.value<MovieSeasonData>();
+        //删除部
+        cmd += QString("DELETE FROM `%2` WHERE sid = %1;").arg(season.sid).arg(TABLE_MOVIE_SEASON);
+        mQuery.exec(cmd);
+
+        calcMovieSee(season.pid);
+        calcMoviePoint(season.pid);
+        calcMovieCollect(season.pid);
+        calcMovieTag1(season.pid);
+        calcMovieTag2(season.pid);
+        calcMovieTag3(season.pid);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_MOVIE, QVariant());
+    }
+        break;
     default:
         break;
     }
@@ -660,7 +720,7 @@ void SqlThread::calcAnimeSee(int pid, int sid)
     int ep = mQuery.value(0).toInt();
     //更新季
     cmd = QString("UPDATE `%6` SET see_episode=%1,total_episode=%2,see=%3 WHERE pid=%4 AND sid=%5")
-            .arg(see_ep).arg(ep).arg(see_ep==ep?1:0).arg(pid).arg(sid).arg(TABLE_ANIME_SEASON);
+            .arg(see_ep).arg(ep).arg((see_ep==ep && ep!=0)?1:0).arg(pid).arg(sid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     //已看季
     cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND see=1").arg(pid).arg(TABLE_ANIME_SEASON);
@@ -671,9 +731,9 @@ void SqlThread::calcAnimeSee(int pid, int sid)
     cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
-    int seasea = mQuery.value(0).toInt();
+    int season = mQuery.value(0).toInt();
     //更新动漫
-    cmd = QString("UPDATE `%5` SET see_season=%1,total_season=%2,see=%3 WHERE pid=%4").arg(see_season).arg(seasea).arg(see_season==seasea?1:0).arg(pid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%5` SET see_season=%1,total_season=%2,see=%3 WHERE pid=%4").arg(see_season).arg(season).arg((see_season==season && season!=0)?1:0).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
@@ -681,7 +741,7 @@ void SqlThread::calcAnimeSee(int pid, int sid)
 void SqlThread::calcAnimeSee(int pid)
 {
     //更新动漫表
-    QString cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND see=1").arg(TABLE_ANIME_SEASON);
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND see=1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int see_season = mQuery.value(0).toInt();   //看了的季
@@ -690,7 +750,7 @@ void SqlThread::calcAnimeSee(int pid)
     mQuery.next();
     int total_season = mQuery.value(0).toInt(); //总的季
     cmd = QString("UPDATE `%5` SET see=%1,see_season=%2,total_season=%3 WHERE pid=%4")
-            .arg(see_season==total_season?1:0).arg(see_season).arg(total_season).arg(pid).arg(TABLE_ANIME_IP);
+            .arg((see_season==total_season && total_season!=0)?1:0).arg(see_season).arg(total_season).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
@@ -835,4 +895,100 @@ void SqlThread::calcAnimeRecent(int pid, int sid)
         cmd = QString("INSERT INTO `%4` (pid,sid,name,display) VALUES (%1,%2,'%5',%3)").arg(pid).arg(sid).arg(display).arg(TABLE_ANIME_RECENT, name);
         mQuery.exec(cmd);
     }
+}
+
+///计算进度
+void SqlThread::calcMovieSee(int pid)
+{
+    //更新电影ip表
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND see=1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int see_season = mQuery.value(0).toInt();   //看了的部
+    cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int total_season = mQuery.value(0).toInt(); //总的部
+    cmd = QString("UPDATE `%5` SET see=%1,see_season=%2,total_season=%3 WHERE pid=%4")
+            .arg((see_season==total_season && total_season!=0)?1:0).arg(see_season).arg(total_season).arg(pid).arg(TABLE_MOVIE_IP);
+    mQuery.exec(cmd);
+}
+
+///计算评分
+void SqlThread::calcMoviePoint(int pid)
+{
+    //查找部最高评分
+    QString cmd = QString("SELECT max(point) FROM `%2` WHERE pid=%1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int max_point = mQuery.value(0).toInt();
+    //更新电影最高评分
+    cmd = QString("UPDATE `%3` SET point=%1 WHERE pid=%2").arg(max_point).arg(pid).arg(TABLE_MOVIE_IP);
+    mQuery.exec(cmd);
+}
+
+///计算收藏
+void SqlThread::calcMovieCollect(int pid)
+{
+    //查看部要收藏数
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND collect=1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int count_collect_it = mQuery.value(0).toInt();
+    //查看部已收藏数
+    cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND collect=2").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int count_collect_ok = mQuery.value(0).toInt();
+    //更新电影收藏
+    int collect = 0;    //初始为无收藏
+    if(count_collect_it > 0)
+    {   //有要收藏，则标记为要收藏
+        collect = 1;
+    }
+    else if(count_collect_ok > 0)
+    {   //都是已收藏，则标记为已收藏
+        collect = 2;
+    }
+    cmd = QString("UPDATE `%3` SET collect=%1 WHERE pid=%2").arg(collect).arg(pid).arg(TABLE_MOVIE_IP);
+    mQuery.exec(cmd);
+}
+
+///计算tag1
+void SqlThread::calcMovieTag1(int pid)
+{
+    //部总tag1
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE tag1=1 AND pid=%1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int count_tag1 = mQuery.value(0).toInt();
+    //更新电影
+    cmd = QString("UPDATE `%3` SET tag1=%1 WHERE pid=%2").arg(count_tag1>0?1:0).arg(pid).arg(TABLE_MOVIE_IP);
+    mQuery.exec(cmd);
+}
+
+///计算tag2
+void SqlThread::calcMovieTag2(int pid)
+{
+    //部总tag2
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE tag2=1 AND pid=%1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int count_tag2 = mQuery.value(0).toInt();
+    //更新电影
+    cmd = QString("UPDATE `%3` SET tag2=%1 WHERE pid=%2").arg(count_tag2>0?1:0).arg(pid).arg(TABLE_MOVIE_IP);
+    mQuery.exec(cmd);
+}
+
+///计算tag3
+void SqlThread::calcMovieTag3(int pid)
+{
+    //部总tag3
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE tag3=1 AND pid=%1").arg(pid).arg(TABLE_MOVIE_SEASON);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int count_tag3 = mQuery.value(0).toInt();
+    //更新电影
+    cmd = QString("UPDATE `%3` SET tag3=%1 WHERE pid=%2").arg(count_tag3>0?1:0).arg(pid).arg(TABLE_MOVIE_IP);
+    mQuery.exec(cmd);
 }

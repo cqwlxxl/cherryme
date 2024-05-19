@@ -24,6 +24,7 @@ public slots:
 private:
     bool login();   //登录
     bool logout();  //注销
+    //anime
     void calcAnimeSee(int pid, int sid);    //计算进度
     void calcAnimeSee(int pid);             //计算进度，季变化
     void calcAnimePoint(int pid);           //计算评分
@@ -32,6 +33,13 @@ private:
     void calcAnimeTag2(int pid, int sid);   //计算tag2
     void calcAnimeTag3(int pid, int sid);   //计算tag3
     void calcAnimeRecent(int pid, int sid); //更新最近观看
+    //movie
+    void calcMovieSee(int pid);             //计算进度
+    void calcMoviePoint(int pid);           //计算评分
+    void calcMovieCollect(int pid);         //计算收藏
+    void calcMovieTag1(int pid);            //计算tag1
+    void calcMovieTag2(int pid);            //计算tag2
+    void calcMovieTag3(int pid);            //计算tag3
 
 private:
     QSqlDatabase        mDB;    //数据库

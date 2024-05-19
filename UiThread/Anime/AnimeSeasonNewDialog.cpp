@@ -1,10 +1,10 @@
 #include "AnimeSeasonNewDialog.h"
-#include "UiThread/InterfacePublicData.h"
 #include "ui_AnimeSeasonNewDialog.h"
 
 #include <QMessageBox>
 
 #include "SqlThread/SqlDataDefine.h"
+#include "UiThread/InterfacePublicData.h"
 
 Q_DECLARE_METATYPE(AnimeSeasonData)
 
@@ -38,7 +38,7 @@ void AnimeSeasonNewDialog::Hi(int pid)
     this->exec();
 }
 
-///新增动漫季
+///确认
 void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
 {
     QString name = ui->lineEdit_Name->text().trimmed();

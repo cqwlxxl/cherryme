@@ -260,7 +260,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         }
         if(mMovieRecentMode.enable)
         {   //最近模式
-            ///xxl_todo: on_listWidget_MP_itemClicked(gIPD.movie_ip.items.at(0));
+            on_listWidget_MP_itemClicked(gIPD.movie_ip.items.at(0));
         }
         else if(gIPD.index_movie.p_click)
         {
@@ -279,6 +279,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             {
                 ui->listWidget_MP->verticalScrollBar()->setValue(gIPD.index_movie.p_pos);
                 ui->listWidget_MP->setCurrentRow(gIPD.index_movie.p_row);
+                on_listWidget_MP_itemClicked(gIPD.movie_ip.items.at(0));
             }
             else
             {
@@ -342,6 +343,9 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         ui->label_MS_PageTotal->setText("/"+strs[1]);
         ui->label_MS_Total->setText(QString(tr("共%1部")).arg(strs[2]));
     }
+        break;
+    case SOT_UPDATE_MOVIE:
+        getMovieIp(ui->lineEdit_MP_Page->text().toInt());
         break;
     default:
         break;
@@ -1593,6 +1597,112 @@ void Widget::on_listWidget_MS_itemClicked(QListWidgetItem *item)
         ui->checkBox_MS_CollectIt->setChecked(true);
         ui->checkBox_MS_CollectOk->setChecked(true);
         ui->checkBox_MS_CollectOk->setEnabled(true);
+    }
+}
+
+///电影ip上一页
+void Widget::on_pushButton_MP_PrePage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_MP_Page->text().toInt() - 1;
+        if(page > 0)
+        {
+            getMovieIp(page);
+        }
+    }
+}
+
+///电影ip下一页
+void Widget::on_pushButton_MP_NextPage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_MP_Page->text().toInt() + 1;
+        if(page <= mMPPageTotal)
+        {
+            getMovieIp(page);
+        }
+    }
+}
+
+///电影季上一页
+void Widget::on_pushButton_MS_PrePage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_MS_Page->text().toInt() - 1;
+        if(page > 0)
+        {
+            getMovieSeason(page);
+        }
+    }
+}
+
+///电影季下一页
+void Widget::on_pushButton_MS_NextPage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_MS_Page->text().toInt() + 1;
+        if(page <= mMSPageTotal)
+        {
+            getMovieSeason(page);
+        }
+    }
+}
+
+///新增电影ip
+void Widget::on_pushButton_MP_New_clicked()
+{
+    mMovieIpNewDialog->Hi();
+}
+
+///删除电影ip
+void Widget::on_pushButton_MP_Delete_clicked()
+{
+    int row = ui->listWidget_MP->currentRow();
+    if(row == -1)
+    {
+        QMessageBox::information(this, tr("未选择电影"), tr("请选择要删除的电影"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+    }
+    else
+    {
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除电影《%1》?\n注意: 其包含的所有部数据均会被关联删除!")).arg(gIPD.movie_ip.ips.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(ret == QMessageBox::Ok)
+        {
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_MOVIE_IP, gIPD.movie_ip.ips.at(row).pid);
+        }
+    }
+}
+
+///新增电影部
+void Widget::on_pushButton_MS_New_clicked()
+{
+    mMovieSeasonNewDialog->Hi(gIPD.index_movie.pid);
+}
+
+///删除电影部
+void Widget::on_pushButton_MS_Delete_clicked()
+{
+    int row = ui->listWidget_MS->currentRow();
+    if(row == -1)
+    {
+        QMessageBox::information(this, tr("未选择部"), tr("请选择要删除的部"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+    }
+    else
+    {
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除部《%1》?")).arg(gIPD.movie_season.seasons.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(ret == QMessageBox::Ok)
+        {
+            gIPD.index_movie.p_click = true;
+            gIPD.index_movie.s_click = false;
+            QVariant var_send;
+            var_send.setValue(gIPD.movie_season.seasons.at(row));
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_MOVIE_SEASON, var_send);
+        }
     }
 }
 

@@ -99,6 +99,15 @@ private slots:
     //movie条目
     void on_listWidget_MP_itemClicked(QListWidgetItem *item);   //电影ip点击
     void on_listWidget_MS_itemClicked(QListWidgetItem *item);   //电影部点击
+    //movie翻页增删
+    void on_pushButton_MP_PrePage_clicked();    //电影ip上一页
+    void on_pushButton_MP_NextPage_clicked();   //电影ip下一页
+    void on_pushButton_MS_PrePage_clicked();    //电影季上一页
+    void on_pushButton_MS_NextPage_clicked();   //电影季下一页
+    void on_pushButton_MP_New_clicked();        //新增电影ip
+    void on_pushButton_MP_Delete_clicked();     //删除电影ip
+    void on_pushButton_MS_New_clicked();        //新增电影部
+    void on_pushButton_MS_Delete_clicked();     //删除电影部
 
 private:
     void qian();    //init

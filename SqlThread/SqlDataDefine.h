@@ -54,11 +54,16 @@ enum SqlOperateType
     SOT_DELETE_ANIME_EPISODE,   //删除动漫话
     SOT_DELETE_ANIME_RECENT,    //删除动漫最近观看
     //movie
-    SOT_GET_MOVIE_IP,       //获取电影ip
-    SOT_GET_MOVIE_RECENT,   //获取动漫，最近观看
-    SOT_MOVIE_IP_PAGE,      //电影页面
-    SOT_GET_MOVIE_SEASON,   //获取电影部
-    SOT_MOVIE_SEASON_PAGE,  //电影部页面
+    SOT_GET_MOVIE_IP,           //获取电影ip
+    SOT_GET_MOVIE_RECENT,       //获取动漫，最近观看
+    SOT_MOVIE_IP_PAGE,          //电影页面
+    SOT_GET_MOVIE_SEASON,       //获取电影部
+    SOT_MOVIE_SEASON_PAGE,      //电影部页面
+    SOT_UPDATE_MOVIE,           //更新电影
+    SOT_INSERT_MOVIE_IP,        //新增电影ip
+    SOT_INSERT_MOVIE_SEASON,    //新增电影部
+    SOT_DELETE_MOVIE_IP,        //删除电影ip
+    SOT_DELETE_MOVIE_SEASON,    //删除电影部
 };
 
 struct AnimeIpData

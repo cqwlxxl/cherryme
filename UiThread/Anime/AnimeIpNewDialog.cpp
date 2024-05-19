@@ -1,10 +1,10 @@
 #include "AnimeIpNewDialog.h"
-#include "UiThread/InterfacePublicData.h"
 #include "ui_AnimeIpNewDialog.h"
 
 #include <QMessageBox>
 
 #include "SqlThread/SqlDataDefine.h"
+#include "UiThread/InterfacePublicData.h"
 
 Q_DECLARE_METATYPE(AnimeIpData)
 
@@ -49,7 +49,7 @@ void AnimeIpNewDialog::on_pushButton_Ok_clicked()
     ip.keywords = keywords;
     ip.zhuifan = ui->checkBox_Zhuifan->isChecked();
     ip.display = ui->checkBox_Display->isChecked();
-    //
+
     QVariant var_send;
     var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_INSERT_ANIME_IP, var_send);
