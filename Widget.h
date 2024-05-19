@@ -5,9 +5,9 @@
 #include <QWidget>
 
 #include "UiThread/InterfacePublicData.h"
-#include "UiThread/AnimeAnimeNewDialog.h"
-#include "UiThread/AnimeSeasonNewDialog.h"
-#include "UiThread/AnimeEpisodeNewDialog.h"
+#include "UiThread/Anime/AnimeAnimeNewDialog.h"
+#include "UiThread/Anime/AnimeSeasonNewDialog.h"
+#include "UiThread/Anime/AnimeEpisodeNewDialog.h"
 
 struct AnimeRecentModeData
 {

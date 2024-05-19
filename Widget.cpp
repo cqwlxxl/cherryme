@@ -5,7 +5,7 @@
 #include <QScrollBar>
 #include <QTimer>
 
-#include "UiThread/AnimeAnimeWidgetItem.h"
+#include "UiThread/Anime/AnimeAnimeWidgetItem.h"
 
 Q_DECLARE_METATYPE(AnimeData)
 Q_DECLARE_METATYPE(AnimeSeasonData)

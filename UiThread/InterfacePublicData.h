@@ -7,9 +7,9 @@
 
 #include "PublicData.h"
 #include "SqlThread/SqlDataDefine.h"
-#include "UiThread/AnimeAnimeWidgetItem.h"
-#include "UiThread/AnimeSeasonWidgetItem.h"
-#include "UiThread/AnimeEpisodeWidgetItem.h"
+#include "UiThread/Anime/AnimeAnimeWidgetItem.h"
+#include "UiThread/Anime/AnimeSeasonWidgetItem.h"
+#include "UiThread/Anime/AnimeEpisodeWidgetItem.h"
 
 struct AnimeItemData
 {
