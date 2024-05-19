@@ -132,7 +132,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         mAAPageTotal = strs[1].toInt();
         ui->lineEdit_AP_Page->setText(strs[0]);
         ui->label_AP_PageTotal->setText("/"+strs[1]);
-        ui->label_AA_Total->setText(QString(tr("共%1个系列")).arg(strs[2]));
+        ui->label_AP_Total->setText(QString(tr("共%1个系列")).arg(strs[2]));
     }
         break;
     case SOT_GET_ANIME_SEASON:
@@ -215,11 +215,11 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     }
         break;
     case SOT_UPDATE_ANIME:
-        getAnime(ui->lineEdit_AP_Page->text().toInt());
+        getAnimeIp(ui->lineEdit_AP_Page->text().toInt());
         break;
     case SOT_UPDATE_ANIME_EPISODE_SEE:
         emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
-        getAnime(ui->lineEdit_AP_Page->text().toInt());
+        getAnimeIp(ui->lineEdit_AP_Page->text().toInt());
         break;
     case SOT_DELETE_ANIME_RECENT:
         emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
@@ -307,7 +307,7 @@ void Widget::qian()
 }
 
 ///获取动漫
-void Widget::getAnime(int page)
+void Widget::getAnimeIp(int page)
 {
     showBarAnimeId(0);
     QStringList strs;
@@ -351,7 +351,7 @@ void Widget::showBarAnimeId(int what)
         ui->widget_AP_Op->setEnabled(false);
         ui->lineEdit_AP_Page->setText("0");
         ui->label_AP_PageTotal->setText("/0");
-        ui->label_AA_Total->setText("少女祈祷中..");
+        ui->label_AP_Total->setText("少女祈祷中..");
         ui->stackedWidget_Anime->setCurrentWidget(ui->page_ADefault);
         break;
     case 0:     //连上了服务器
@@ -710,7 +710,7 @@ void Widget::on_pushButton_AP_PrePage_clicked()
         int page = ui->lineEdit_AP_Page->text().toInt() - 1;
         if(page > 0)
         {
-            getAnime(page);
+            getAnimeIp(page);
         }
     }
 }
@@ -723,7 +723,7 @@ void Widget::on_pushButton_AP_NextPage_clicked()
         int page = ui->lineEdit_AP_Page->text().toInt() + 1;
         if(page <= mAAPageTotal)
         {
-            getAnime(page);
+            getAnimeIp(page);
         }
     }
 }
@@ -1069,7 +1069,7 @@ void Widget::on_pushButton_FindAnime_clicked()
     if(mConnectedMysql)
     {
         genFindAnimeSql();
-        getAnime(1);
+        getAnimeIp(1);
     }
 }
 

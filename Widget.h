@@ -78,7 +78,7 @@ private slots:
 
 private:
     void qian();    //init
-    void getAnime(int page);    //获取动漫
+    void getAnimeIp(int page);      //获取动漫
     void getAnimeSeason(int page);  //获取动漫季
     void getAnimeEpisode(int page); //获取动漫话
     void showBarAnimeId(int what);  //显示id条
