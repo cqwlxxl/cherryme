@@ -84,6 +84,7 @@ enum SqlOperateType
     SOT_SELECT_TV_IP,           //获取电视剧ip
     SOT_SELECT_TV_SEASON,       //获取电视剧部
     SOT_SELECT_TV_EPISODE,      //获取电视剧集
+    SOT_SELECT_TV_RECENT,       //获取电视剧，最近观看
     SOT_INFO_TV_IP_PAGE,        //电视剧ip页面信息
     SOT_INFO_TV_SEASON_PAGE,    //电视剧部页面信息
     SOT_INFO_TV_EPISODE_PAGE,   //电视剧集页面信息

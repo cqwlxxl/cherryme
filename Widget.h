@@ -178,6 +178,9 @@ private:
     void getTvEpisode(int page);    //获取电视剧集
     void showBarTvId(int what); //显示电视剧id条
     void genFindTvSql();        //更新查找电视剧条件
+    void setTvRecentLabel();    //设置最近观看
+    void showTvRecent(int index);   //显示最近观看
+    void closeTvRecent(int index);  //关闭最近观看
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);  //事件过滤
@@ -209,6 +212,7 @@ private:
     MovieSeasonNewDialog    *mMovieSeasonNewDialog {nullptr};
     QList<QPair<QLabel *, QLabel *> >   mAnimeRecentLabels;
     QList<QPair<QLabel *, QLabel *> >   mMovieRecentLabels;
+    QList<QPair<QLabel *, QLabel *> >   mTvRecentLabels;
     QList<AnimeRecentData>  mAnimeRecents;
     QList<MovieRecentData>  mMovieRecents;
     QList<TvRecentData>     mTvRecents;

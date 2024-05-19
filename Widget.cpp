@@ -15,6 +15,7 @@ Q_DECLARE_METATYPE(MovieRecentData)
 Q_DECLARE_METATYPE(TvIpData)
 Q_DECLARE_METATYPE(TvSeasonData)
 Q_DECLARE_METATYPE(TvEpisodeData)
+Q_DECLARE_METATYPE(TvRecentData)
 
 PublicUseData   gPUD;
 
@@ -57,6 +58,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         {   //连接上服务器了
             emit gIPD.SIGNALSendQuery(SOT_SELECT_ANIME_RECENT, mLimit);
             emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
+            emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
             on_pushButton_FindMovie_clicked();
             on_pushButton_FindTv_clicked();
@@ -65,14 +67,19 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         {   //断开服务器
             mAnimeRecents.clear();
             mMovieRecents.clear();
+            mTvRecents.clear();
             mAnimeRecentMode.enable = false;
             mMovieRecentMode.enable = false;
+            mTvRecentMode.enable = false;
             ui->label_A_LockRecent->setVisible(false);
             ui->label_A_UnlockRecent->setVisible(false);
             ui->label_M_LockRecent->setVisible(false);
             ui->label_M_UnlockRecent->setVisible(false);
+            ui->label_T_LockRecent->setVisible(false);
+            ui->label_T_UnlockRecent->setVisible(false);
             setAnimeRecentLabel();
             setMovieRecentLabel();
+            setTvRecentLabel();
             showBarAnimeId(-1);
             showBarMovieId(-1);
             showBarTvId(-1);
@@ -81,6 +88,9 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             ui->listWidget_AE->clear();
             ui->listWidget_MP->clear();
             ui->listWidget_MS->clear();
+            ui->listWidget_TP->clear();
+            ui->listWidget_TS->clear();
+            ui->listWidget_TE->clear();
         }
         break;
     case SOT_SELECT_ANIME_IP:
@@ -500,6 +510,12 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             on_listWidget_TE_itemClicked(gIPD.tv_ep.items.at(gIPD.index_tv.e_row));
         }
         break;
+    case SOT_SELECT_TV_RECENT:
+    {
+        mTvRecents = var.value<QList<TvRecentData> >();
+        setTvRecentLabel();
+    }
+        break;
     case SOT_INFO_TV_IP_PAGE:
     {
         QStringList strs = var.toStringList();
@@ -601,12 +617,23 @@ void Widget::qian()
     ui->label_BarM_SidText->setVisible(false);
     ui->label_BarM_Pid->setVisible(false);
     ui->label_BarM_Sid->setVisible(false);
+    ui->label_BarT_PidText->setVisible(false);
+    ui->label_BarT_SidText->setVisible(false);
+    ui->label_BarT_EidText->setVisible(false);
+    ui->label_BarT_Pid->setVisible(false);
+    ui->label_BarT_Sid->setVisible(false);
+    ui->label_BarT_Eid->setVisible(false);
+
     ui->dateEdit_AS_ReleaseDate->setVisible(false);
     ui->checkBox_AS_CollectOk->setEnabled(false);
     ui->dateEdit_MS_ReleaseDate->setVisible(false);
     ui->checkBox_MS_CollectOk->setEnabled(false);
+    ui->dateEdit_TS_ReleaseDate->setVisible(false);
+    ui->checkBox_TS_CollectOk->setEnabled(false);
+
     ui->stackedWidget_Anime->setCurrentWidget(ui->page_ADefault);
     ui->stackedWidget_Movie->setCurrentWidget(ui->page_MDefault);
+    ui->stackedWidget_Tv->setCurrentWidget(ui->page_TDefault);
 
     mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent1_Name, ui->label_A_Recent1_Close));
     mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent2_Name, ui->label_A_Recent2_Close));
@@ -628,6 +655,16 @@ void Widget::qian()
     setMovieRecentLabel();
     ui->label_M_LockRecent->setVisible(false);
     ui->label_A_UnlockRecent->setVisible(false);
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent1_Name, ui->label_T_Recent1_Close));
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent2_Name, ui->label_T_Recent2_Close));
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent3_Name, ui->label_T_Recent3_Close));
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent4_Name, ui->label_T_Recent4_Close));
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent5_Name, ui->label_T_Recent5_Close));
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent6_Name, ui->label_T_Recent6_Close));
+    mTvRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_T_Recent7_Name, ui->label_T_Recent7_Close));
+    setTvRecentLabel();
+    ui->label_T_LockRecent->setVisible(false);
+    ui->label_T_UnlockRecent->setVisible(false);
 
     ui->label_A_UnlockRecent->installEventFilter(this);
     ui->label_A_Recent1_Name->installEventFilter(this);
@@ -659,6 +696,21 @@ void Widget::qian()
     ui->label_M_Recent5_Close->installEventFilter(this);
     ui->label_M_Recent6_Close->installEventFilter(this);
     ui->label_M_Recent7_Close->installEventFilter(this);
+    ui->label_T_UnlockRecent->installEventFilter(this);
+    ui->label_T_Recent1_Name->installEventFilter(this);
+    ui->label_T_Recent2_Name->installEventFilter(this);
+    ui->label_T_Recent3_Name->installEventFilter(this);
+    ui->label_T_Recent4_Name->installEventFilter(this);
+    ui->label_T_Recent5_Name->installEventFilter(this);
+    ui->label_T_Recent6_Name->installEventFilter(this);
+    ui->label_T_Recent7_Name->installEventFilter(this);
+    ui->label_T_Recent1_Close->installEventFilter(this);
+    ui->label_T_Recent2_Close->installEventFilter(this);
+    ui->label_T_Recent3_Close->installEventFilter(this);
+    ui->label_T_Recent4_Close->installEventFilter(this);
+    ui->label_T_Recent5_Close->installEventFilter(this);
+    ui->label_T_Recent6_Close->installEventFilter(this);
+    ui->label_T_Recent7_Close->installEventFilter(this);
 
     connect(&gIPD, &InterfacePublicData::SIGNALSendQuery, this, &Widget::slotSendQuery, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALReceiveQueryData, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
@@ -1185,6 +1237,61 @@ void Widget::genFindTvSql()
     }
 }
 
+///设置最近观看
+void Widget::setTvRecentLabel()
+{
+    for(int i = 0; i < mTvRecentLabels.size(); i++)
+    {
+        mTvRecentLabels.at(i).first->setVisible(false);
+        mTvRecentLabels.at(i).second->setVisible(false);
+    }
+    QString qss_display = QString("QLabel{padding-left:2px;padding-right:2px;border:1px solid grey;border-right:none;background-color:#99cc99;color:white;}"
+                                  "QLabel:hover{background-color:white;color:#99cc99;}");
+    QString qss_hide = QString("QLabel{padding-left:2px;padding-right:2px;border:1px solid grey;border-right:none;background-color:red;color:white;}"
+                               "QLabel:hover{background-color:white;color:red;}");
+    for(int i = 0; i < mTvRecents.size(); i++)
+    {
+        mTvRecentLabels.at(i).first->setText(mTvRecents.at(i).name);
+        mTvRecentLabels.at(i).first->setToolTip(mTvRecents.at(i).name);
+        mTvRecentLabels.at(i).first->setStyleSheet(mTvRecents.at(i).display?qss_display:qss_hide);
+        mTvRecentLabels.at(i).first->setVisible(true);
+        mTvRecentLabels.at(i).second->setVisible(true);
+    }
+}
+
+///显示最近观看
+void Widget::showTvRecent(int index)
+{
+    mTvRecentMode.enable = true;
+    mTvRecentMode.pid = mTvRecents.at(index).pid;
+    mTvRecentMode.sid = mTvRecents.at(index).sid;
+    mTvRecentMode.name = mTvRecents.at(index).name;
+    ui->label_T_LockRecent->setText(QString("已锁定显示 %3 PID/SID [%1/%2]").arg(mTvRecentMode.pid).arg(mTvRecentMode.sid).arg(mTvRecentMode.name));
+    ui->label_T_LockRecent->setVisible(true);
+    ui->label_T_UnlockRecent->setVisible(true);
+    on_pushButton_FindTv_clicked();
+}
+
+///关闭最近观看
+void Widget::closeTvRecent(int index)
+{
+    int ret = QMessageBox::information(this, tr("警告"), tr("确认删除这条记录?"), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(ret == QMessageBox::Ok)
+        {
+            if(mTvRecentMode.enable)
+            {
+                if(mTvRecentMode.sid == mTvRecents.at(index).sid)
+                {
+                    mTvRecentMode.enable = false;
+                    ui->label_T_LockRecent->setVisible(false);
+                    ui->label_T_UnlockRecent->setVisible(false);
+                    on_pushButton_FindTv_clicked();
+                }
+            }
+            //emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_RECENT, mTvRecents.at(index).id);   ///xxl_todo: tv 1
+        }
+}
+
 ///事件过滤
 bool Widget::eventFilter(QObject *obj, QEvent *event)
 {
@@ -1308,6 +1415,129 @@ bool Widget::eventFilter(QObject *obj, QEvent *event)
         if(event->type() == QEvent::MouseButtonPress)
         {
             closeMovieRecent(6);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_UnlockRecent)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            mTvRecentMode.enable = false;
+            ui->label_T_LockRecent->setVisible(false);
+            ui->label_T_UnlockRecent->setVisible(false);
+            on_pushButton_FindTv_clicked();
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent1_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(0);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent2_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(1);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent3_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(2);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent4_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(3);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent5_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(4);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent6_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(5);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent7_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showTvRecent(6);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent1_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(0);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent2_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(1);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent3_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(2);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent4_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(3);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent5_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(4);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent6_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(5);
+            return true;
+        }
+    }
+    else if(obj == ui->label_T_Recent7_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeTvRecent(6);
             return true;
         }
     }
@@ -1602,6 +1832,7 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
             mLimit = false;
             emit gIPD.SIGNALSendQuery(SOT_SELECT_ANIME_RECENT, mLimit);
             emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
+            emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
             on_pushButton_FindMovie_clicked();
             on_pushButton_FindTv_clicked();
@@ -1616,6 +1847,7 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
         mLimit = true;
         emit gIPD.SIGNALSendQuery(SOT_SELECT_ANIME_RECENT, mLimit);
         emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
+        emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_RECENT, mLimit);
         on_pushButton_FindAnime_clicked();
         on_pushButton_FindMovie_clicked();
         on_pushButton_FindTv_clicked();

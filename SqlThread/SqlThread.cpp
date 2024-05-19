@@ -13,6 +13,7 @@ Q_DECLARE_METATYPE(MovieRecentData)
 Q_DECLARE_METATYPE(TvIpData)
 Q_DECLARE_METATYPE(TvSeasonData)
 Q_DECLARE_METATYPE(TvEpisodeData)
+Q_DECLARE_METATYPE(TvRecentData)
 
 SqlThread::SqlThread(QObject *parent)
     : QObject{parent}
@@ -971,6 +972,28 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
                   << QString::number(total_page)
                   << QString::number(total);
         emit SIGNALSendQueryData(SOT_INFO_TV_EPISODE_PAGE, strs_send);
+    }
+        break;
+    case SOT_SELECT_TV_RECENT:
+    {
+        bool limit = var.toBool();
+        QList<TvRecentData> recents;
+        cmd = QString("SELECT id,pid,sid,name,display FROM `%1`%2 ORDER BY id DESC LIMIT 7").arg(TABLE_TV_RECENT, limit?" WHERE display=1":"");
+        mQuery.exec(cmd);
+        while(mQuery.next())
+        {
+            TvRecentData recent;
+            recent.id = mQuery.value(0).toInt();
+            recent.pid = mQuery.value(1).toInt();
+            recent.sid = mQuery.value(2).toInt();
+            recent.name = mQuery.value(3).toString();
+            recent.display = (mQuery.value(4).toInt()==1);
+            recents.append(recent);
+        }
+
+        QVariant var_send;
+        var_send.setValue(recents);
+        emit SIGNALSendQueryData(SOT_SELECT_TV_RECENT, var_send);
     }
         break;
     default:
