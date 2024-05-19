@@ -439,22 +439,26 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_DELETE_ANIME_IP:
     {
         int pid = var.toInt();
+        //删除关联最近
+        cmd = QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_RECENT);
         //删除关联话
-        cmd = QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_EPISODE);
+        cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_EPISODE);
         //删除关联季
         cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_SEASON);
         //删除动漫
         cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_IP);
         mQuery.exec(cmd);
 
-        emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
+        emit SIGNALSendQueryData(SOT_DELETE_ANIME_IP, QVariant());
     }
         break;
     case SOT_DELETE_ANIME_SEASON:
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
+        //删除关联最近
+        cmd = QString("DELETE FROM `%2` WHERE sid=%1;").arg(season.sid).arg(TABLE_ANIME_RECENT);
         //删除关联话
-        cmd = QString("DELETE FROM `%2` WHERE sid=%1;").arg(season.sid).arg(TABLE_ANIME_EPISODE);
+        cmd += QString("DELETE FROM `%2` WHERE sid=%1;").arg(season.sid).arg(TABLE_ANIME_EPISODE);
         //删除季
         cmd += QString("DELETE FROM `%2` WHERE sid=%1;").arg(season.sid).arg(TABLE_ANIME_SEASON);
         mQuery.exec(cmd);
@@ -463,7 +467,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         calcAnimePoint(season.pid);
         calcAnimeCollect(season.pid);
 
-        emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
+        emit SIGNALSendQueryData(SOT_DELETE_ANIME_SEASON, QVariant());
     }
         break;
     case SOT_DELETE_ANIME_EPISODE:

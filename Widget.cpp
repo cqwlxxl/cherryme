@@ -246,6 +246,8 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         getAnimeIp(ui->lineEdit_AP_Page->text().toInt());
         break;
     case SOT_UPDATE_ANIME_EPISODE_SEE:
+    case SOT_DELETE_ANIME_IP:
+    case SOT_DELETE_ANIME_SEASON:
         emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
         getAnimeIp(ui->lineEdit_AP_Page->text().toInt());
         break;
@@ -1488,6 +1490,13 @@ void Widget::on_pushButton_AP_Delete_clicked()
         int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除动漫《%1》?\n注意: 其包含的所有季度和话数据均会被关联删除!")).arg(gIPD.anime_ip.ips.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
         if(ret == QMessageBox::Ok)
         {
+            if(mAnimeRecentMode.enable)
+            {
+                mAnimeRecentMode.enable = false;
+                ui->label_A_LockRecent->setVisible(false);
+                ui->label_A_UnlockRecent->setVisible(false);
+                genFindAnimeSql();
+            }
             emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_IP, gIPD.anime_ip.ips.at(row).pid);
         }
     }
@@ -1516,6 +1525,13 @@ void Widget::on_pushButton_AS_Delete_clicked()
             gIPD.index_anime.p_click = true;
             gIPD.index_anime.s_click = false;
             gIPD.index_anime.e_click = false;
+            if(mAnimeRecentMode.enable)
+            {
+                mAnimeRecentMode.enable = false;
+                ui->label_A_LockRecent->setVisible(false);
+                ui->label_A_UnlockRecent->setVisible(false);
+                genFindAnimeSql();
+            }
             QVariant var_send;
             var_send.setValue(gIPD.anime_season.seasons.at(row));
             emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_SEASON, var_send);
