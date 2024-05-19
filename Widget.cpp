@@ -545,6 +545,17 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         ui->label_TE_Total->setText(QString(tr("共%1集")).arg(strs[2]));
     }
         break;
+    case SOT_TELL_TV_RESHOW:
+        getTvIp(ui->lineEdit_TP_Page->text().toInt());
+        break;
+    case SOT_DELETE_TV_IP:
+    case SOT_DELETE_TV_SEASON:
+        emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_RECENT, mLimit);
+        getTvIp(ui->lineEdit_TP_Page->text().toInt());
+        break;
+    case SOT_DELETE_TV_RECENT:
+        emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_RECENT, mLimit);
+        break;
     default:
         break;
     }
@@ -606,6 +617,9 @@ void Widget::qian()
     mAnimeEpisodeNewDialog = new AnimeEpisodeNewDialog(this);
     mMovieIpNewDialog = new MovieIpNewDialog(this);
     mMovieSeasonNewDialog = new MovieSeasonNewDialog(this);
+    mTvIpNewDialog = new TvIpNewDialog(this);
+    mTvSeasonNewDialog = new TvSeasonNewDialog(this);
+    mTvEpisodeNewDialog = new TvEpisodeNewDialog(this);
 
     ui->label_BarA_PidText->setVisible(false);
     ui->label_BarA_SidText->setVisible(false);
@@ -1276,20 +1290,20 @@ void Widget::showTvRecent(int index)
 void Widget::closeTvRecent(int index)
 {
     int ret = QMessageBox::information(this, tr("警告"), tr("确认删除这条记录?"), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
-        if(ret == QMessageBox::Ok)
+    if(ret == QMessageBox::Ok)
+    {
+        if(mTvRecentMode.enable)
         {
-            if(mTvRecentMode.enable)
+            if(mTvRecentMode.sid == mTvRecents.at(index).sid)
             {
-                if(mTvRecentMode.sid == mTvRecents.at(index).sid)
-                {
-                    mTvRecentMode.enable = false;
-                    ui->label_T_LockRecent->setVisible(false);
-                    ui->label_T_UnlockRecent->setVisible(false);
-                    on_pushButton_FindTv_clicked();
-                }
+                mTvRecentMode.enable = false;
+                ui->label_T_LockRecent->setVisible(false);
+                ui->label_T_UnlockRecent->setVisible(false);
+                on_pushButton_FindTv_clicked();
             }
-            //emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_RECENT, mTvRecents.at(index).id);   ///xxl_todo: tv 1
         }
+        emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_RECENT, mTvRecents.at(index).id);
+    }
 }
 
 ///事件过滤
@@ -2869,6 +2883,105 @@ void Widget::on_pushButton_TE_NextPage_clicked()
         if(page <= mTEPageTotal)
         {
             getTvEpisode(page);
+        }
+    }
+}
+
+///新增电视剧ip
+void Widget::on_pushButton_TP_New_clicked()
+{
+    mTvIpNewDialog->Hi();
+}
+
+///新增电视剧部
+void Widget::on_pushButton_TS_New_clicked()
+{
+    mTvSeasonNewDialog->Hi(gIPD.index_tv.pid);
+}
+
+///新增电视剧集
+void Widget::on_pushButton_TE_New_clicked()
+{
+    mTvEpisodeNewDialog->Hi(gIPD.index_tv.pid, gIPD.index_tv.sid);
+}
+
+///删除电视剧ip
+void Widget::on_pushButton_TP_Delete_clicked()
+{
+    int row = ui->listWidget_TP->currentRow();
+    if(row == -1)
+    {
+        QMessageBox::information(this, tr("未选择电视剧"), tr("请选择要删除的电视剧"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+    }
+    else
+    {
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除电视剧《%1》?\n注意: 其包含的所有部和集数据均会被关联删除!")).arg(gIPD.tv_ip.ips.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(ret == QMessageBox::Ok)
+        {
+            if(mTvRecentMode.enable)
+            {
+                mTvRecentMode.enable = false;
+                ui->label_T_LockRecent->setVisible(false);
+                ui->label_T_UnlockRecent->setVisible(false);
+                genFindTvSql();
+            }
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_IP, gIPD.tv_ip.ips.at(row).pid);
+        }
+    }
+}
+
+///删除电视剧部
+void Widget::on_pushButton_TS_Delete_clicked()
+{
+    int row = ui->listWidget_TS->currentRow();
+    if(row == -1)
+    {
+        QMessageBox::information(this, tr("未选择部"), tr("请选择要删除的部"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+    }
+    else
+    {
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除部《%1》?\n注意: 其包含的所有集数据均会被关联删除!")).arg(gIPD.tv_season.seasons.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(ret == QMessageBox::Ok)
+        {
+            gIPD.index_tv.p_click = true;
+            gIPD.index_tv.s_click = false;
+            gIPD.index_tv.e_click = false;
+            if(mTvRecentMode.enable)
+            {
+                mTvRecentMode.enable = false;
+                ui->label_T_LockRecent->setVisible(false);
+                ui->label_T_UnlockRecent->setVisible(false);
+                genFindTvSql();
+            }
+            QVariant var_send;
+            var_send.setValue(gIPD.tv_season.seasons.at(row));
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_SEASON, var_send);
+        }
+    }
+}
+
+///删除电视剧集
+void Widget::on_pushButton_TE_Delete_clicked()
+{
+    int row = ui->listWidget_TE->currentRow();
+    if(row == -1)
+    {
+        QMessageBox::information(this, tr("未选择集"), tr("请选择要删除的集"), QMessageBox::Ok, QMessageBox::Ok);
+        return;
+    }
+    else
+    {
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除集《[%1] %2》?")).arg(gIPD.tv_ep.eps.at(row).episode, gIPD.tv_ep.eps.at(row).title), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(ret == QMessageBox::Ok)
+        {
+            gIPD.index_tv.p_click = true;
+            gIPD.index_tv.s_click = true;
+            gIPD.index_tv.e_click = false;
+            QVariant var_send;
+            var_send.setValue(gIPD.tv_ep.eps.at(row));
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_EPISODE, var_send);
         }
     }
 }

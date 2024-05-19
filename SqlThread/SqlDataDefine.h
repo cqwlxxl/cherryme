@@ -88,7 +88,15 @@ enum SqlOperateType
     SOT_INFO_TV_IP_PAGE,        //电视剧ip页面信息
     SOT_INFO_TV_SEASON_PAGE,    //电视剧部页面信息
     SOT_INFO_TV_EPISODE_PAGE,   //电视剧集页面信息
+    SOT_TELL_TV_RESHOW,         //重新显示电视剧
     SOT_UPDATE_TV_EPISODE_SEE,  //更新电视剧集，看完     ///xxl_todo: tv ep see
+    SOT_INSERT_TV_IP,           //新增电视剧ip
+    SOT_INSERT_TV_SEASON,       //新增电视剧部
+    SOT_INSERT_TV_EPISODE,      //新增电视剧集
+    SOT_DELETE_TV_IP,           //删除电视剧ip
+    SOT_DELETE_TV_SEASON,       //删除电视剧部
+    SOT_DELETE_TV_EPISODE,      //删除电视剧集
+    SOT_DELETE_TV_RECENT,       //删除电视剧最近观看
 };
 
 struct AnimeIpData

@@ -10,6 +10,9 @@
 #include "UiThread/Anime/AnimeEpisodeNewDialog.h"
 #include "UiThread/Movie/MovieIpNewDialog.h"
 #include "UiThread/Movie/MovieSeasonNewDialog.h"
+#include "UiThread/Television/TvIpNewDialog.h"
+#include "UiThread/Television/TvSeasonNewDialog.h"
+#include "UiThread/Television/TvEpisodeNewDialog.h"
 
 struct AnimeRecentModeData
 {
@@ -152,6 +155,12 @@ private slots:
     void on_pushButton_TS_NextPage_clicked();   //电视剧部下一页
     void on_pushButton_TE_PrePage_clicked();    //电视剧集上一页
     void on_pushButton_TE_NextPage_clicked();   //电视剧集下一页
+    void on_pushButton_TP_New_clicked();        //新增电视剧ip
+    void on_pushButton_TP_Delete_clicked();     //删除电视剧ip
+    void on_pushButton_TS_New_clicked();        //新增电视剧部
+    void on_pushButton_TS_Delete_clicked();     //删除电视剧部
+    void on_pushButton_TE_New_clicked();        //新增电视剧集
+    void on_pushButton_TE_Delete_clicked();     //删除电视剧集
 
 private:
     void qian();    //init
@@ -210,6 +219,9 @@ private:
     AnimeEpisodeNewDialog   *mAnimeEpisodeNewDialog {nullptr};
     MovieIpNewDialog        *mMovieIpNewDialog {nullptr};
     MovieSeasonNewDialog    *mMovieSeasonNewDialog {nullptr};
+    TvIpNewDialog           *mTvIpNewDialog {nullptr};
+    TvSeasonNewDialog       *mTvSeasonNewDialog {nullptr};
+    TvEpisodeNewDialog      *mTvEpisodeNewDialog {nullptr};
     QList<QPair<QLabel *, QLabel *> >   mAnimeRecentLabels;
     QList<QPair<QLabel *, QLabel *> >   mMovieRecentLabels;
     QList<QPair<QLabel *, QLabel *> >   mTvRecentLabels;

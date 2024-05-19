@@ -21,8 +21,11 @@ SOURCES += \
     UiThread/Movie/MovieIpWidgetItem.cpp \
     UiThread/Movie/MovieSeasonNewDialog.cpp \
     UiThread/Movie/MovieSeasonWidgetItem.cpp \
+    UiThread/Television/TvEpisodeNewDialog.cpp \
     UiThread/Television/TvEpisodeWidgetItem.cpp \
+    UiThread/Television/TvIpNewDialog.cpp \
     UiThread/Television/TvIpWidgetItem.cpp \
+    UiThread/Television/TvSeasonNewDialog.cpp \
     UiThread/Television/TvSeasonWidgetItem.cpp \
     main.cpp \
     Widget.cpp
@@ -42,8 +45,11 @@ HEADERS += \
     UiThread/Movie/MovieIpWidgetItem.h \
     UiThread/Movie/MovieSeasonNewDialog.h \
     UiThread/Movie/MovieSeasonWidgetItem.h \
+    UiThread/Television/TvEpisodeNewDialog.h \
     UiThread/Television/TvEpisodeWidgetItem.h \
+    UiThread/Television/TvIpNewDialog.h \
     UiThread/Television/TvIpWidgetItem.h \
+    UiThread/Television/TvSeasonNewDialog.h \
     UiThread/Television/TvSeasonWidgetItem.h \
     Widget.h
 
@@ -58,8 +64,11 @@ FORMS += \
     UiThread/Movie/MovieIpWidgetItem.ui \
     UiThread/Movie/MovieSeasonNewDialog.ui \
     UiThread/Movie/MovieSeasonWidgetItem.ui \
+    UiThread/Television/TvEpisodeNewDialog.ui \
     UiThread/Television/TvEpisodeWidgetItem.ui \
+    UiThread/Television/TvIpNewDialog.ui \
     UiThread/Television/TvIpWidgetItem.ui \
+    UiThread/Television/TvSeasonNewDialog.ui \
     UiThread/Television/TvSeasonWidgetItem.ui \
     Widget.ui
 

@@ -41,6 +41,15 @@ private:
     void calcMovieTag2(int pid);            //计算tag2
     void calcMovieTag3(int pid);            //计算tag3
     void calcMovieRecent(int pid, int sid, QString name);   //更新最近观看
+    //tv
+    void calcTvSee(int pid, int sid);       //计算进度
+    void calcTvSee(int pid);                //计算进度，部变化
+    void calcTvPoint(int pid);              //计算评分
+    void calcTvCollect(int pid);            //计算收藏
+    void calcTvTag1(int pid, int sid);      //计算tag1
+    void calcTvTag2(int pid, int sid);      //计算tag2
+    void calcTvTag3(int pid, int sid);      //计算tag3
+    void calcTvRecent(int pid, int sid);    //更新最近观看
 
 private:
     QSqlDatabase        mDB;    //数据库
