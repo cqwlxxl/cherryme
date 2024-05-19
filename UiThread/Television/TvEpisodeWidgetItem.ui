@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>153</width>
-    <height>21</height>
+    <height>25</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -78,8 +78,14 @@
         </property>
         <property name="icon">
          <iconset resource="../../Resource.qrc">
-          <normaloff>:/File/img/check_it.png</normaloff>
-          <normalon>:/File/img/check_ok.png</normalon>:/File/img/check_it.png</iconset>
+          <normaloff>:/File/img/box_uncheck_enable.png</normaloff>
+          <normalon>:/File/img/box_check_enable.png</normalon>:/File/img/box_uncheck_enable.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
         </property>
         <property name="checkable">
          <bool>true</bool>

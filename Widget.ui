@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>600</height>
+    <height>640</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -604,10 +604,46 @@ QLabel:hover
            <number>0</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="lineEdit_FindAnimeName"/>
+           <widget class="QLineEdit" name="lineEdit_FindAnimeName">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_FindAnimeZhuifan">
+            <property name="styleSheet">
+             <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+            </property>
             <property name="text">
              <string>追番中</string>
             </property>
@@ -615,6 +651,29 @@ QLabel:hover
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_FindAnimeNotsee">
+            <property name="styleSheet">
+             <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+            </property>
             <property name="text">
              <string>未看完</string>
             </property>
@@ -632,7 +691,13 @@ QLabel:hover
             <property name="minimumSize">
              <size>
               <width>72</width>
-              <height>0</height>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
              </size>
             </property>
             <property name="maxVisibleItems">
@@ -717,7 +782,13 @@ QLabel:hover
             <property name="minimumSize">
              <size>
               <width>72</width>
-              <height>0</height>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
              </size>
             </property>
             <property name="currentIndex">
@@ -808,6 +879,18 @@ QLabel:hover
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_FindAnimeReset">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>重置条件</string>
             </property>
@@ -815,6 +898,18 @@ QLabel:hover
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_FindAnime">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="text">
              <string>检索</string>
             </property>
@@ -853,25 +948,54 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_AP_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AP_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLineEdit" name="lineEdit_AP_Page">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>40</width>
@@ -892,20 +1016,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AP_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AP_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -931,39 +1078,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AP_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AP_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AP_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AP_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -1000,25 +1193,54 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_AS_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AS_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLineEdit" name="lineEdit_AS_Page">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>40</width>
@@ -1039,20 +1261,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AS_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AS_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -1078,39 +1323,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AS_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AS_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AS_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AS_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -1147,25 +1438,54 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_AE_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AE_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLineEdit" name="lineEdit_AE_Page">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>40</width>
@@ -1186,20 +1506,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AE_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AE_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -1225,39 +1568,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AE_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AE_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_AE_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_AE_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -1340,20 +1729,41 @@ QLabel:hover
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_AP_NameOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AP_NameOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1362,8 +1772,37 @@ QLabel:hover
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>公开</string>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>16</width>
+                 <height>16</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1371,6 +1810,29 @@ QLabel:hover
               <widget class="QCheckBox" name="checkBox_AP_Zhuifan">
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
                </property>
                <property name="text">
                 <string>追番</string>
@@ -1412,20 +1874,41 @@ QLabel:hover
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_AP_KeywordsOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AP_KeywordsOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1486,23 +1969,64 @@ QLabel:hover
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AS_NaneOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_AS_Display">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>公开</string>
                </property>
@@ -1521,6 +2045,41 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_AS_ReleaseDateEnable">
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1550,18 +2109,36 @@ QLabel:hover
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AS_ReleaseDateOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1646,6 +2223,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_AS_CollectIt">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>要收藏</string>
                </property>
@@ -1653,6 +2253,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_AS_CollectOk">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>已收藏</string>
                </property>
@@ -1728,18 +2351,36 @@ QLabel:hover
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AE_EpisodeOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1764,18 +2405,36 @@ QLabel:hover
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AE_TitleOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -1785,6 +2444,29 @@ QLabel:hover
             <layout class="QHBoxLayout" name="hLayout_AE_Tag">
              <item>
               <widget class="QCheckBox" name="checkBox_AE_Tag1">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag1</string>
                </property>
@@ -1792,6 +2474,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_AE_Tag2">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag2</string>
                </property>
@@ -1799,6 +2504,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_AE_Tag3">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag3</string>
                </property>
@@ -2703,6 +3431,29 @@ QLabel:hover
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_FindMovieNotsee">
+            <property name="styleSheet">
+             <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+            </property>
             <property name="text">
              <string>未看完</string>
             </property>
@@ -2941,20 +3692,43 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_MP_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MP_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -2980,20 +3754,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_MP_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MP_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -3019,39 +3816,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_MP_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MP_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_MP_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MP_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -3088,20 +3931,43 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_MS_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MS_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -3127,20 +3993,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_MS_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MS_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -3166,39 +4055,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_MS_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MS_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_MS_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_MS_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -3281,20 +4216,47 @@ QLabel:hover
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_MP_NameOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_MP_NameOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -3302,6 +4264,29 @@ QLabel:hover
               <widget class="QCheckBox" name="checkBox_MP_Display">
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
                </property>
                <property name="text">
                 <string>公开</string>
@@ -3343,20 +4328,47 @@ QLabel:hover
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_MP_KeywordsOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_MP_KeywordsOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -3415,20 +4427,44 @@ QLabel:hover
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_MS_NaneOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -3445,6 +4481,47 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_MS_ReleaseDateEnable">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -3472,20 +4549,44 @@ QLabel:hover
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_MS_ReleaseDateOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -3570,6 +4671,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_MS_CollectIt">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>要收藏</string>
                </property>
@@ -3577,6 +4701,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_MS_CollectOk">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>已收藏</string>
                </property>
@@ -3584,6 +4731,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_MS_Tag1">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag1</string>
                </property>
@@ -3591,6 +4761,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_MS_Tag2">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag2</string>
                </property>
@@ -3598,6 +4791,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_MS_Tag3">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag3</string>
                </property>
@@ -4437,6 +5653,29 @@ QLabel:hover
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_FindTvZhuiju">
+            <property name="styleSheet">
+             <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+            </property>
             <property name="text">
              <string>追剧中</string>
             </property>
@@ -4444,6 +5683,29 @@ QLabel:hover
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_FindTvNotsee">
+            <property name="styleSheet">
+             <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+            </property>
             <property name="text">
              <string>未看完</string>
             </property>
@@ -4682,20 +5944,43 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_TP_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TP_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -4721,20 +6006,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TP_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TP_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -4760,39 +6068,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TP_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TP_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TP_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TP_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -4829,20 +6183,43 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_TS_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TS_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -4868,20 +6245,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TS_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TS_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -4907,39 +6307,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TS_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TS_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TS_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TS_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -4976,20 +6422,43 @@ QLabel:hover
               </property>
               <item>
                <widget class="QPushButton" name="pushButton_TE_PrePage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TE_PrePage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&lt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/left_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -5015,20 +6484,43 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TE_NextPage">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TE_NextPage
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">&gt;</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/right_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -5054,39 +6546,85 @@ QLabel:hover
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TE_New">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TE_New
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">+</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/add_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_TE_Delete">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>24</width>
-                  <height>24</height>
+                  <width>20</width>
+                  <height>20</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">#pushButton_TE_Delete
+{
+  border: 0px;
+}</string>
+                </property>
                 <property name="text">
-                 <string notr="true">-</string>
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>:/File/img/delete_enable.png</normalon>
+                 </iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -5169,20 +6707,47 @@ QLabel:hover
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_TP_NameOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_TP_NameOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -5190,6 +6755,29 @@ QLabel:hover
               <widget class="QCheckBox" name="checkBox_TP_Display">
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
                </property>
                <property name="text">
                 <string>公开</string>
@@ -5200,6 +6788,29 @@ QLabel:hover
               <widget class="QCheckBox" name="checkBox_TP_Zhuiju">
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
                </property>
                <property name="text">
                 <string>追剧</string>
@@ -5241,20 +6852,47 @@ QLabel:hover
              </item>
              <item>
               <widget class="QPushButton" name="pushButton_TP_KeywordsOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_TP_KeywordsOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -5313,25 +6951,72 @@ QLabel:hover
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_TS_NaneOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_TS_Display">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>公开</string>
                </property>
@@ -5350,6 +7035,47 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_TS_ReleaseDateEnable">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -5377,20 +7103,44 @@ QLabel:hover
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_TS_ReleaseDateOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -5475,6 +7225,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_TS_CollectIt">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>要收藏</string>
                </property>
@@ -5482,6 +7255,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_TS_CollectOk">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>已收藏</string>
                </property>
@@ -5555,20 +7351,44 @@ QLabel:hover
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_TE_EpisodeOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -5591,20 +7411,44 @@ QLabel:hover
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="minimumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>24</width>
-                 <height>24</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_TE_TitleOk
+{
+  border: 0px;
+}</string>
+               </property>
                <property name="text">
-                <string notr="true">√</string>
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -5614,6 +7458,29 @@ QLabel:hover
             <layout class="QHBoxLayout" name="hLayout_TE_Tag">
              <item>
               <widget class="QCheckBox" name="checkBox_TE_Tag1">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag1</string>
                </property>
@@ -5621,6 +7488,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_TE_Tag2">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag2</string>
                </property>
@@ -5628,6 +7518,29 @@ QLabel:hover
              </item>
              <item>
               <widget class="QCheckBox" name="checkBox_TE_Tag3">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
                <property name="text">
                 <string>Tag3</string>
                </property>
@@ -5955,6 +7868,12 @@ QLabel:hover
     <layout class="QHBoxLayout" name="hLayout_ConnectMysql">
      <item>
       <widget class="QPushButton" name="pushButton_ConnectMysql">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>连接服务器</string>
        </property>
@@ -5994,6 +7913,29 @@ QLabel:hover
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_Limit">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
        <property name="text">
         <string>Limit</string>
        </property>

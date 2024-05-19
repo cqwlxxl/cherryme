@@ -319,6 +319,29 @@
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_Tag1">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
        <property name="text">
         <string>Tag1</string>
        </property>
@@ -326,6 +349,29 @@
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_Tag2">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
        <property name="text">
         <string>Tag2</string>
        </property>
@@ -333,6 +379,29 @@
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_Tag3">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
        <property name="text">
         <string>Tag3</string>
        </property>

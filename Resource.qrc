@@ -1,10 +1,17 @@
 <RCC>
     <qresource prefix="/">
-        <file>File/img/collec_it.png</file>
-        <file>File/img/collec_ok.png</file>
-        <file>File/img/check_it.png</file>
-        <file>File/img/check_ok.png</file>
         <file>File/img/icon.ico</file>
         <file>File/img/icon.png</file>
+        <file>File/img/submit_disable.png</file>
+        <file>File/img/submit_enable.png</file>
+        <file>File/img/add_enable.png</file>
+        <file>File/img/delete_enable.png</file>
+        <file>File/img/box_check_enable.png</file>
+        <file>File/img/box_uncheck_disable.png</file>
+        <file>File/img/box_uncheck_enable.png</file>
+        <file>File/img/star_check_enable.png</file>
+        <file>File/img/star_uncheck_enable.png</file>
+        <file>File/img/left_enable.png</file>
+        <file>File/img/right_enable.png</file>
     </qresource>
 </RCC>

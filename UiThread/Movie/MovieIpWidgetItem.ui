@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>362</width>
-    <height>45</height>
+    <height>49</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -167,7 +167,7 @@
         <item>
          <widget class="QPushButton" name="pushButton_Collect">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="maximumSize">
            <size>
@@ -189,10 +189,14 @@
           </property>
           <property name="icon">
            <iconset resource="../../Resource.qrc">
-            <normaloff>:/File/img/collec_it.png</normaloff>
-            <normalon>:/File/img/collec_ok.png</normalon>
-            <disabledoff>:/File/img/collec_it.png</disabledoff>
-            <disabledon>:/File/img/collec_ok.png</disabledon>:/File/img/collec_it.png</iconset>
+            <normaloff>:/File/img/star_check_enable.png</normaloff>
+            <normalon>:/File/img/star_uncheck_enable.png</normalon>:/File/img/star_check_enable.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
           </property>
           <property name="checkable">
            <bool>true</bool>
