@@ -4,6 +4,9 @@
 #include <QDate>
 #include <QString>
 
+#define TABLE_ANIME_IP      "anime_ip"
+#define TABLE_ANIME_SEASON  "anime_season"
+#define TABLE_ANIME_EPISODE "anime_episode"
 
 ///数据操作
 enum SqlOperateType
