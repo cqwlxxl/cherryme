@@ -31,6 +31,7 @@ private:
     void calcAnimeTag1(int aid, int sid);   //计算tag1
     void calcAnimeTag2(int aid, int sid);   //计算tag2
     void calcAnimeTag3(int aid, int sid);   //计算tag3
+    void calcAnimeRecent(int aid, int sid); //更新最近观看
 
 private:
     QSqlDatabase        mDB;    //数据库

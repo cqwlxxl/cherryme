@@ -7,12 +7,14 @@
 #define TABLE_ANIME_IP      "anime_ip"
 #define TABLE_ANIME_SEASON  "anime_season"
 #define TABLE_ANIME_EPISODE "anime_episode"
+#define TABLE_ANIME_RECENT  "anime_recent"
 
 ///数据操作
 enum SqlOperateType
 {
     SOT_LOGIN_ANIME,        //连接anime
     SOT_GET_ANIME_ANIME,    //获取动漫
+    SOT_GET_ANIME_RECENT,   //获取动漫，最近观看
     SOT_ANIME_ANIME_PAGE,   //动漫页面
     SOT_GET_ANIME_SEASON,   //获取动漫季
     SOT_ANIME_SEASON_PAGE,  //动漫季页面
@@ -40,6 +42,7 @@ enum SqlOperateType
     SOT_DELETE_ANIME_ANIME,     //删除动漫
     SOT_DELETE_ANIME_SEASON,    //删除动漫季
     SOT_DELETE_ANIME_EPISODE,   //删除动漫话
+    SOT_DELETE_ANIME_RECENT,    //删除动漫最近观看
 };
 
 struct AnimeData
@@ -89,6 +92,15 @@ struct AnimeEpisodeData
     bool    tag1 {false};   //tag1
     bool    tag2 {false};   //tag2
     bool    tag3 {true};    //tag3
+};
+
+struct AnimeRecentData
+{
+    int     id {0};             //id
+    int     aid {0};            //aid
+    int     sid {0};            //sid
+    QString name;               //季度名称
+    bool    display {false};    //可见
 };
 
 #endif // SQLDATADEFINE_H

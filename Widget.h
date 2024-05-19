@@ -1,12 +1,21 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <QLabel>
 #include <QWidget>
 
 #include "UiThread/InterfacePublicData.h"
 #include "UiThread/AnimeAnimeNewDialog.h"
 #include "UiThread/AnimeSeasonNewDialog.h"
 #include "UiThread/AnimeEpisodeNewDialog.h"
+
+struct AnimeRecentModeData
+{
+    bool    enable {false}; //启用
+    int     aid {0};        //aid
+    int     sid {0};        //sid
+    QString name;           //季名称
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -74,13 +83,21 @@ private:
     void getAnimeEpisode(int page); //获取动漫话
     void showBarAnimeId(int what);  //显示id条
     void genFindAnimeSql();         //更新查找动漫条件
+    void setAnimeRecentLabel();     //设置最近观看
+    void showAnimeRecent(int index);    //显示最近观看
+    void closeAnimeRecent(int index);   //关闭最近观看
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);  //事件过滤
 
 private:
     Ui::Widget *ui;
 
 private:
-    int     mConnectedAnime {false};
-    int     mLimitAnime {true};
+    bool    mConnectedAnime {false};
+    bool    mLimitAnime {true};
+    AnimeRecentModeData mAnimeRecentMode;
+    QPair<int, int>     mAnimeRecentIds;    //最近模式aid和sid
     int     mAAPageTotal {0};
     int     mASPageTotal {0};
     int     mAEPageTotal {0};
@@ -88,5 +105,7 @@ private:
     AnimeAnimeNewDialog     *mAnimeAnimeNewDialog {nullptr};
     AnimeSeasonNewDialog    *mAnimeSeasonNewDialog {nullptr};
     AnimeEpisodeNewDialog   *mAnimeEpisodeNewDialog {nullptr};
+    QList<QPair<QLabel *, QLabel *> >   mAnimeRecentLabels;
+    QList<AnimeRecentData>  mAnimeRecents;
 };
 #endif // WIDGET_H

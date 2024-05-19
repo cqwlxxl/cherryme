@@ -10,6 +10,7 @@
 Q_DECLARE_METATYPE(AnimeData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
 Q_DECLARE_METATYPE(AnimeEpisodeData)
+Q_DECLARE_METATYPE(AnimeRecentData)
 
 PublicUseData   gPUD;
 
@@ -50,10 +51,16 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         ui->pushButton_AnimeLogin->setChecked(mConnectedAnime);
         if(mConnectedAnime)
         {   //连接上服务器了
+            emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
             on_pushButton_FindAnime_clicked();
         }
         else
         {   //断开服务器
+            mAnimeRecents.clear();
+            mAnimeRecentMode.enable = false;
+            ui->label_A_LockRecent->setVisible(false);
+            ui->label_A_UnlockRecent->setVisible(false);
+            setAnimeRecentLabel();
             showBarAnimeId(-1);
             ui->listWidget_Anime_Anime->clear();
             ui->listWidget_Anime_Season->clear();
@@ -82,7 +89,11 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             gIPD.anime.items.append(item);
             gIPD.anime.widgets.append(widget);
         }
-        if(gIPD.index_anime.a_click)
+        if(mAnimeRecentMode.enable)
+        {   //最近模式
+            on_listWidget_Anime_Anime_itemClicked(gIPD.anime.items.at(0));
+        }
+        else if(gIPD.index_anime.a_click)
         {
             gIPD.index_anime.a_click = false;
             //查看是否还有显示
@@ -109,6 +120,12 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         }
         break;
     }
+    case SOT_GET_ANIME_RECENT:
+    {
+        mAnimeRecents = var.value<QList<AnimeRecentData> >();
+        setAnimeRecentLabel();
+    }
+        break;
     case SOT_ANIME_ANIME_PAGE:
     {
         QStringList strs = var.toStringList();
@@ -138,7 +155,11 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             gIPD.anime_season.items.append(item);
             gIPD.anime_season.widgets.append(widget);
         }
-        if(gIPD.index_anime.s_click)
+        if(mAnimeRecentMode.enable)
+        {   //最近模式
+            on_listWidget_Anime_Season_itemClicked(gIPD.anime_season.items.at(0));
+        }
+        else if(gIPD.index_anime.s_click)
         {
             gIPD.index_anime.s_click = false;
             ui->listWidget_Anime_Season->verticalScrollBar()->setValue(gIPD.index_anime.s_pos);
@@ -194,6 +215,13 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME:
         getAnime(ui->lineEdit_AA_Page->text().toInt());
         break;
+    case SOT_UPDATE_ANIME_EPISODE_SEE:
+        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+        getAnime(ui->lineEdit_AA_Page->text().toInt());
+        break;
+    case SOT_DELETE_ANIME_RECENT:
+        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
+        break;
     default:
         break;
     }
@@ -228,6 +256,7 @@ void Widget::qian()
     mAnimeAnimeNewDialog = new AnimeAnimeNewDialog(this);
     mAnimeSeasonNewDialog = new AnimeSeasonNewDialog(this);
     mAnimeEpisodeNewDialog = new AnimeEpisodeNewDialog(this);
+
     ui->label_BarAAidText->setVisible(false);
     ui->label_BarASidText->setVisible(false);
     ui->label_BarAEidText->setVisible(false);
@@ -237,7 +266,35 @@ void Widget::qian()
     ui->dateEdit_AS_ReleaseDate->setVisible(false);
     ui->checkBox_AS_CollectOk->setEnabled(false);
     ui->stackedWidget_Anime->setCurrentWidget(ui->page_ADefault);
-    connect(&gIPD, &InterfacePublicData::SIGNALSendQuery, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
+
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent1_Name, ui->label_A_Recent1_Close));
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent2_Name, ui->label_A_Recent2_Close));
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent3_Name, ui->label_A_Recent3_Close));
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent4_Name, ui->label_A_Recent4_Close));
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent5_Name, ui->label_A_Recent5_Close));
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent6_Name, ui->label_A_Recent6_Close));
+    mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent7_Name, ui->label_A_Recent7_Close));
+    setAnimeRecentLabel();
+    ui->label_A_LockRecent->setVisible(false);
+    ui->label_A_UnlockRecent->setVisible(false);
+
+    ui->label_A_UnlockRecent->installEventFilter(this);
+    ui->label_A_Recent1_Name->installEventFilter(this);
+    ui->label_A_Recent2_Name->installEventFilter(this);
+    ui->label_A_Recent3_Name->installEventFilter(this);
+    ui->label_A_Recent4_Name->installEventFilter(this);
+    ui->label_A_Recent5_Name->installEventFilter(this);
+    ui->label_A_Recent6_Name->installEventFilter(this);
+    ui->label_A_Recent7_Name->installEventFilter(this);
+    ui->label_A_Recent1_Close->installEventFilter(this);
+    ui->label_A_Recent2_Close->installEventFilter(this);
+    ui->label_A_Recent3_Close->installEventFilter(this);
+    ui->label_A_Recent4_Close->installEventFilter(this);
+    ui->label_A_Recent5_Close->installEventFilter(this);
+    ui->label_A_Recent6_Close->installEventFilter(this);
+    ui->label_A_Recent7_Close->installEventFilter(this);
+
+    connect(&gIPD, &InterfacePublicData::SIGNALSendQuery, this, &Widget::slotSendQuery, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALReceiveQueryData, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALAnimeEpisodeSee, this, &Widget::slotAnimeEpisodeSee, Qt::UniqueConnection);
 
@@ -264,7 +321,8 @@ void Widget::getAnimeSeason(int page)
     QStringList strs;
     strs << QString::number(gIPD.index_anime.aid)
          << QString::number(page)
-         << QString::number(mLimitAnime?1:0);
+         << QString::number(mLimitAnime?1:0)
+         << QString::number(mAnimeRecentMode.enable?mAnimeRecentMode.sid:-1);
     emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_SEASON, strs);   //获取动漫季
 }
 
@@ -345,43 +403,225 @@ void Widget::showBarAnimeId(int what)
 void Widget::genFindAnimeSql()
 {
     mFindAnimeSql.clear();
-    if(!ui->checkBox_LimitAnime->isChecked())
-    {
-        mFindAnimeSql += " AND display = 1";
+    if(mAnimeRecentMode.enable)
+    {   //锁定最近模式
+        mFindAnimeSql += QString(" AND aid=%1").arg(mAnimeRecentMode.aid);
     }
-    if(ui->checkBox_FindAnimeZhuifan->isChecked())
-    {
-        mFindAnimeSql += " AND zhuifan = 1";
-    }
-    if(ui->checkBox_FindAnimeNotsee->isChecked())
-    {
-        mFindAnimeSql += " AND see = 0";
-    }
-    int point_a = ui->comboBox_FindAnimePointA->currentIndex();
-    int point_b = ui->comboBox_FindAnimePointB->currentIndex();
-    int point_min = qMin(point_a, point_b);
-    int point_max = qMax(point_a, point_b);
-    if(point_min != 0 || point_max != 12)
-    {
-        if(point_min == point_max)
+    else
+    {   //正常检索模式
+        if(!ui->checkBox_LimitAnime->isChecked())
         {
-            mFindAnimeSql += QString(" AND point = %1").arg(point_max);
+            mFindAnimeSql += " AND display = 1";
         }
-        else
+        if(ui->checkBox_FindAnimeZhuifan->isChecked())
         {
-            mFindAnimeSql += QString(" AND (point BETWEEN %1 AND %2)").arg(point_min).arg(point_max);
+            mFindAnimeSql += " AND zhuifan = 1";
         }
-    }
-    QString anime_name = ui->lineEdit_FindAnimeName->text().trimmed().replace("'", "''");
-    if(!anime_name.isEmpty())
-    {
-        mFindAnimeSql += QString(" AND (name LIKE '%%1%' OR keywords LIKE '%%1%')").arg(anime_name);
+        if(ui->checkBox_FindAnimeNotsee->isChecked())
+        {
+            mFindAnimeSql += " AND see = 0";
+        }
+        int point_a = ui->comboBox_FindAnimePointA->currentIndex();
+        int point_b = ui->comboBox_FindAnimePointB->currentIndex();
+        int point_min = qMin(point_a, point_b);
+        int point_max = qMax(point_a, point_b);
+        if(point_min != 0 || point_max != 12)
+        {
+            if(point_min == point_max)
+            {
+                mFindAnimeSql += QString(" AND point = %1").arg(point_max);
+            }
+            else
+            {
+                mFindAnimeSql += QString(" AND (point BETWEEN %1 AND %2)").arg(point_min).arg(point_max);
+            }
+        }
+        QString anime_name = ui->lineEdit_FindAnimeName->text().trimmed().replace("'", "''");
+        if(!anime_name.isEmpty())
+        {
+            mFindAnimeSql += QString(" AND (name LIKE '%%1%' OR keywords LIKE '%%1%')").arg(anime_name);
+        }
     }
     if(!mFindAnimeSql.isEmpty())
     {
         mFindAnimeSql.remove(0, 5);
         mFindAnimeSql = " WHERE " + mFindAnimeSql;
     }
+}
+
+///设置最近观看
+void Widget::setAnimeRecentLabel()
+{
+    for(int i = 0; i < mAnimeRecentLabels.size(); i++)
+    {
+        mAnimeRecentLabels.at(i).first->setVisible(false);
+        mAnimeRecentLabels.at(i).second->setVisible(false);
+    }
+    QString qss_display = QString("QLabel{padding-left:2px;padding-right:2px;border:1px solid grey;border-right:none;background-color:#99cc99;color:white;}"
+                          "QLabel:hover{background-color:white;color:#99cc99;}");
+    QString qss_hide = QString("QLabel{padding-left:2px;padding-right:2px;border:1px solid grey;border-right:none;background-color:red;color:white;}"
+                          "QLabel:hover{background-color:white;color:red;}");
+    for(int i = 0; i < mAnimeRecents.size(); i++)
+    {
+        mAnimeRecentLabels.at(i).first->setText(mAnimeRecents.at(i).name);
+        mAnimeRecentLabels.at(i).first->setToolTip(mAnimeRecents.at(i).name);
+        mAnimeRecentLabels.at(i).first->setStyleSheet(mAnimeRecents.at(i).display?qss_display:qss_hide);
+        mAnimeRecentLabels.at(i).first->setVisible(true);
+        mAnimeRecentLabels.at(i).second->setVisible(true);
+    }
+}
+
+///显示最近观看
+void Widget::showAnimeRecent(int index)
+{
+    mAnimeRecentMode.enable = true;
+    mAnimeRecentMode.aid = mAnimeRecents.at(index).aid;
+    mAnimeRecentMode.sid = mAnimeRecents.at(index).sid;
+    mAnimeRecentMode.name = mAnimeRecents.at(index).name;
+    ui->label_A_LockRecent->setText(QString("已锁定显示 %3 AID/SID [%1/%2]").arg(mAnimeRecentMode.aid).arg(mAnimeRecentMode.sid).arg(mAnimeRecentMode.name));
+    ui->label_A_LockRecent->setVisible(true);
+    ui->label_A_UnlockRecent->setVisible(true);
+    on_pushButton_FindAnime_clicked();
+}
+
+///关闭最近观看
+void Widget::closeAnimeRecent(int index)
+{
+    int ret = QMessageBox::information(this, tr("警告"), tr("确认删除这条记录?"), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+    if(ret == QMessageBox::Ok)
+    {
+        emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_RECENT, mAnimeRecents.at(index).id);
+    }
+}
+
+///事件过滤
+bool Widget::eventFilter(QObject *obj, QEvent *event)
+{
+    if(obj == ui->label_A_UnlockRecent)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            mAnimeRecentMode.enable = false;
+            ui->label_A_LockRecent->setVisible(false);
+            ui->label_A_UnlockRecent->setVisible(false);
+            on_pushButton_FindAnime_clicked();
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent1_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(0);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent2_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(1);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent3_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(2);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent4_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(3);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent5_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(4);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent6_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(5);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent7_Name)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            showAnimeRecent(6);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent1_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(0);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent2_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(1);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent3_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(2);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent4_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(3);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent5_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(4);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent6_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(5);
+            return true;
+        }
+    }
+    else if(obj == ui->label_A_Recent7_Close)
+    {
+        if(event->type() == QEvent::MouseButtonPress)
+        {
+            closeAnimeRecent(6);
+            return true;
+        }
+    }
+
+    return QWidget::eventFilter(obj, event);
 }
 
 ///动漫点击
@@ -546,6 +786,7 @@ void Widget::on_checkBox_LimitAnime_clicked(bool checked)
         if(ui->lineEdit_LimitAnime->text() == "showmeall123")
         {
             mLimitAnime = false;
+            emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
             on_pushButton_FindAnime_clicked();
         }
         else
@@ -556,6 +797,7 @@ void Widget::on_checkBox_LimitAnime_clicked(bool checked)
     else
     {
         mLimitAnime = true;
+        emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimitAnime);
         on_pushButton_FindAnime_clicked();
     }
     ui->lineEdit_LimitAnime->clear();

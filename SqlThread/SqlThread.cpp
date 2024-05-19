@@ -6,6 +6,7 @@
 Q_DECLARE_METATYPE(AnimeData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
 Q_DECLARE_METATYPE(AnimeEpisodeData)
+Q_DECLARE_METATYPE(AnimeRecentData)
 
 SqlThread::SqlThread(QObject *parent)
     : QObject{parent}
@@ -90,9 +91,32 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_ANIME_ANIME_PAGE, strs_send);
     }
         break;
+    case SOT_GET_ANIME_RECENT:
+    {
+        bool limit = var.toBool();
+        QList<AnimeRecentData> recents;
+        cmd = QString("SELECT id,aid,sid,name,display FROM `%1`%2 ORDER BY id DESC LIMIT 7").arg(TABLE_ANIME_RECENT, limit?" WHERE display=1":"");
+        mQuery.exec(cmd);
+        while(mQuery.next())
+        {
+            AnimeRecentData recent;
+            recent.id = mQuery.value(0).toInt();
+            recent.aid = mQuery.value(1).toInt();
+            recent.sid = mQuery.value(2).toInt();
+            recent.name = mQuery.value(3).toString();
+            recent.display = (mQuery.value(4).toInt()==1);
+            recents.append(recent);
+        }
+
+        QVariant var_send;
+        var_send.setValue(recents);
+        emit SIGNALSendQueryData(SOT_GET_ANIME_RECENT, var_send);
+    }
+        break;
     case SOT_GET_ANIME_SEASON:
     {
         QStringList strs = var.toStringList();
+        int sid = strs[3].toInt();
         int pagesize = 20;
         int page = strs[1].toInt();
         int offset = (page-1)*pagesize;
@@ -100,6 +124,10 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("SELECT sid, aid, name, release_date, see, "
                       "see_episode, total_episode, collect, point, display, "
                       "tag1, tag2, tag3 FROM `%2` WHERE aid = %1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
+        if(sid != -1)
+        {   //最近模式
+            cmd += QString(" AND sid=%1").arg(sid);
+        }
         if(limit)
         {
             cmd += " AND display = 1";
@@ -292,8 +320,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         mQuery.exec(cmd);
 
         calcAnimeSee(episode.aid, episode.sid);
+        calcAnimeRecent(episode.aid, episode.sid);
 
-        emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
+        emit SIGNALSendQueryData(SOT_UPDATE_ANIME_EPISODE_SEE, QVariant());
     }
         break;
     case SOT_UPDATE_ANIME_EPISODE_EPISODE:
@@ -445,6 +474,14 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         calcAnimeTag3(episode.aid, episode.sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
+    }
+        break;
+    case SOT_DELETE_ANIME_RECENT:
+    {
+        cmd = QString("DELETE FROM `%2` WHERE id=%1").arg(var.toInt()).arg(TABLE_ANIME_RECENT);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_DELETE_ANIME_RECENT, QVariant());
     }
         break;
     default:
@@ -629,4 +666,44 @@ void SqlThread::calcAnimeTag3(int aid, int sid)
     //更新动漫
     cmd = QString("UPDATE `%3` SET tag3 = %1 WHERE aid = %2").arg(count_tag3>0?1:0).arg(aid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
+}
+
+///更新最近观看
+void SqlThread::calcAnimeRecent(int aid, int sid)
+{
+    QString cmd;
+
+    bool need {false};  //是否插入记录
+    cmd = QString("SELECT count(*) FROM `%1`").arg(TABLE_ANIME_RECENT);
+    mQuery.exec(cmd);
+    mQuery.next();
+    int count_recent = mQuery.value(0).toInt();
+    if(count_recent == 0)
+    {   //无记录，直接插入
+        need = true;
+    }
+    else
+    {   //有记录
+        cmd = QString("SELECT sid FROM `%1` WHERE id=(SELECT MAX(id) FROM `%1`)").arg(TABLE_ANIME_RECENT);
+        mQuery.exec(cmd);
+        mQuery.next();
+        int sid_pre = mQuery.value(0).toInt();
+        if(sid_pre != sid)
+        {   //与上一条不同才插入
+            need = true;
+        }
+    }
+
+    if(need)
+    {
+        //查看动漫季显示、名称
+        cmd = QString("SELECT display,name FROM `%2` WHERE sid=%1").arg(sid).arg(TABLE_ANIME_SEASON);
+        mQuery.exec(cmd);
+        mQuery.next();
+        int display = mQuery.value(0).toInt();
+        QString name = mQuery.value(1).toString();
+        //插入
+        cmd = QString("INSERT INTO `%4` (aid,sid,name,display) VALUES (%1,%2,'%5',%3)").arg(aid).arg(sid).arg(display).arg(TABLE_ANIME_RECENT, name);
+        mQuery.exec(cmd);
+    }
 }
