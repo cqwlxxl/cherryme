@@ -160,7 +160,7 @@ CREATE TABLE `television_episode` (
   `eid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
-  `episode` int(11) NOT NULL DEFAULT '0',
+  `episode` tinytext NOT NULL,
   `title` text NOT NULL,
   `see` tinyint(4) NOT NULL DEFAULT '0',
   `tag1` tinyint(4) NOT NULL DEFAULT '0',

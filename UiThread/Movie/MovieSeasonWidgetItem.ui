@@ -230,10 +230,10 @@
           </property>
           <property name="icon">
            <iconset resource="../../Resource.qrc">
-            <normaloff>:/File/img/star_check_enable.png</normaloff>
-            <normalon>:/File/img/star_uncheck_enable.png</normalon>
-            <disabledoff>:/File/img/star_check_enable.png</disabledoff>
-            <disabledon>:/File/img/star_uncheck_enable.png</disabledon>:/File/img/star_check_enable.png</iconset>
+            <normaloff>:/File/img/star_uncheck_enable.png</normaloff>
+            <normalon>:/File/img/star_check_enable.png</normalon>
+            <disabledoff>:/File/img/star_uncheck_enable.png</disabledoff>
+            <disabledon>:/File/img/star_check_enable.png</disabledon>:/File/img/star_uncheck_enable.png</iconset>
           </property>
           <property name="iconSize">
            <size>
