@@ -19,7 +19,7 @@ private:
     Ui::AnimeSeasonNewDialog *ui;
 
 public:
-    void Hi(int aid);  //显示
+    void Hi(int pid);  //显示
 
 private slots:
     void on_pushButton_Ok_clicked();    //新增动漫季
@@ -28,7 +28,7 @@ private slots:
     void on_checkBox_CollectIt_clicked(bool checked);           //要收藏
 
 private:
-    int     mAid {0};
+    int     mPid {0};
 };
 
 #endif // ANIMESEASONNEWDIALOG_H

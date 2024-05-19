@@ -54,7 +54,7 @@ enum SqlOperateType
 struct AnimeData
 {
     //MySQL中，ALL int
-    int     aid {0};            //aid
+    int     pid {0};            //pid
     QString name;               //名称
     QString keywords;           //关键词
     bool    see {false};        //看完
@@ -72,7 +72,7 @@ struct AnimeData
 struct AnimeSeasonData
 {
     int     sid {0};                    //sid
-    int     aid {0};                    //aid
+    int     pid {0};                    //pid
     QString name;                       //名称
     QDate   release_date;               //发布日期
     bool    release_date_valid {false}; //发布日期是否有效
@@ -90,7 +90,7 @@ struct AnimeSeasonData
 struct AnimeEpisodeData
 {
     int     eid {0};        //eid
-    int     aid {0};        //aid
+    int     pid {0};        //pid
     int     sid {0};        //sid
     QString episode {"XX"}; //话序号
     QString title;          //标题
@@ -103,7 +103,7 @@ struct AnimeEpisodeData
 struct AnimeRecentData
 {
     int     id {0};             //id
-    int     aid {0};            //aid
+    int     pid {0};            //pid
     int     sid {0};            //sid
     QString name;               //季度名称
     bool    display {false};    //可见

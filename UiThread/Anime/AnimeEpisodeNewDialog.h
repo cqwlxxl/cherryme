@@ -19,7 +19,7 @@ private:
     Ui::AnimeEpisodeNewDialog *ui;
 
 public:
-    void Hi(int aid, int sid);  //显示
+    void Hi(int pid, int sid);  //显示
 
 private slots:
     void on_pushButton_Ok_clicked();        //新增话
@@ -36,7 +36,7 @@ private:
     void updateEpisodePreview();    //更新话序号预览
 
 private:
-    int     mAid {0};
+    int     mPid {0};
     int     mSid {0};
     int     mEpCount {12};          //话数
     QString mEpFormat {"[%ep%]"};   //格式

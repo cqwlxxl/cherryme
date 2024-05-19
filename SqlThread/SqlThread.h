@@ -24,14 +24,14 @@ public slots:
 private:
     bool login();   //登录
     bool logout();  //注销
-    void calcAnimeSee(int aid, int sid);    //计算进度
-    void calcAnimeSee(int aid);             //计算进度，季变化
-    void calcAnimePoint(int aid);           //计算评分
-    void calcAnimeCollect(int aid);         //计算收藏
-    void calcAnimeTag1(int aid, int sid);   //计算tag1
-    void calcAnimeTag2(int aid, int sid);   //计算tag2
-    void calcAnimeTag3(int aid, int sid);   //计算tag3
-    void calcAnimeRecent(int aid, int sid); //更新最近观看
+    void calcAnimeSee(int pid, int sid);    //计算进度
+    void calcAnimeSee(int pid);             //计算进度，季变化
+    void calcAnimePoint(int pid);           //计算评分
+    void calcAnimeCollect(int pid);         //计算收藏
+    void calcAnimeTag1(int pid, int sid);   //计算tag1
+    void calcAnimeTag2(int pid, int sid);   //计算tag2
+    void calcAnimeTag3(int pid, int sid);   //计算tag3
+    void calcAnimeRecent(int pid, int sid); //更新最近观看
 
 private:
     QSqlDatabase        mDB;    //数据库

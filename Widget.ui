@@ -43,12 +43,12 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="hLayout_BarAA">
+          <layout class="QHBoxLayout" name="hLayout_BarAP">
            <property name="spacing">
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarAAidText">
+            <widget class="QLabel" name="label_BarA_PidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -68,7 +68,7 @@
 }</string>
              </property>
              <property name="text">
-              <string notr="true">AID</string>
+              <string notr="true">PID</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -76,7 +76,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarAAid">
+            <widget class="QLabel" name="label_BarA_Pid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -113,7 +113,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarASidText">
+            <widget class="QLabel" name="label_BarA_SidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -141,7 +141,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarASid">
+            <widget class="QLabel" name="label_BarA_Sid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -178,7 +178,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_BarAEidText">
+            <widget class="QLabel" name="label_BarA_EidText">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -206,7 +206,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_BarAEid">
+            <widget class="QLabel" name="label_BarA_Eid">
              <property name="minimumSize">
               <size>
                <width>40</width>
@@ -281,7 +281,7 @@
 }</string>
              </property>
              <property name="text">
-              <string notr="true">当前已锁定显示AID(), SID()</string>
+              <string notr="true">当前已锁定显示PID(), SID()</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -1141,12 +1141,12 @@ QLabel:hover
        <item>
         <layout class="QHBoxLayout" name="hLayout_ListWidgetAnime">
          <item>
-          <layout class="QVBoxLayout" name="vLayout_AA">
+          <layout class="QVBoxLayout" name="vLayout_AP">
            <item>
-            <widget class="QListWidget" name="listWidget_Anime_Anime"/>
+            <widget class="QListWidget" name="listWidget_AP"/>
            </item>
            <item>
-            <widget class="QWidget" name="widget_AA_Op" native="true">
+            <widget class="QWidget" name="widget_AP_Op" native="true">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -1167,7 +1167,7 @@ QLabel:hover
                <number>0</number>
               </property>
               <item>
-               <widget class="QPushButton" name="pushButton_AA_PrePage">
+               <widget class="QPushButton" name="pushButton_AP_PrePage">
                 <property name="minimumSize">
                  <size>
                   <width>24</width>
@@ -1186,7 +1186,7 @@ QLabel:hover
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_AA_Page">
+               <widget class="QLineEdit" name="lineEdit_AP_Page">
                 <property name="maximumSize">
                  <size>
                   <width>40</width>
@@ -1199,14 +1199,14 @@ QLabel:hover
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="label_AA_PageTotal">
+               <widget class="QLabel" name="label_AP_PageTotal">
                 <property name="text">
                  <string notr="true">/0</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_AA_NextPage">
+               <widget class="QPushButton" name="pushButton_AP_NextPage">
                 <property name="minimumSize">
                  <size>
                   <width>24</width>
@@ -1232,7 +1232,7 @@ QLabel:hover
                </widget>
               </item>
               <item>
-               <spacer name="hSpacer_AA_Op">
+               <spacer name="hSpacer_AP_Op">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1245,7 +1245,7 @@ QLabel:hover
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_AA_New">
+               <widget class="QPushButton" name="pushButton_AP_New">
                 <property name="minimumSize">
                  <size>
                   <width>24</width>
@@ -1264,7 +1264,7 @@ QLabel:hover
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_AA_Delete">
+               <widget class="QPushButton" name="pushButton_AP_Delete">
                 <property name="minimumSize">
                  <size>
                   <width>24</width>
@@ -1290,7 +1290,7 @@ QLabel:hover
          <item>
           <layout class="QVBoxLayout" name="vLayout_AS">
            <item>
-            <widget class="QListWidget" name="listWidget_Anime_Season"/>
+            <widget class="QListWidget" name="listWidget_AS"/>
            </item>
            <item>
             <widget class="QWidget" name="widget_AS_Op" native="true">
@@ -1437,7 +1437,7 @@ QLabel:hover
          <item>
           <layout class="QVBoxLayout" name="vLayout_AE">
            <item>
-            <widget class="QListWidget" name="listWidget_Anime_Ep"/>
+            <widget class="QListWidget" name="listWidget_AE"/>
            </item>
            <item>
             <widget class="QWidget" name="widget_AE_Op" native="true">
@@ -1620,12 +1620,12 @@ QLabel:hover
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_AA">
+         <widget class="QWidget" name="page_AP">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <layout class="QHBoxLayout" name="hLayout_AA_Name">
+            <layout class="QHBoxLayout" name="hLayout_AP_Name">
              <item>
-              <widget class="QLabel" name="label_AA_Name">
+              <widget class="QLabel" name="label_AP_Name">
                <property name="minimumSize">
                 <size>
                  <width>40</width>
@@ -1647,14 +1647,14 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_AA_Name">
+              <widget class="QLineEdit" name="lineEdit_AP_Name">
                <property name="clearButtonEnabled">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_AA_NaneOk">
+              <widget class="QPushButton" name="pushButton_AP_NaneOk">
                <property name="minimumSize">
                 <size>
                  <width>24</width>
@@ -1673,7 +1673,7 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_AA_Display">
+              <widget class="QCheckBox" name="checkBox_AP_Display">
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
                </property>
@@ -1695,9 +1695,9 @@ QLabel:hover
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="hLayout_AA_Keywords">
+            <layout class="QHBoxLayout" name="hLayout_AP_Keywords">
              <item>
-              <widget class="QLabel" name="label_AA_Keyword">
+              <widget class="QLabel" name="label_AP_Keyword">
                <property name="minimumSize">
                 <size>
                  <width>40</width>
@@ -1719,14 +1719,14 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_AA_Keyword">
+              <widget class="QLineEdit" name="lineEdit_AP_Keyword">
                <property name="clearButtonEnabled">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_AA_KeywordsOk">
+              <widget class="QPushButton" name="pushButton_AP_KeywordsOk">
                <property name="minimumSize">
                 <size>
                  <width>24</width>
@@ -1747,7 +1747,7 @@ QLabel:hover
             </layout>
            </item>
            <item>
-            <spacer name="vSpacer_AA">
+            <spacer name="vSpacer_AP">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -1826,7 +1826,7 @@ QLabel:hover
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="hLayout_Collect">
+            <layout class="QHBoxLayout" name="hLayout_AS_Collect">
              <item>
               <widget class="QLabel" name="label_AS_ReleaseDate">
                <property name="text">

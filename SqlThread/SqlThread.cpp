@@ -40,9 +40,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         int pagesize = 20;
         int page = strs[0].toInt();
         int offset = (page-1)*pagesize;
-        cmd = QString("SELECT aid, name, keywords, see, see_season, "
-                      "total_season, zhuifan, collect, point, display, "
-                      "tag1, tag2, tag3 FROM `%1`").arg(TABLE_ANIME_IP);
+        cmd = QString("SELECT pid,name,keywords,see,see_season,"
+                      "total_season,zhuifan,collect,point,display,"
+                      "tag1,tag2,tag3 FROM `%1`").arg(TABLE_ANIME_IP);
         if(!strs[1].isEmpty())
         {
             cmd += strs[1];
@@ -54,7 +54,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
             while(mQuery.next())
             {
                 AnimeData anime;
-                anime.aid = mQuery.value(0).toInt();
+                anime.pid = mQuery.value(0).toInt();
                 anime.name = mQuery.value(1).toString();
                 anime.keywords = mQuery.value(2).toString();
                 anime.see = (mQuery.value(3).toInt() == 1);
@@ -95,13 +95,13 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         bool limit = var.toBool();
         QList<AnimeRecentData> recents;
-        cmd = QString("SELECT id,aid,sid,name,display FROM `%1`%2 ORDER BY id DESC LIMIT 7").arg(TABLE_ANIME_RECENT, limit?" WHERE display=1":"");
+        cmd = QString("SELECT id,pid,sid,name,display FROM `%1`%2 ORDER BY id DESC LIMIT 7").arg(TABLE_ANIME_RECENT, limit?" WHERE display=1":"");
         mQuery.exec(cmd);
         while(mQuery.next())
         {
             AnimeRecentData recent;
             recent.id = mQuery.value(0).toInt();
-            recent.aid = mQuery.value(1).toInt();
+            recent.pid = mQuery.value(1).toInt();
             recent.sid = mQuery.value(2).toInt();
             recent.name = mQuery.value(3).toString();
             recent.display = (mQuery.value(4).toInt()==1);
@@ -121,9 +121,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         int page = strs[1].toInt();
         int offset = (page-1)*pagesize;
         bool limit = (strs[2].toInt() == 1);
-        cmd = QString("SELECT sid, aid, name, release_date, see, "
-                      "see_episode, total_episode, collect, point, display, "
-                      "tag1, tag2, tag3 FROM `%2` WHERE aid = %1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
+        cmd = QString("SELECT sid,pid,name,release_date,see,"
+                      "see_episode,total_episode,collect,point,display,"
+                      "tag1,tag2,tag3 FROM `%2` WHERE pid=%1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
         if(sid != -1)
         {   //最近模式
             cmd += QString(" AND sid=%1").arg(sid);
@@ -140,7 +140,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
             {
                 AnimeSeasonData season;
                 season.sid = mQuery.value(0).toInt();
-                season.aid = mQuery.value(1).toInt();
+                season.pid = mQuery.value(1).toInt();
                 season.name = mQuery.value(2).toString();
                 season.release_date_valid = !((mQuery.value(3).toString() == "0000-00-00") || (mQuery.value(3).toString() == ""));
                 season.release_date = season.release_date_valid ? QDate::fromString(mQuery.value(3).toString(), "yyyy-MM-dd") : QDate::currentDate();
@@ -160,7 +160,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
             sendVar.setValue(seasons);
             emit SIGNALSendQueryData(SOT_GET_ANIME_SEASON, sendVar);
         }
-        cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
+        cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
         if(limit)
         {
             cmd += " AND display = 1";
@@ -183,8 +183,8 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         int pagesize = 24;
         int page = strs[2].toInt();
         int offset = (page-1)*pagesize;
-        cmd = QString("SELECT eid, aid, sid, episode, title, "
-                      "see, tag1, tag2, tag3 FROM `%3` WHERE aid = %4 AND sid = %5 LIMIT %1, %2").arg(offset).arg(pagesize)
+        cmd = QString("SELECT eid,pid,sid,episode,title,"
+                      "see,tag1,tag2,tag3 FROM `%3` WHERE pid=%4 AND sid=%5 LIMIT %1,%2").arg(offset).arg(pagesize)
                 .arg(TABLE_ANIME_EPISODE, strs[0], strs[1]);
         if(mQuery.exec(cmd))
         {
@@ -193,7 +193,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
             {
                 AnimeEpisodeData ep;
                 ep.eid = mQuery.value(0).toInt();
-                ep.aid = mQuery.value(1).toInt();
+                ep.pid = mQuery.value(1).toInt();
                 ep.sid = mQuery.value(2).toInt();
                 ep.episode = mQuery.value(3).toString();
                 ep.title = mQuery.value(4).toString();
@@ -207,7 +207,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
             sendVar.setValue(eps);
             emit SIGNALSendQueryData(SOT_GET_ANIME_EPISODE, sendVar);
         }
-        cmd = QString("SELECT count(*) FROM `%1` WHERE aid = %2 AND sid = %3").arg(TABLE_ANIME_EPISODE, strs[0], strs[1]);
+        cmd = QString("SELECT count(*) FROM `%1` WHERE pid=%2 AND sid=%3").arg(TABLE_ANIME_EPISODE, strs[0], strs[1]);
         mQuery.exec(cmd);
         mQuery.next();
         int total = mQuery.value(0).toInt();
@@ -224,7 +224,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeData anime = var.value<AnimeData>();
         anime.name.replace("'", "''");
-        cmd = QString("UPDATE `%2` SET name = '%3' WHERE aid = %1").arg(anime.aid).arg(TABLE_ANIME_IP, anime.name);
+        cmd = QString("UPDATE `%2` SET name='%3' WHERE pid=%1").arg(anime.pid).arg(TABLE_ANIME_IP, anime.name);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -234,7 +234,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeData anime = var.value<AnimeData>();
         anime.keywords.replace("'", "''");
-        cmd = QString("UPDATE `%2` SET keywords = '%3' WHERE aid = %1").arg(anime.aid).arg(TABLE_ANIME_IP, anime.keywords);
+        cmd = QString("UPDATE `%2` SET keywords='%3' WHERE pid=%1").arg(anime.pid).arg(TABLE_ANIME_IP, anime.keywords);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -243,7 +243,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_ANIME_ZHUIFAN:
     {
         AnimeData anime = var.value<AnimeData>();
-        cmd = QString("UPDATE `%3` SET zhuifan = %1 WHERE aid = %2").arg(anime.zhuifan?1:0).arg(anime.aid).arg(TABLE_ANIME_IP);
+        cmd = QString("UPDATE `%3` SET zhuifan=%1 WHERE pid=%2").arg(anime.zhuifan?1:0).arg(anime.pid).arg(TABLE_ANIME_IP);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -252,7 +252,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_ANIME_DISPLAY:
     {
         AnimeData anime = var.value<AnimeData>();
-        cmd = QString("UPDATE `%3` SET display = %1 WHERE aid = %2").arg(anime.display?1:0).arg(anime.aid).arg(TABLE_ANIME_IP);
+        cmd = QString("UPDATE `%3` SET display=%1 WHERE pid=%2").arg(anime.display?1:0).arg(anime.pid).arg(TABLE_ANIME_IP);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -264,7 +264,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("UPDATE `%3` SET collect = %1 WHERE sid = %2").arg(season.collect).arg(season.sid).arg(TABLE_ANIME_SEASON);
         mQuery.exec(cmd);
 
-        calcAnimeCollect(season.aid);
+        calcAnimeCollect(season.pid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -299,7 +299,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("UPDATE `%3` SET point = %1 WHERE sid = %2").arg(season.point).arg(season.sid).arg(TABLE_ANIME_SEASON);
         mQuery.exec(cmd);
 
-        calcAnimePoint(season.aid);
+        calcAnimePoint(season.pid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -319,8 +319,8 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("UPDATE `%3` SET see = %1 WHERE eid = %2").arg(episode.see?1:0).arg(episode.eid).arg(TABLE_ANIME_EPISODE);
         mQuery.exec(cmd);
 
-        calcAnimeSee(episode.aid, episode.sid);
-        calcAnimeRecent(episode.aid, episode.sid);
+        calcAnimeSee(episode.pid, episode.sid);
+        calcAnimeRecent(episode.pid, episode.sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME_EPISODE_SEE, QVariant());
     }
@@ -351,7 +351,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("UPDATE `%3` SET tag1 = %1 WHERE eid = %2").arg(episode.tag1?1:0).arg(episode.eid).arg(TABLE_ANIME_EPISODE);
         mQuery.exec(cmd);
 
-        calcAnimeTag1(episode.aid, episode.sid);
+        calcAnimeTag1(episode.pid, episode.sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -362,7 +362,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("UPDATE `%3` SET tag2 = %1 WHERE eid = %2").arg(episode.tag2?1:0).arg(episode.eid).arg(TABLE_ANIME_EPISODE);
         mQuery.exec(cmd);
 
-        calcAnimeTag2(episode.aid, episode.sid);
+        calcAnimeTag2(episode.pid, episode.sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -373,7 +373,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("UPDATE `%3` SET tag3 = %1 WHERE eid = %2").arg(episode.tag3?1:0).arg(episode.eid).arg(TABLE_ANIME_EPISODE);
         mQuery.exec(cmd);
 
-        calcAnimeTag3(episode.aid, episode.sid);
+        calcAnimeTag3(episode.pid, episode.sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -394,16 +394,16 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
         season.name.replace("'", "''");
-        cmd = QString("INSERT INTO `%1` (aid, name, release_date, see, see_episode, total_episode, collect, point, display, tag1, tag2, tag3)"
-                      " VALUES (%2, '%3', '%4', 0, 0, 0, %5, %6, %7, 0, 0, 0)")
-                .arg(TABLE_ANIME_SEASON, QString::number(season.aid), season.name,
+        cmd = QString("INSERT INTO `%1` (pid,name,release_date,see,see_episode,total_episode,collect,point,display,tag1,tag2,tag3)"
+                      " VALUES (%2,'%3','%4',0,0,0,%5,%6,%7,0,0,0)")
+                .arg(TABLE_ANIME_SEASON, QString::number(season.pid), season.name,
                      season.release_date_valid?season.release_date.toString("yyyy-MM-dd"):"0000-00-00",
                      QString::number(season.collect), QString::number(season.point), season.display?"1":"0");
         mQuery.exec(cmd);
 
-        calcAnimeSee(season.aid);
-        calcAnimePoint(season.aid);
-        calcAnimeCollect(season.aid);
+        calcAnimeSee(season.pid);
+        calcAnimePoint(season.pid);
+        calcAnimeCollect(season.pid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -411,36 +411,36 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_INSERT_ANIME_EPISODE:
     {
         QList<AnimeEpisodeData> eps = var.value<QList<AnimeEpisodeData> >();
-        int aid = eps.first().aid;
+        int pid = eps.first().pid;
         int sid = eps.first().sid;
         cmd.clear();
         foreach(AnimeEpisodeData ep, eps)
         {
-            cmd += QString("INSERT INTO `%6` (aid, sid, episode, title, see, tag1, tag2, tag3)"
-                           " VALUES (%1, %2, '%7', '%8', 0, %3, %4, %5);")
-                    .arg(aid).arg(sid).arg(ep.tag1).arg(ep.tag2).arg(ep.tag3).arg(TABLE_ANIME_EPISODE, ep.episode.replace("'", "''"), ep.title.replace("'", "''"));
+            cmd += QString("INSERT INTO `%6` (pid,sid,episode,title,see,tag1,tag2,tag3)"
+                           " VALUES (%1,%2,'%7','%8',0,%3,%4,%5);")
+                    .arg(pid).arg(sid).arg(ep.tag1).arg(ep.tag2).arg(ep.tag3).arg(TABLE_ANIME_EPISODE, ep.episode.replace("'", "''"), ep.title.replace("'", "''"));
         }
         mDB.transaction();
         mQuery.exec(cmd);
         mDB.commit();
 
-        calcAnimeSee(aid, sid);
-        calcAnimeTag1(aid, sid);
-        calcAnimeTag2(aid, sid);
-        calcAnimeTag3(aid, sid);
+        calcAnimeSee(pid, sid);
+        calcAnimeTag1(pid, sid);
+        calcAnimeTag2(pid, sid);
+        calcAnimeTag3(pid, sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
     case SOT_DELETE_ANIME_ANIME:
     {
-        int aid = var.toInt();
+        int pid = var.toInt();
         //删除关联话
-        cmd = QString("DELETE FROM `%2` WHERE aid = %1;").arg(aid).arg(TABLE_ANIME_EPISODE);
+        cmd = QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_EPISODE);
         //删除关联季
-        cmd += QString("DELETE FROM `%2` WHERE aid = %1;").arg(aid).arg(TABLE_ANIME_SEASON);
+        cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_SEASON);
         //删除动漫
-        cmd += QString("DELETE FROM `%2` WHERE aid = %1;").arg(aid).arg(TABLE_ANIME_IP);
+        cmd += QString("DELETE FROM `%2` WHERE pid=%1;").arg(pid).arg(TABLE_ANIME_IP);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -455,9 +455,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd += QString("DELETE FROM `%2` WHERE sid = %1;").arg(season.sid).arg(TABLE_ANIME_SEASON);
         mQuery.exec(cmd);
 
-        calcAnimeSee(season.aid);
-        calcAnimePoint(season.aid);
-        calcAnimeCollect(season.aid);
+        calcAnimeSee(season.pid);
+        calcAnimePoint(season.pid);
+        calcAnimeCollect(season.pid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -468,10 +468,10 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd = QString("DELETE FROM `%2` WHERE eid = %1").arg(episode.eid).arg(TABLE_ANIME_EPISODE);
         mQuery.exec(cmd);
 
-        calcAnimeSee(episode.aid, episode.sid);
-        calcAnimeTag1(episode.aid, episode.sid);
-        calcAnimeTag2(episode.aid, episode.sid);
-        calcAnimeTag3(episode.aid, episode.sid);
+        calcAnimeSee(episode.pid, episode.sid);
+        calcAnimeTag1(episode.pid, episode.sid);
+        calcAnimeTag2(episode.pid, episode.sid);
+        calcAnimeTag3(episode.pid, episode.sid);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -517,77 +517,77 @@ bool SqlThread::logout()
 }
 
 ///计算话
-void SqlThread::calcAnimeSee(int aid, int sid)
+void SqlThread::calcAnimeSee(int pid, int sid)
 {
     //已看话
-    QString cmd = QString("SELECT count(*) FROM `%3` WHERE aid = %1 AND sid = %2 AND see = 1").arg(aid).arg(sid).arg(TABLE_ANIME_EPISODE);
+    QString cmd = QString("SELECT count(*) FROM `%3` WHERE pid=%1 AND sid=%2 AND see=1").arg(pid).arg(sid).arg(TABLE_ANIME_EPISODE);
     mQuery.exec(cmd);
     mQuery.next();
     int see_ep = mQuery.value(0).toInt();
     //总话
-    cmd = QString("SELECT count(*) FROM `%3` WHERE aid = %1 AND sid = %2").arg(aid).arg(sid).arg(TABLE_ANIME_EPISODE);
+    cmd = QString("SELECT count(*) FROM `%3` WHERE pid=%1 AND sid=%2").arg(pid).arg(sid).arg(TABLE_ANIME_EPISODE);
     mQuery.exec(cmd);
     mQuery.next();
     int ep = mQuery.value(0).toInt();
     //更新季
-    cmd = QString("UPDATE `%6` SET see_episode = %1, total_episode = %2, see = %3 WHERE aid = %4 AND sid = %5")
-            .arg(see_ep).arg(ep).arg(see_ep==ep?1:0).arg(aid).arg(sid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("UPDATE `%6` SET see_episode=%1,total_episode=%2,see=%3 WHERE pid=%4 AND sid=%5")
+            .arg(see_ep).arg(ep).arg(see_ep==ep?1:0).arg(pid).arg(sid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     //已看季
-    cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1 AND see = 1").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND see=1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int see_season = mQuery.value(0).toInt();
     //总季
-    cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int seasea = mQuery.value(0).toInt();
     //更新动漫
-    cmd = QString("UPDATE `%5` SET see_season = %1, total_season = %2, see = %3 WHERE aid = %4").arg(see_season).arg(seasea).arg(see_season==seasea?1:0).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%5` SET see_season=%1,total_season=%2,see=%3 WHERE pid=%4").arg(see_season).arg(seasea).arg(see_season==seasea?1:0).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///计算进度，季变化
-void SqlThread::calcAnimeSee(int aid)
+void SqlThread::calcAnimeSee(int pid)
 {
     //更新动漫表
-    QString cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1 AND see = 1").arg(TABLE_ANIME_SEASON);
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND see=1").arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int see_season = mQuery.value(0).toInt();   //看了的季
-    cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int total_season = mQuery.value(0).toInt(); //总的季
-    cmd = QString("UPDATE `%5` SET see = %1, see_season = %2, total_season = %3 WHERE aid = %4")
-            .arg(see_season==total_season?1:0).arg(see_season).arg(total_season).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%5` SET see=%1,see_season=%2,total_season=%3 WHERE pid=%4")
+            .arg(see_season==total_season?1:0).arg(see_season).arg(total_season).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///计算评分
-void SqlThread::calcAnimePoint(int aid)
+void SqlThread::calcAnimePoint(int pid)
 {
     //查找季最高评分
-    QString cmd = QString("SELECT max(point) FROM `%2` WHERE aid = %1").arg(aid).arg(TABLE_ANIME_SEASON);
+    QString cmd = QString("SELECT max(point) FROM `%2` WHERE pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int max_point = mQuery.value(0).toInt();
     //更新动漫最高评分
-    cmd = QString("UPDATE `%3` SET point = %1 WHERE aid = %2").arg(max_point).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%3` SET point=%1 WHERE pid=%2").arg(max_point).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///计算收藏
-void SqlThread::calcAnimeCollect(int aid)
+void SqlThread::calcAnimeCollect(int pid)
 {
     //查看季要收藏数
-    QString cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1 AND collect = 1").arg(aid).arg(TABLE_ANIME_SEASON);
+    QString cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND collect=1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int count_collect_it = mQuery.value(0).toInt();
     //查看季已收藏数
-    cmd = QString("SELECT count(*) FROM `%2` WHERE aid = %1 AND collect = 2").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1 AND collect=2").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     int count_collect_ok = mQuery.value(0).toInt();
@@ -601,12 +601,12 @@ void SqlThread::calcAnimeCollect(int aid)
     {   //都是已收藏，则标记为已收藏
         collect = 2;
     }
-    cmd = QString("UPDATE `%3` SET collect = %1 WHERE aid = %2").arg(collect).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%3` SET collect=%1 WHERE pid=%2").arg(collect).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///计算tag1
-void SqlThread::calcAnimeTag1(int aid, int sid)
+void SqlThread::calcAnimeTag1(int pid, int sid)
 {
     //话总tag1
     QString cmd = QString("SELECT count(*) FROM `%2` WHERE tag1 = 1 AND sid = %1").arg(sid).arg(TABLE_ANIME_EPISODE);
@@ -617,17 +617,17 @@ void SqlThread::calcAnimeTag1(int aid, int sid)
     cmd = QString("UPDATE `%3` SET tag1 = %1 WHERE sid = %2").arg(count_tag1>0?1:0).arg(sid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     //季总tag1
-    cmd = QString("SELECT count(*) FROM `%2` WHERE tag1 = 1 AND aid = %1").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE tag1=1 AND pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     count_tag1 = mQuery.value(0).toInt();
     //更新动漫
-    cmd = QString("UPDATE `%3` SET tag1 = %1 WHERE aid = %2").arg(count_tag1>0?1:0).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%3` SET tag1=%1 WHERE pid=%2").arg(count_tag1>0?1:0).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///计算tag2
-void SqlThread::calcAnimeTag2(int aid, int sid)
+void SqlThread::calcAnimeTag2(int pid, int sid)
 {
     //话总tag2
     QString cmd = QString("SELECT count(*) FROM `%2` WHERE tag2 = 1 AND sid = %1").arg(sid).arg(TABLE_ANIME_EPISODE);
@@ -638,17 +638,17 @@ void SqlThread::calcAnimeTag2(int aid, int sid)
     cmd = QString("UPDATE `%3` SET tag2 = %1 WHERE sid = %2").arg(count_tag2>0?1:0).arg(sid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     //季总tag2
-    cmd = QString("SELECT count(*) FROM `%2` WHERE tag2 = 1 AND aid = %1").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE tag2=1 AND pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     count_tag2 = mQuery.value(0).toInt();
     //更新动漫
-    cmd = QString("UPDATE `%3` SET tag2 = %1 WHERE aid = %2").arg(count_tag2>0?1:0).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%3` SET tag2=%1 WHERE pid=%2").arg(count_tag2>0?1:0).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///计算tag3
-void SqlThread::calcAnimeTag3(int aid, int sid)
+void SqlThread::calcAnimeTag3(int pid, int sid)
 {
     //话总tag3
     QString cmd = QString("SELECT count(*) FROM `%2` WHERE tag3 = 1 AND sid = %1").arg(sid).arg(TABLE_ANIME_EPISODE);
@@ -659,17 +659,17 @@ void SqlThread::calcAnimeTag3(int aid, int sid)
     cmd = QString("UPDATE `%3` SET tag3 = %1 WHERE sid = %2").arg(count_tag3>0?1:0).arg(sid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     //季总tag3
-    cmd = QString("SELECT count(*) FROM `%2` WHERE tag3 = 1 AND aid = %1").arg(aid).arg(TABLE_ANIME_SEASON);
+    cmd = QString("SELECT count(*) FROM `%2` WHERE tag3=1 AND pid=%1").arg(pid).arg(TABLE_ANIME_SEASON);
     mQuery.exec(cmd);
     mQuery.next();
     count_tag3 = mQuery.value(0).toInt();
     //更新动漫
-    cmd = QString("UPDATE `%3` SET tag3 = %1 WHERE aid = %2").arg(count_tag3>0?1:0).arg(aid).arg(TABLE_ANIME_IP);
+    cmd = QString("UPDATE `%3` SET tag3=%1 WHERE pid=%2").arg(count_tag3>0?1:0).arg(pid).arg(TABLE_ANIME_IP);
     mQuery.exec(cmd);
 }
 
 ///更新最近观看
-void SqlThread::calcAnimeRecent(int aid, int sid)
+void SqlThread::calcAnimeRecent(int pid, int sid)
 {
     QString cmd;
 
@@ -703,7 +703,7 @@ void SqlThread::calcAnimeRecent(int aid, int sid)
         int display = mQuery.value(0).toInt();
         QString name = mQuery.value(1).toString();
         //插入
-        cmd = QString("INSERT INTO `%4` (aid,sid,name,display) VALUES (%1,%2,'%5',%3)").arg(aid).arg(sid).arg(display).arg(TABLE_ANIME_RECENT, name);
+        cmd = QString("INSERT INTO `%4` (pid,sid,name,display) VALUES (%1,%2,'%5',%3)").arg(pid).arg(sid).arg(display).arg(TABLE_ANIME_RECENT, name);
         mQuery.exec(cmd);
     }
 }

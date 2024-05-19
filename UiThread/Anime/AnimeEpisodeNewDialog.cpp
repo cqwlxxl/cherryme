@@ -23,9 +23,9 @@ AnimeEpisodeNewDialog::~AnimeEpisodeNewDialog()
 }
 
 ///显示
-void AnimeEpisodeNewDialog::Hi(int aid, int sid)
+void AnimeEpisodeNewDialog::Hi(int pid, int sid)
 {
-    mAid = aid;
+    mPid = pid;
     mSid = sid;
     updateEpisodePreview();
     this->exec();
@@ -41,7 +41,7 @@ void AnimeEpisodeNewDialog::on_pushButton_Ok_clicked()
 
     QList<AnimeEpisodeData> eps;
     AnimeEpisodeData ep;
-    ep.aid = mAid;
+    ep.pid = mPid;
     ep.sid = mSid;
     ep.title = ui->lineEdit_Title->text();
     ep.tag1 = ui->checkBox_Tag1->isChecked();
@@ -53,7 +53,7 @@ void AnimeEpisodeNewDialog::on_pushButton_Ok_clicked()
         ep_temp.episode = mEpisodes.at(i);
         eps.append(ep_temp);
     }
-    gIPD.index_anime.a_click = true;
+    gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = true;
     gIPD.index_anime.e_click = false;
     QVariant var_send;

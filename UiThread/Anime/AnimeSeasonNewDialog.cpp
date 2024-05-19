@@ -23,9 +23,9 @@ AnimeSeasonNewDialog::~AnimeSeasonNewDialog()
 }
 
 ///显示
-void AnimeSeasonNewDialog::Hi(int aid)
+void AnimeSeasonNewDialog::Hi(int pid)
 {
-    mAid = aid;
+    mPid = pid;
     ui->lineEdit_Name->clear();
     ui->checkBox_Display->setChecked(false);
     ui->checkBox_ReleaseDateEnable->setChecked(false);
@@ -49,7 +49,7 @@ void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
         return;
     }
     AnimeSeasonData season;
-    season.aid = mAid;
+    season.pid = mPid;
     season.name = name;
     season.display = ui->checkBox_Display->isChecked();
     season.release_date_valid = ui->checkBox_ReleaseDateEnable->isChecked();
@@ -68,7 +68,7 @@ void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
         season.collect = 2;
     }
     //
-    gIPD.index_anime.a_click = true;
+    gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = false;
     gIPD.index_anime.e_click = false;
     QVariant var_send;

@@ -35,18 +35,18 @@ struct AnimeEpisodeItemData
 //导航数据
 struct IndexAnimeData
 {
-    int     aid {0};
+    int     pid {0};
     int     sid {0};
     int     eid {0};
-    int     a_row {0};
+    int     p_row {0};
     int     s_row {0};
     int     e_row {0};
-    int     a_pos {0};
+    int     p_pos {0};
     int     s_pos {0};
     int     e_pos {0};
     int     s_page {1};
     int     e_page {1};
-    bool    a_click {false};
+    bool    p_click {false};
     bool    s_click {false};
     bool    e_click {false};
 };
