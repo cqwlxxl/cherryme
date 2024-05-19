@@ -41,7 +41,7 @@ void AnimeSeasonNewDialog::Hi(int aid)
 ///新增动漫季
 void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
 {
-    QString name = ui->lineEdit_Name->text().trimmed().replace("'", "''");
+    QString name = ui->lineEdit_Name->text().trimmed();
     ui->lineEdit_Name->setText(name);
     if(name.isEmpty())
     {

@@ -372,7 +372,7 @@ void Widget::genFindAnimeSql()
             mFindAnimeSql += QString(" AND (point BETWEEN %1 AND %2)").arg(point_min).arg(point_max);
         }
     }
-    QString anime_name = ui->lineEdit_FindAnimeName->text().replace("'", "''");
+    QString anime_name = ui->lineEdit_FindAnimeName->text().trimmed().replace("'", "''");
     if(!anime_name.isEmpty())
     {
         mFindAnimeSql += QString(" AND (name LIKE '%%1%' OR keywords LIKE '%%1%')").arg(anime_name);
@@ -585,7 +585,7 @@ void Widget::on_pushButton_AE_EpisodeOk_clicked()
     ui->lineEdit_AE_Episode->setStyleSheet("");
     ui->pushButton_AE_EpisodeOk->setEnabled(false);
     AnimeEpisodeData episode = gIPD.anime_ep.eps.at(gIPD.index_anime.e_row);
-    episode.episode = ui->lineEdit_AE_Episode->text().replace("'", "''");
+    episode.episode = ui->lineEdit_AE_Episode->text().trimmed();
     QVariant var_send;
     var_send.setValue(episode);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_EPISODE, var_send);
@@ -615,7 +615,7 @@ void Widget::on_pushButton_AE_TitleOk_clicked()
     ui->lineEdit_AE_Title->setStyleSheet("");
     ui->pushButton_AE_TitleOk->setEnabled(false);
     AnimeEpisodeData episode = gIPD.anime_ep.eps.at(gIPD.index_anime.e_row);
-    episode.title = ui->lineEdit_AE_Title->text().replace("'", "''");
+    episode.title = ui->lineEdit_AE_Title->text().trimmed();
     QVariant var_send;
     var_send.setValue(episode);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_TITLE, var_send);
@@ -684,7 +684,7 @@ void Widget::on_pushButton_AS_NaneOk_clicked()
     ui->lineEdit_AS_Name->setStyleSheet("");
     ui->pushButton_AS_NaneOk->setEnabled(false);
     AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
-    season.name = ui->lineEdit_AS_Name->text().replace("'", "''");
+    season.name = ui->lineEdit_AS_Name->text().trimmed();
     QVariant var_send;
     var_send.setValue(season);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_SEASON_NAME, var_send);
@@ -863,7 +863,7 @@ void Widget::on_pushButton_AA_NaneOk_clicked()
     ui->lineEdit_AA_Name->setStyleSheet("");
     ui->pushButton_AA_NaneOk->setEnabled(false);
     AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.a_row);
-    anime.name = ui->lineEdit_AA_Name->text().replace("'", "''");
+    anime.name = ui->lineEdit_AA_Name->text().trimmed();
     QVariant var_send;
     var_send.setValue(anime);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_NAME, var_send);
@@ -893,7 +893,7 @@ void Widget::on_pushButton_AA_KeywordsOk_clicked()
     ui->lineEdit_AA_Keyword->setStyleSheet("");
     ui->pushButton_AA_KeywordsOk->setEnabled(false);
     AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.a_row);
-    anime.keywords = ui->lineEdit_AA_Keyword->text().replace("'", "''");
+    anime.keywords = ui->lineEdit_AA_Keyword->text().trimmed();
     QVariant var_send;
     var_send.setValue(anime);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_KEYWORDS, var_send);

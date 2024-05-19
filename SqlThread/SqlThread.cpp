@@ -195,6 +195,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_ANIME_NAME:
     {
         AnimeData anime = var.value<AnimeData>();
+        anime.name.replace("'", "''");
         cmd = QString("UPDATE `%2` SET name = '%3' WHERE aid = %1").arg(anime.aid).arg(TABLE_ANIME_IP, anime.name);
         mQuery.exec(cmd);
 
@@ -204,6 +205,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_ANIME_KEYWORDS:
     {
         AnimeData anime = var.value<AnimeData>();
+        anime.keywords.replace("'", "''");
         cmd = QString("UPDATE `%2` SET keywords = '%3' WHERE aid = %1").arg(anime.aid).arg(TABLE_ANIME_IP, anime.keywords);
         mQuery.exec(cmd);
 
@@ -242,6 +244,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_SEASON_NAME:
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
+        season.name.replace("'", "''");
         cmd = QString("UPDATE `%2` SET name = '%3' WHERE sid = %1").arg(season.sid).arg(TABLE_ANIME_SEASON, season.name);
         mQuery.exec(cmd);
 
@@ -296,6 +299,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_EPISODE_EPISODE:
     {
         AnimeEpisodeData episode = var.value<AnimeEpisodeData>();
+        episode.episode.replace("'", "''");
         cmd = QString("UPDATE `%2` SET episode = '%3' WHERE eid = %1").arg(episode.eid).arg(TABLE_ANIME_EPISODE, episode.episode);
         mQuery.exec(cmd);
 
@@ -305,6 +309,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_ANIME_EPISODE_TITLE:
     {
         AnimeEpisodeData episode = var.value<AnimeEpisodeData>();
+        episode.title.replace("'", "''");
         cmd = QString("UPDATE `%2` SET title = '%3' WHERE eid = %1").arg(episode.eid).arg(TABLE_ANIME_EPISODE, episode.title);
         mQuery.exec(cmd);
 
@@ -347,6 +352,8 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_INSERT_ANIME_ANIME:
     {
         AnimeData anime = var.value<AnimeData>();
+        anime.name.replace("'", "''");
+        anime.keywords.replace("'", "''");
         cmd = QString("INSERT INTO `%1` (name, keywords, see, see_season, total_season, zhuifan, collect, point, display, tag1, tag2, tag3)"
                       " VALUES ('%2', '%3', 0, 0, 0, %4, 0, 0, %5, 0, 0, 0)").arg(TABLE_ANIME_IP, anime.name, anime.keywords, anime.zhuifan?"1":"0", anime.display?"1":"0");
         mQuery.exec(cmd);
@@ -357,6 +364,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     case SOT_INSERT_ANIME_SEASON:
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
+        season.name.replace("'", "''");
         cmd = QString("INSERT INTO `%1` (aid, name, release_date, see, see_episode, total_episode, collect, point, display, tag1, tag2, tag3)"
                       " VALUES (%2, '%3', '%4', 0, 0, 0, %5, %6, %7, 0, 0, 0)")
                 .arg(TABLE_ANIME_SEASON, QString::number(season.aid), season.name,

@@ -35,8 +35,8 @@ void AnimeAnimeNewDialog::Hi()
 ///确认
 void AnimeAnimeNewDialog::on_pushButton_Ok_clicked()
 {
-    QString name = ui->lineEdit_Name->text().trimmed().replace("'", "''");
-    QString keywords = ui->lineEdit_Keywords->text().trimmed().replace("'", "''");
+    QString name = ui->lineEdit_Name->text().trimmed();
+    QString keywords = ui->lineEdit_Keywords->text().trimmed();
     ui->lineEdit_Name->setText(name);
     ui->lineEdit_Keywords->setText(keywords);
     if(name.isEmpty())
