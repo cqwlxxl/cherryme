@@ -24,7 +24,15 @@ struct MovieRecentModeData
     bool    enable {false}; //启用
     int     pid {0};        //pid
     int     sid {0};        //sid
-    QString name;           //季名称
+    QString name;           //部名称
+};
+
+struct TvRecentModeData
+{
+    bool    enable {false}; //启用
+    int     pid {0};        //pid
+    int     sid {0};        //sid
+    QString name;           //部名称
 };
 
 QT_BEGIN_NAMESPACE
@@ -44,6 +52,7 @@ private slots:
     void slotReceiveQueryData(SqlOperateType operate, QVariant var);    //接收sql结果槽函数
     void slotAnimeEpisodeSee(AnimeEpisodeData episode, int row);        //动漫话看完
     void slotMovieSeasonSee(MovieSeasonData season, int row);           //电影部看完
+    void slotTvEpisodeSee(TvEpisodeData episode, int row);              //电视剧集看完
 
 private slots:
     void on_pushButton_ConnectMysql_clicked(bool checked);    //连接|断开服务器
@@ -128,6 +137,21 @@ private slots:
     void on_checkBox_MS_Tag1_clicked(bool checked);     //电影部tag1提交
     void on_checkBox_MS_Tag2_clicked(bool checked);     //电影部tag2提交
     void on_checkBox_MS_Tag3_clicked(bool checked);     //电影部tag3提交
+    ///tv相关
+    //tv检索
+    void on_pushButton_FindTvReset_clicked();       //重置条件
+    void on_pushButton_FindTv_clicked();            //检索电视剧
+    //tv条目
+    void on_listWidget_TP_itemClicked(QListWidgetItem *item);   //电视剧ip点击
+    void on_listWidget_TS_itemClicked(QListWidgetItem *item);   //电视剧部点击
+    void on_listWidget_TE_itemClicked(QListWidgetItem *item);   //电视剧集点击
+    //tv翻页增删
+    void on_pushButton_TP_PrePage_clicked();    //电视剧ip上一页
+    void on_pushButton_TP_NextPage_clicked();   //电视剧ip下一页
+    void on_pushButton_TS_PrePage_clicked();    //电视剧部上一页
+    void on_pushButton_TS_NextPage_clicked();   //电视剧部下一页
+    void on_pushButton_TE_PrePage_clicked();    //电视剧集上一页
+    void on_pushButton_TE_NextPage_clicked();   //电视剧集下一页
 
 private:
     void qian();    //init
@@ -148,6 +172,12 @@ private:
     void setMovieRecentLabel();     //设置最近观看
     void showMovieRecent(int index);    //显示最近观看
     void closeMovieRecent(int index);   //关闭最近观看
+    //tv
+    void getTvIp(int page);         //获取电视剧ip
+    void getTvSeason(int page);     //获取电视剧部
+    void getTvEpisode(int page);    //获取电视剧集
+    void showBarTvId(int what); //显示电视剧id条
+    void genFindTvSql();        //更新查找电视剧条件
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event);  //事件过滤
@@ -160,15 +190,18 @@ private:
     bool    mLimit {true};
     AnimeRecentModeData mAnimeRecentMode;
     MovieRecentModeData mMovieRecentMode;
-    QPair<int, int>     mAnimeRecentIds;    //最近模式pid和sid
-    int                 mMovieRecentIds;    //最近模式pid
+    TvRecentModeData    mTvRecentMode;
     int     mAPPageTotal {0};
     int     mASPageTotal {0};
     int     mAEPageTotal {0};
     int     mMPPageTotal {0};
     int     mMSPageTotal {0};
+    int     mTPPageTotal {0};
+    int     mTSPageTotal {0};
+    int     mTEPageTotal {0};
     QString mFindAnimeSql;
     QString mFindMovieSql;
+    QString mFindTvSql;
     AnimeIpNewDialog        *mAnimeIpNewDialog {nullptr};
     AnimeSeasonNewDialog    *mAnimeSeasonNewDialog {nullptr};
     AnimeEpisodeNewDialog   *mAnimeEpisodeNewDialog {nullptr};
@@ -178,5 +211,6 @@ private:
     QList<QPair<QLabel *, QLabel *> >   mMovieRecentLabels;
     QList<AnimeRecentData>  mAnimeRecents;
     QList<MovieRecentData>  mMovieRecents;
+    QList<TvRecentData>     mTvRecents;
 };
 #endif // WIDGET_H

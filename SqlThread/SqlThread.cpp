@@ -10,6 +10,9 @@ Q_DECLARE_METATYPE(AnimeRecentData)
 Q_DECLARE_METATYPE(MovieIpData)
 Q_DECLARE_METATYPE(MovieSeasonData)
 Q_DECLARE_METATYPE(MovieRecentData)
+Q_DECLARE_METATYPE(TvIpData)
+Q_DECLARE_METATYPE(TvSeasonData)
+Q_DECLARE_METATYPE(TvEpisodeData)
 
 SqlThread::SqlThread(QObject *parent)
     : QObject{parent}
@@ -804,6 +807,170 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_DELETE_MOVIE_RECENT, QVariant());
+    }
+        break;
+    case SOT_SELECT_TV_IP:
+    {
+        QStringList strs = var.toStringList();
+        int page_size = 20;
+        int page = strs[0].toInt();
+        int offset = (page-1)*page_size;
+        cmd = QString("SELECT pid,name,keywords,see,see_season,"
+                      "total_season,zhuiju,collect,point,display,"
+                      "tag1,tag2,tag3 FROM `%1`").arg(TABLE_TV_IP);
+        if(!strs[1].isEmpty())
+        {
+            cmd += strs[1];
+        }
+        cmd += QString(" ORDER BY CONVERT(name using gbk) LIMIT %1,%2").arg(offset).arg(page_size);
+        if(mQuery.exec(cmd))
+        {
+            QList<TvIpData> ips;
+            while(mQuery.next())
+            {
+                TvIpData ip;
+                ip.pid = mQuery.value(0).toInt();
+                ip.name = mQuery.value(1).toString();
+                ip.keywords = mQuery.value(2).toString();
+                ip.see = (mQuery.value(3).toInt() == 1);
+                ip.see_season = mQuery.value(4).toInt();
+                ip.total_season = mQuery.value(5).toInt();
+                ip.zhuiju = (mQuery.value(6).toInt() == 1);
+                ip.collect = mQuery.value(7).toInt();
+                ip.point = mQuery.value(8).toInt();
+                ip.display = (mQuery.value(9).toInt() == 1);
+                ip.tag1 = (mQuery.value(10).toInt() == 1);
+                ip.tag2 = (mQuery.value(11).toInt() == 1);
+                ip.tag3 = (mQuery.value(12).toInt() == 1);
+                ips.append(ip);
+            }
+
+            QVariant sendVar;
+            sendVar.setValue(ips);
+            emit SIGNALSendQueryData(SOT_SELECT_TV_IP, sendVar);
+        }
+        cmd = QString("SELECT count(*) FROM `%1`").arg(TABLE_TV_IP);
+        if(!strs[1].isEmpty())
+        {
+            cmd += strs[1];
+        }
+        mQuery.exec(cmd);
+        mQuery.next();
+        int total = mQuery.value(0).toInt();
+        int total_page = qCeil(total/(double)page_size);
+
+        QStringList strs_send;
+        strs_send << QString::number(page)
+                  << QString::number(total_page)
+                  << QString::number(total);
+        emit SIGNALSendQueryData(SOT_INFO_TV_IP_PAGE, strs_send);
+    }
+        break;
+    case SOT_SELECT_TV_SEASON:
+    {
+        QStringList strs = var.toStringList();
+        int sid = strs[3].toInt();
+        int page_size = 20;
+        int page = strs[1].toInt();
+        int offset = (page-1)*page_size;
+        bool limit = (strs[2].toInt() == 1);
+        cmd = QString("SELECT sid,pid,name,release_date,see,"
+                      "see_episode,total_episode,collect,point,display,"
+                      "tag1,tag2,tag3 FROM `%1` WHERE pid=%2").arg(TABLE_TV_SEASON, strs[0]);
+        if(sid != -1)
+        {   //最近模式
+            cmd += QString(" AND sid=%1").arg(sid);
+        }
+        if(limit)
+        {
+            cmd += " AND display=1";
+        }
+        cmd += QString(" LIMIT %1,%2").arg(offset).arg(page_size);
+        if(mQuery.exec(cmd))
+        {
+            QList<TvSeasonData> seasons;
+            while(mQuery.next())
+            {
+                TvSeasonData season;
+                season.sid = mQuery.value(0).toInt();
+                season.pid = mQuery.value(1).toInt();
+                season.name = mQuery.value(2).toString();
+                season.release_date_valid = !((mQuery.value(3).toString() == "0000-00-00") || (mQuery.value(3).toString() == ""));
+                season.release_date = season.release_date_valid ? QDate::fromString(mQuery.value(3).toString(), "yyyy-MM-dd") : QDate::currentDate();
+                season.see = (mQuery.value(4).toInt() == 1);
+                season.see_episode = mQuery.value(5).toInt();
+                season.total_episode = mQuery.value(6).toInt();
+                season.collect = mQuery.value(7).toInt();
+                season.point = mQuery.value(8).toInt();
+                season.display = (mQuery.value(9).toInt() == 1);
+                season.tag1 = (mQuery.value(10).toInt() == 1);
+                season.tag2 = (mQuery.value(11).toInt() == 1);
+                season.tag3 = (mQuery.value(12).toInt() == 1);
+                seasons.append(season);
+            }
+
+            QVariant send_var;
+            send_var.setValue(seasons);
+            emit SIGNALSendQueryData(SOT_SELECT_TV_SEASON, send_var);
+        }
+        cmd = QString("SELECT count(*) FROM `%1` WHERE pid=%2").arg(TABLE_TV_SEASON, strs[0]);
+        if(limit)
+        {
+            cmd += " AND display = 1";
+        }
+        mQuery.exec(cmd);
+        mQuery.next();
+        int total = mQuery.value(0).toInt();
+        int total_page = qCeil(total/(double)page_size);
+
+        QStringList strs_send;
+        strs_send << QString::number(page)
+                  << QString::number(total_page)
+                  << QString::number(total);
+        emit SIGNALSendQueryData(SOT_INFO_TV_SEASON_PAGE, strs_send);
+    }
+        break;
+    case SOT_SELECT_TV_EPISODE:
+    {
+        QStringList strs = var.toStringList();
+        int pagesize = 24;
+        int page = strs[2].toInt();
+        int offset = (page-1)*pagesize;
+        cmd = QString("SELECT eid,pid,sid,episode,title,"
+                      "see,tag1,tag2,tag3 FROM `%3` WHERE pid=%4 AND sid=%5 LIMIT %1,%2").arg(offset).arg(pagesize)
+                  .arg(TABLE_TV_EPISODE, strs[0], strs[1]);
+        if(mQuery.exec(cmd))
+        {
+            QList<TvEpisodeData> eps;
+            while(mQuery.next())
+            {
+                TvEpisodeData ep;
+                ep.eid = mQuery.value(0).toInt();
+                ep.pid = mQuery.value(1).toInt();
+                ep.sid = mQuery.value(2).toInt();
+                ep.episode = mQuery.value(3).toString();
+                ep.title = mQuery.value(4).toString();
+                ep.see = (mQuery.value(5).toInt() == 1);
+                ep.tag1 = (mQuery.value(6).toInt() == 1);
+                ep.tag2 = (mQuery.value(7).toInt() == 1);
+                ep.tag3 = (mQuery.value(8).toInt() == 1);
+                eps.append(ep);
+            }
+            QVariant sendVar;
+            sendVar.setValue(eps);
+            emit SIGNALSendQueryData(SOT_SELECT_TV_EPISODE, sendVar);
+        }
+        cmd = QString("SELECT count(*) FROM `%1` WHERE pid=%2 AND sid=%3").arg(TABLE_TV_EPISODE, strs[0], strs[1]);
+        mQuery.exec(cmd);
+        mQuery.next();
+        int total = mQuery.value(0).toInt();
+        int total_page = qCeil(total/(double)pagesize);
+
+        QStringList strs_send;
+        strs_send << QString::number(page)
+                  << QString::number(total_page)
+                  << QString::number(total);
+        emit SIGNALSendQueryData(SOT_INFO_TV_EPISODE_PAGE, strs_send);
     }
         break;
     default:

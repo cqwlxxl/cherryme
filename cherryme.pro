@@ -21,6 +21,9 @@ SOURCES += \
     UiThread/Movie/MovieIpWidgetItem.cpp \
     UiThread/Movie/MovieSeasonNewDialog.cpp \
     UiThread/Movie/MovieSeasonWidgetItem.cpp \
+    UiThread/Television/TvEpisodeWidgetItem.cpp \
+    UiThread/Television/TvIpWidgetItem.cpp \
+    UiThread/Television/TvSeasonWidgetItem.cpp \
     main.cpp \
     Widget.cpp
 
@@ -39,6 +42,9 @@ HEADERS += \
     UiThread/Movie/MovieIpWidgetItem.h \
     UiThread/Movie/MovieSeasonNewDialog.h \
     UiThread/Movie/MovieSeasonWidgetItem.h \
+    UiThread/Television/TvEpisodeWidgetItem.h \
+    UiThread/Television/TvIpWidgetItem.h \
+    UiThread/Television/TvSeasonWidgetItem.h \
     Widget.h
 
 FORMS += \
@@ -52,6 +58,9 @@ FORMS += \
     UiThread/Movie/MovieIpWidgetItem.ui \
     UiThread/Movie/MovieSeasonNewDialog.ui \
     UiThread/Movie/MovieSeasonWidgetItem.ui \
+    UiThread/Television/TvEpisodeWidgetItem.ui \
+    UiThread/Television/TvIpWidgetItem.ui \
+    UiThread/Television/TvSeasonWidgetItem.ui \
     Widget.ui
 
 TRANSLATIONS += \

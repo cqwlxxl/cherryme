@@ -5,8 +5,6 @@
 #include <QScrollBar>
 #include <QTimer>
 
-#include "UiThread/Anime/AnimeIpWidgetItem.h"
-
 Q_DECLARE_METATYPE(AnimeIpData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
 Q_DECLARE_METATYPE(AnimeEpisodeData)
@@ -14,6 +12,9 @@ Q_DECLARE_METATYPE(AnimeRecentData)
 Q_DECLARE_METATYPE(MovieIpData)
 Q_DECLARE_METATYPE(MovieSeasonData)
 Q_DECLARE_METATYPE(MovieRecentData)
+Q_DECLARE_METATYPE(TvIpData)
+Q_DECLARE_METATYPE(TvSeasonData)
+Q_DECLARE_METATYPE(TvEpisodeData)
 
 PublicUseData   gPUD;
 
@@ -58,6 +59,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
             on_pushButton_FindMovie_clicked();
+            on_pushButton_FindTv_clicked();
         }
         else
         {   //断开服务器
@@ -73,6 +75,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             setMovieRecentLabel();
             showBarAnimeId(-1);
             showBarMovieId(-1);
+            showBarTvId(-1);
             ui->listWidget_AP->clear();
             ui->listWidget_AS->clear();
             ui->listWidget_AE->clear();
@@ -370,6 +373,162 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     case SOT_DELETE_MOVIE_RECENT:
         emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
         break;
+    case SOT_SELECT_TV_IP:
+    {
+        gIPD.tv_ip.ips = var.value<QList<TvIpData> >();
+        gIPD.tv_ip.items.clear();
+        gIPD.tv_ip.widgets.clear();
+        ui->listWidget_TP->clear();
+        ui->listWidget_TS->clear();
+        ui->listWidget_TE->clear();
+        if(gIPD.tv_ip.ips.size() == 0)
+        {
+            break;
+        }
+        for(int i = 0; i < gIPD.tv_ip.ips.size(); i++)
+        {
+            QListWidgetItem *item = new QListWidgetItem();  //初始化item
+            TvIpWidgetItem *widget = new TvIpWidgetItem(gIPD.tv_ip.ips.at(i), ui->listWidget_TP);
+            item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
+            ui->listWidget_TP->insertItem(i, item);
+            ui->listWidget_TP->setItemWidget(item, widget);
+            gIPD.tv_ip.items.append(item);
+            gIPD.tv_ip.widgets.append(widget);
+        }
+        if(mTvRecentMode.enable)
+        {   //最近模式
+            on_listWidget_TP_itemClicked(gIPD.tv_ip.items.at(0));
+        }
+        else if(gIPD.index_tv.p_click)
+        {
+            gIPD.index_tv.p_click = false;
+            //查看是否还有显示
+            bool has {false};
+            if(gIPD.index_tv.p_row < gIPD.tv_ip.ips.size())
+            {
+                if(gIPD.tv_ip.ips.at(gIPD.index_tv.p_row).pid == gIPD.index_tv.pid)
+                {
+                    has = true;
+                }
+            }
+            if(has)
+            {
+                ui->listWidget_TP->verticalScrollBar()->setValue(gIPD.index_tv.p_pos);
+                ui->listWidget_TP->setCurrentRow(gIPD.index_tv.p_row);
+                on_listWidget_TP_itemClicked(gIPD.tv_ip.items.at(gIPD.index_tv.p_row));
+            }
+            else
+            {
+                gIPD.index_tv.s_click = false;
+                gIPD.index_tv.e_click = false;
+            }
+        }
+    }
+        break;
+    case SOT_SELECT_TV_SEASON:
+        gIPD.tv_season.seasons = var.value<QList<TvSeasonData> >();
+        gIPD.tv_season.items.clear();
+        gIPD.tv_season.widgets.clear();
+        ui->listWidget_TS->clear();
+        ui->listWidget_TE->clear();
+        if(gIPD.tv_season.seasons.size() == 0)
+        {
+            break;
+        }
+        for(int i = 0; i < gIPD.tv_season.seasons.size(); i++)
+        {
+            QListWidgetItem *item = new QListWidgetItem();  //初始化item
+            TvSeasonWidgetItem *widget = new TvSeasonWidgetItem(gIPD.tv_season.seasons.at(i), ui->listWidget_TS);
+            item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
+            ui->listWidget_TS->insertItem(i, item);
+            ui->listWidget_TS->setItemWidget(item, widget);
+            gIPD.tv_season.items.append(item);
+            gIPD.tv_season.widgets.append(widget);
+        }
+        if(mTvRecentMode.enable)
+        {   //最近模式
+            on_listWidget_TS_itemClicked(gIPD.tv_season.items.at(0));
+        }
+        else if(gIPD.index_tv.s_click)
+        {
+            gIPD.index_tv.s_click = false;
+            //查看是否还有显示
+            bool has {false};
+            if(gIPD.index_tv.s_row < gIPD.tv_season.seasons.size())
+            {
+                if(gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).sid == gIPD.index_tv.sid)
+                {
+                    has = true;
+                }
+            }
+            if(has)
+            {
+                ui->listWidget_TS->verticalScrollBar()->setValue(gIPD.index_tv.s_pos);
+                ui->listWidget_TS->setCurrentRow(gIPD.index_tv.s_row);
+                on_listWidget_TS_itemClicked(gIPD.tv_season.items.at(gIPD.index_tv.s_row));
+            }
+            else
+            {
+                gIPD.index_tv.e_click = false;
+            }
+        }
+        break;
+    case SOT_SELECT_TV_EPISODE:
+        gIPD.tv_ep.eps = var.value<QList<TvEpisodeData> >();
+        gIPD.tv_ep.items.clear();
+        gIPD.tv_ep.widgets.clear();
+        ui->listWidget_TE->clear();
+        if(gIPD.tv_ep.eps.size() == 0)
+        {
+            break;
+        }
+        for(int i = 0; i < gIPD.tv_ep.eps.size(); i++)
+        {
+            QListWidgetItem *item = new QListWidgetItem();  //初始化item
+            TvEpisodeWidgetItem *widget = new TvEpisodeWidgetItem(gIPD.tv_ep.eps.at(i), i, ui->listWidget_TE);
+            item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
+            ui->listWidget_TE->insertItem(i, item);
+            ui->listWidget_TE->setItemWidget(item, widget);
+            gIPD.tv_ep.items.append(item);
+            gIPD.tv_ep.widgets.append(widget);
+        }
+        if(gIPD.index_tv.e_click)
+        {
+            gIPD.index_tv.e_click = false;
+            ui->listWidget_TE->verticalScrollBar()->setValue(gIPD.index_tv.e_pos);
+            ui->listWidget_TE->setCurrentRow(gIPD.index_tv.e_row);
+            on_listWidget_TE_itemClicked(gIPD.tv_ep.items.at(gIPD.index_tv.e_row));
+        }
+        break;
+    case SOT_INFO_TV_IP_PAGE:
+    {
+        QStringList strs = var.toStringList();
+        mTPPageTotal = strs[1].toInt();
+        ui->lineEdit_TP_Page->setText(strs[0]);
+        ui->label_TP_PageTotal->setText("/"+strs[1]);
+        ui->label_TP_Total->setText(QString(tr("共%1个系列")).arg(strs[2]));
+    }
+        break;
+    case SOT_INFO_TV_SEASON_PAGE:
+    {
+        QStringList strs = var.toStringList();
+        mTSPageTotal = strs[1].toInt();
+        ui->lineEdit_TS_Page->setText(strs[0]);
+        gIPD.index_tv.s_page = ui->lineEdit_TS_Page->text().toInt();
+        ui->label_TS_PageTotal->setText("/"+strs[1]);
+        ui->label_TS_Total->setText(QString(tr("共%1部")).arg(strs[2]));
+    }
+        break;
+    case SOT_INFO_TV_EPISODE_PAGE:
+    {
+        QStringList strs = var.toStringList();
+        mTEPageTotal = strs[1].toInt();
+        ui->lineEdit_TE_Page->setText(strs[0]);
+        gIPD.index_tv.e_page = ui->lineEdit_TE_Page->text().toInt();
+        ui->label_TE_PageTotal->setText("/"+strs[1]);
+        ui->label_TE_Total->setText(QString(tr("共%1集")).arg(strs[2]));
+    }
+        break;
     default:
         break;
     }
@@ -398,6 +557,19 @@ void Widget::slotMovieSeasonSee(MovieSeasonData season, int row)
     QVariant var_send;
     var_send.setValue(season);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_SEE, var_send);
+}
+
+///电视剧集看完
+void Widget::slotTvEpisodeSee(TvEpisodeData episode, int row)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = true;
+    gIPD.index_tv.e_row = row;
+    gIPD.index_tv.e_pos = ui->listWidget_TE->verticalScrollBar()->value();
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_SEE, var_send);
 }
 
 /////连接|断开服务器
@@ -492,11 +664,13 @@ void Widget::qian()
     connect(&gIPD, &InterfacePublicData::SIGNALReceiveQueryData, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALAnimeEpisodeSee, this, &Widget::slotAnimeEpisodeSee, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALMovieSeasonSee, this, &Widget::slotMovieSeasonSee, Qt::UniqueConnection);
+    connect(&gIPD, &InterfacePublicData::SIGNALTvEpisodeSee, this, &Widget::slotTvEpisodeSee, Qt::UniqueConnection);
 
     //初始化后操作
     QTimer::singleShot(0, this, [this]{
         showBarAnimeId(-1);
         showBarMovieId(-1);
+        showBarTvId(-1);
     });
 }
 
@@ -863,6 +1037,151 @@ void Widget::closeMovieRecent(int index)
             }
         }
         emit gIPD.SIGNALSendQuery(SOT_DELETE_MOVIE_RECENT, mMovieRecents.at(index).id);
+    }
+}
+
+///获取电视剧ip
+void Widget::getTvIp(int page)
+{
+    showBarTvId(0);
+    QStringList strs;
+    strs << QString::number(page)
+         << mFindTvSql;
+    emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_IP, strs);   //获取电视剧
+}
+
+///获取电视剧部
+void Widget::getTvSeason(int page)
+{
+    showBarTvId(1);
+    QStringList strs;
+    strs << QString::number(gIPD.index_tv.pid)
+         << QString::number(page)
+         << QString::number(mLimit?1:0)
+         << QString::number(mTvRecentMode.enable?mTvRecentMode.sid:-1);
+    emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_SEASON, strs);   //获取电视剧部
+}
+
+///获取电视剧集
+void Widget::getTvEpisode(int page)
+{
+    showBarTvId(2);
+    QStringList strs;
+    strs << QString::number(gIPD.index_tv.pid)
+         << QString::number(gIPD.index_tv.sid)
+         << QString::number(page);
+    emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_EPISODE, strs);   //获取电视剧集
+}
+
+///显示电视剧id条
+void Widget::showBarTvId(int what)
+{
+    bool show_tp {false};
+    bool show_ts {false};
+    bool show_te {false};
+    switch(what)
+    {
+    case -1:    //断开服务器
+        ui->widget_TP_Op->setEnabled(false);
+        ui->lineEdit_TP_Page->setText("0");
+        ui->label_TP_PageTotal->setText("/0");
+        ui->label_TP_Total->setText("少女祈祷中..");
+        ui->stackedWidget_Tv->setCurrentWidget(ui->page_TDefault);
+        break;
+    case 0:     //连上了服务器
+        ui->widget_TP_Op->setEnabled(true);
+        ui->stackedWidget_Tv->setCurrentWidget(ui->page_TDefault);
+        break;
+    case 1:     //点击了tp
+        show_tp = true;
+        ui->label_BarT_Pid->setText(QString::number(gIPD.index_tv.pid));
+        ui->stackedWidget_Tv->setCurrentWidget(ui->page_TP);
+        break;
+    case 2:     //点击了ts
+        show_tp = true;
+        show_ts = true;
+        ui->label_BarT_Sid->setText(QString::number(gIPD.index_tv.sid));
+        ui->stackedWidget_Tv->setCurrentWidget(ui->page_TS);
+        break;
+    case 3:     //点击了te
+        show_tp = true;
+        show_ts = true;
+        show_te = true;
+        ui->label_BarT_Eid->setText(QString::number(gIPD.index_tv.eid));
+        ui->stackedWidget_Tv->setCurrentWidget(ui->page_TE);
+        break;
+    default:
+        break;
+    }
+    ui->label_BarT_PidText->setVisible(show_tp);
+    ui->label_BarT_SidText->setVisible(show_ts);
+    ui->label_BarT_EidText->setVisible(show_te);
+    ui->label_BarT_Pid->setVisible(show_tp);
+    ui->label_BarT_Sid->setVisible(show_ts);
+    ui->label_BarT_Eid->setVisible(show_te);
+    ui->widget_TS_Op->setEnabled(show_tp);
+    if(!show_tp)
+    {
+        ui->lineEdit_TS_Page->setText("0");
+        ui->label_TS_PageTotal->setText("/0");
+        ui->label_TS_Total->setText("少女祈祷中..");
+    }
+    ui->widget_TE_Op->setEnabled(show_ts);
+    if(!show_ts)
+    {
+        ui->lineEdit_TE_Page->setText("0");
+        ui->label_TE_PageTotal->setText("/0");
+        ui->label_TE_Total->setText("少女祈祷中..");
+    }
+}
+
+///更新查找电视剧条件
+void Widget::genFindTvSql()
+{
+    mFindTvSql.clear();
+    if(mTvRecentMode.enable)
+    {   //锁定最近模式
+        mFindTvSql += QString(" AND pid=%1").arg(mTvRecentMode.pid);
+    }
+    else
+    {   //正常检索模式
+        if(!ui->checkBox_Limit->isChecked())
+        {
+            mFindTvSql += " AND display=1";
+        }
+        if(ui->checkBox_FindTvZhuiju->isChecked())
+        {
+            mFindTvSql += " AND zhuiju=1";
+        }
+        if(ui->checkBox_FindTvNotsee->isChecked())
+        {
+            mFindTvSql += " AND see=0";
+        }
+        int point_a = ui->comboBox_FindTvPointA->currentIndex();
+        int point_b = ui->comboBox_FindTvPointB->currentIndex();
+        int point_min = qMin(point_a, point_b);
+        int point_max = qMax(point_a, point_b);
+        if(point_min != 0 || point_max != 12)
+        {
+            if(point_min == point_max)
+            {
+                mFindTvSql += QString(" AND point=%1").arg(point_max);
+            }
+            else
+            {
+                mFindTvSql += QString(" AND (point BETWEEN %1 AND %2)").arg(point_min).arg(point_max);
+            }
+        }
+        QString tv_name = ui->lineEdit_FindTvName->text().trimmed().replace("'", "''");
+        if(!tv_name.isEmpty())
+        {
+            mFindTvSql += QString(" AND (name LIKE '%%1%' OR keywords LIKE '%%1%')").arg(tv_name);
+        }
+    }
+    if(!mFindTvSql.isEmpty())
+    {
+        mFindTvSql.remove(0, 5);
+        mFindTvSql = " WHERE " + mFindTvSql;
     }
 }
 
@@ -1285,6 +1604,7 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
             emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
             on_pushButton_FindMovie_clicked();
+            on_pushButton_FindTv_clicked();
         }
         else
         {
@@ -1298,6 +1618,7 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
         emit gIPD.SIGNALSendQuery(SOT_SELECT_MOVIE_RECENT, mLimit);
         on_pushButton_FindAnime_clicked();
         on_pushButton_FindMovie_clicked();
+        on_pushButton_FindTv_clicked();
     }
     ui->lineEdit_Limit->clear();
 }
@@ -2144,5 +2465,179 @@ void Widget::on_checkBox_MS_Tag3_clicked(bool checked)
     QVariant var_send;
     var_send.setValue(season);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_TAG3, var_send);
+}
+
+///重置条件
+void Widget::on_pushButton_FindTvReset_clicked()
+{
+    ui->lineEdit_FindTvName->clear();
+    ui->checkBox_FindTvZhuiju->setChecked(false);
+    ui->checkBox_FindTvNotsee->setChecked(false);
+    ui->comboBox_FindTvPointA->setCurrentIndex(0);
+    ui->comboBox_FindTvPointB->setCurrentIndex(12);
+}
+
+///检索电视剧
+void Widget::on_pushButton_FindTv_clicked()
+{
+    if(mConnectedMysql)
+    {
+        genFindTvSql();
+        getTvIp(1);
+    }
+}
+
+///电视剧ip点击
+void Widget::on_listWidget_TP_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->listWidget_TP->row(item);
+    TvIpData ip = gIPD.tv_ip.ips.at(row);
+    gIPD.index_tv.p_row = row;
+    gIPD.index_tv.pid = gIPD.tv_ip.ips.at(row).pid;
+    gIPD.index_tv.p_pos = ui->listWidget_TP->verticalScrollBar()->value();
+    showBarTvId(1);
+    getTvSeason(gIPD.index_tv.s_click?gIPD.index_tv.s_page:1);
+    ui->checkBox_TP_Display->setChecked(ip.display);
+    ui->checkBox_TP_Zhuiju->setChecked(ip.zhuiju);
+    ui->lineEdit_TP_Name->setText(ip.name);
+    ui->lineEdit_TP_Keyword->setText(ip.keywords);
+}
+
+///电视剧部点击
+void Widget::on_listWidget_TS_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->listWidget_TS->row(item);
+    TvSeasonData season = gIPD.tv_season.seasons.at(row);
+    gIPD.index_tv.s_row = row;
+    gIPD.index_tv.sid = season.sid;
+    gIPD.index_tv.s_pos = ui->listWidget_TS->verticalScrollBar()->value();
+    showBarTvId(2);
+    getTvEpisode(gIPD.index_tv.e_click?gIPD.index_tv.e_page:1);
+    ui->lineEdit_TS_Name->setText(season.name);
+    ui->checkBox_TS_Display->setChecked(season.display);
+    if(season.release_date_valid)
+    {
+        ui->checkBox_TS_ReleaseDateEnable->setChecked(true);
+        ui->dateEdit_TS_ReleaseDate->setDate(season.release_date);
+        ui->dateEdit_TS_ReleaseDate->setVisible(true);
+    }
+    else
+    {
+        ui->checkBox_TS_ReleaseDateEnable->setChecked(false);
+        ui->dateEdit_TS_ReleaseDate->setDate(QDate::currentDate());
+        ui->dateEdit_TS_ReleaseDate->setVisible(false);
+    }
+    ui->comboBox_TS_Point->setCurrentIndex(season.point);
+    if(season.collect == 0)
+    {   //不收藏
+        ui->checkBox_TS_CollectIt->setChecked(false);
+        ui->checkBox_TS_CollectOk->setChecked(false);
+        ui->checkBox_TS_CollectOk->setEnabled(false);
+    }
+    else if(season.collect == 1)
+    {
+        ui->checkBox_TS_CollectIt->setChecked(true);
+        ui->checkBox_TS_CollectOk->setChecked(false);
+        ui->checkBox_TS_CollectOk->setEnabled(true);
+    }
+    else if(season.collect == 2)
+    {
+        ui->checkBox_TS_CollectIt->setChecked(true);
+        ui->checkBox_TS_CollectOk->setChecked(true);
+        ui->checkBox_TS_CollectOk->setEnabled(true);
+    }
+}
+
+///电视剧集点击
+void Widget::on_listWidget_TE_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->listWidget_TE->row(item);
+    gIPD.index_tv.e_row = row;
+    gIPD.index_tv.eid = gIPD.tv_ep.eps.at(row).eid;
+    gIPD.index_tv.e_pos = ui->listWidget_TE->verticalScrollBar()->value();
+    showBarTvId(3);
+    ui->checkBox_TE_Tag1->setChecked(gIPD.tv_ep.eps.at(row).tag1);
+    ui->checkBox_TE_Tag2->setChecked(gIPD.tv_ep.eps.at(row).tag2);
+    ui->checkBox_TE_Tag3->setChecked(gIPD.tv_ep.eps.at(row).tag3);
+    ui->lineEdit_TE_Episode->setText(gIPD.tv_ep.eps.at(row).episode);
+    ui->lineEdit_TE_Title->setText(gIPD.tv_ep.eps.at(row).title);
+}
+
+///电视剧ip上一页
+void Widget::on_pushButton_TP_PrePage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_TP_Page->text().toInt() - 1;
+        if(page > 0)
+        {
+            getTvIp(page);
+        }
+    }
+}
+
+///电视剧ip下一页
+void Widget::on_pushButton_TP_NextPage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_TP_Page->text().toInt() + 1;
+        if(page <= mTPPageTotal)
+        {
+            getTvIp(page);
+        }
+    }
+}
+
+///电视剧部上一页
+void Widget::on_pushButton_TS_PrePage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_TS_Page->text().toInt() - 1;
+        if(page > 0)
+        {
+            getTvSeason(page);
+        }
+    }
+}
+
+///电视剧部下一页
+void Widget::on_pushButton_TS_NextPage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_TS_Page->text().toInt() + 1;
+        if(page <= mTSPageTotal)
+        {
+            getTvSeason(page);
+        }
+    }
+}
+
+///电视剧集上一页
+void Widget::on_pushButton_TE_PrePage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_TE_Page->text().toInt() - 1;
+        if(page > 0)
+        {
+            getTvEpisode(page);
+        }
+    }
+}
+
+///电视剧集下一页
+void Widget::on_pushButton_TE_NextPage_clicked()
+{
+    if(mConnectedMysql)
+    {
+        int page = ui->lineEdit_TE_Page->text().toInt() + 1;
+        if(page <= mTEPageTotal)
+        {
+            getTvEpisode(page);
+        }
+    }
 }
 

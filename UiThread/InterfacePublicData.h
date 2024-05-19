@@ -12,6 +12,9 @@
 #include "UiThread/Anime/AnimeEpisodeWidgetItem.h"
 #include "UiThread/Movie/MovieIpWidgetItem.h"
 #include "UiThread/Movie/MovieSeasonWidgetItem.h"
+#include "UiThread/Television/TvIpWidgetItem.h"
+#include "UiThread/Television/TvSeasonWidgetItem.h"
+#include "UiThread/Television/TvEpisodeWidgetItem.h"
 
 struct AnimeIpItemData
 {
@@ -48,6 +51,27 @@ struct MovieSeasonItemData
     QList<MovieSeasonData> seasons;
 };
 
+struct TvIpItemData
+{
+    QList<QListWidgetItem *> items;
+    QList<TvIpWidgetItem *> widgets;
+    QList<TvIpData> ips;
+};
+
+struct TvSeasonItemData
+{
+    QList<QListWidgetItem *> items;
+    QList<TvSeasonWidgetItem *> widgets;
+    QList<TvSeasonData> seasons;
+};
+
+struct TvEpisodeItemData
+{
+    QList<QListWidgetItem *> items;
+    QList<TvEpisodeWidgetItem *> widgets;
+    QList<TvEpisodeData> eps;
+};
+
 //导航数据
 struct IndexAnimeData
 {
@@ -81,6 +105,25 @@ struct IndexMovieData
     bool    s_click {false};
 };
 
+//导航数据
+struct IndexTvData
+{
+    int     pid {0};
+    int     sid {0};
+    int     eid {0};
+    int     p_row {0};
+    int     s_row {0};
+    int     e_row {0};
+    int     p_pos {0};
+    int     s_pos {0};
+    int     e_pos {0};
+    int     s_page {1};
+    int     e_page {1};
+    bool    p_click {false};
+    bool    s_click {false};
+    bool    e_click {false};
+};
+
 class InterfacePublicData : public QObject
 {
     Q_OBJECT
@@ -92,6 +135,7 @@ signals:
     void SIGNALReceiveQueryData(SqlOperateType operate, QVariant var);  //接收Sql结果信号
     void SIGNALAnimeEpisodeSee(AnimeEpisodeData episode, int row);      //动漫话看完信号
     void SIGNALMovieSeasonSee(MovieSeasonData season, int row);         //电影部看完信号
+    void SIGNALTvEpisodeSee(TvEpisodeData episode, int row);            //电视剧集看完信号
 
 private slots:
     void slotSendQuery(SqlOperateType operate, QVariant var);   //发送到数据库前执行的操作
@@ -103,8 +147,12 @@ public:
     AnimeEpisodeItemData    anime_ep;
     MovieIpItemData         movie_ip;
     MovieSeasonItemData     movie_season;
+    TvIpItemData            tv_ip;
+    TvSeasonItemData        tv_season;
+    TvEpisodeItemData       tv_ep;
     IndexAnimeData          index_anime;    //导航数据
     IndexMovieData          index_movie;    //导航数据
+    IndexTvData             index_tv;       //导航数据
 };
 
 extern InterfacePublicData gIPD;    //界面公共数据

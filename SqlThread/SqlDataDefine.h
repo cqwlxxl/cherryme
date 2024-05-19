@@ -11,6 +11,10 @@
 #define TABLE_MOVIE_IP      "movie_ip"
 #define TABLE_MOVIE_SEASON  "movie_season"
 #define TABLE_MOVIE_RECENT  "movie_recent"
+#define TABLE_TV_IP         "television_ip"
+#define TABLE_TV_SEASON     "television_season"
+#define TABLE_TV_EPISODE    "television_episode"
+#define TABLE_TV_RECENT     "television_recent"
 
 #define MYSQL_IP        "127.0.0.1"
 #define MYSQL_PORT      3306
@@ -76,6 +80,14 @@ enum SqlOperateType
     SOT_DELETE_MOVIE_IP,        //删除电影ip
     SOT_DELETE_MOVIE_SEASON,    //删除电影部
     SOT_DELETE_MOVIE_RECENT,    //删除电影最近观看
+    //tv
+    SOT_SELECT_TV_IP,           //获取电视剧ip
+    SOT_SELECT_TV_SEASON,       //获取电视剧部
+    SOT_SELECT_TV_EPISODE,      //获取电视剧集
+    SOT_INFO_TV_IP_PAGE,        //电视剧ip页面信息
+    SOT_INFO_TV_SEASON_PAGE,    //电视剧部页面信息
+    SOT_INFO_TV_EPISODE_PAGE,   //电视剧集页面信息
+    SOT_UPDATE_TV_EPISODE_SEE,  //更新电视剧集，看完     ///xxl_todo: tv ep see
 };
 
 struct AnimeIpData
@@ -168,6 +180,64 @@ struct MovieSeasonData
 };
 
 struct MovieRecentData
+{
+    int     id {0};             //id
+    int     pid {0};            //pid
+    int     sid {0};            //sid
+    QString name;               //部名称
+    bool    display {false};    //可见
+};
+
+struct TvIpData
+{
+    //MySQL中，ALL int
+    int     pid {0};            //pid
+    QString name;               //名称
+    QString keywords;           //关键词
+    bool    see {false};        //看完
+    int     see_season {0};     //看了的部
+    int     total_season {0};   //总的部
+    bool    zhuiju {false};     //追剧
+    int     collect {0};        //收藏
+    int     point {0};          //评分
+    bool    display {false};    //可见
+    bool    tag1 {false};       //tag1
+    bool    tag2 {false};       //tag2
+    bool    tag3 {true};        //tag3
+};
+
+struct TvSeasonData
+{
+    int     sid {0};                    //sid
+    int     pid {0};                    //pid
+    QString name;                       //名称
+    QDate   release_date;               //发布日期
+    bool    release_date_valid {false}; //发布日期是否有效
+    bool    see {false};                //看完
+    int     see_episode {0};            //看了的集
+    int     total_episode {0};          //总的集
+    int     collect {0};                //收藏
+    int     point {0};                  //评分
+    bool    display {false};            //可见
+    bool    tag1 {false};               //tag1
+    bool    tag2 {false};               //tag2
+    bool    tag3 {true};                //tag3
+};
+
+struct TvEpisodeData
+{
+    int     eid {0};        //eid
+    int     pid {0};        //pid
+    int     sid {0};        //sid
+    QString episode {"XX"}; //集序号
+    QString title;          //标题
+    bool    see {false};    //看完
+    bool    tag1 {false};   //tag1
+    bool    tag2 {false};   //tag2
+    bool    tag3 {true};    //tag3
+};
+
+struct TvRecentData
 {
     int     id {0};             //id
     int     pid {0};            //pid
