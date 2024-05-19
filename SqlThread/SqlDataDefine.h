@@ -19,10 +19,12 @@ enum SqlOperateType
     SOT_UPDATE_ANIME_ANIME_NAME,            //更新动漫，名称
     SOT_UPDATE_ANIME_ANIME_KEYWORDS,        //更新动漫，关键词
     SOT_UPDATE_ANIME_ANIME_ZHUIFAN,         //更新动漫，追番
+    SOT_UPDATE_ANIME_ANIME_DISPLAY,         //更新动漫，公开
     SOT_UPDATE_ANIME_SEASON_COLLECT,        //更新动漫，收藏
     SOT_UPDATE_ANIME_SEASON_NAME,           //更新动漫季，名称
     SOT_UPDATE_ANIME_SEASON_RELEASE_DATE,   //更新动漫季，发布日期
     SOT_UPDATE_ANIME_SEASON_POINT,          //更新动漫季，评分
+    SOT_UPDATE_ANIME_SEASON_DISPLAY,        //更新动漫季，公开
     SOT_UPDATE_ANIME_EPISODE_SEE,           //更新动漫话，看完
     SOT_UPDATE_ANIME_EPISODE_EPISODE,       //更新动漫话，序号
     SOT_UPDATE_ANIME_EPISODE_TITLE,         //更新动漫话，标题

@@ -219,6 +219,15 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
         break;
+    case SOT_UPDATE_ANIME_ANIME_DISPLAY:
+    {
+        AnimeData anime = var.value<AnimeData>();
+        cmd = QString("UPDATE `anime` SET display = %1 WHERE aid = %2").arg(anime.display?1:0).arg(anime.aid);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
+    }
+        break;
     case SOT_UPDATE_ANIME_SEASON_COLLECT:
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
@@ -260,6 +269,15 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         mQuery.exec(cmd);
 
         calcAnimePoint(season.aid);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
+    }
+        break;
+    case SOT_UPDATE_ANIME_SEASON_DISPLAY:
+    {
+        AnimeSeasonData season = var.value<AnimeSeasonData>();
+        cmd = QString("UPDATE `season` SET display = %1 WHERE sid = %2").arg(season.display).arg(season.sid);
+        mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -330,7 +348,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeData anime = var.value<AnimeData>();
         cmd = QString("INSERT INTO `anime` (name, keywords, see, see_season, total_season, zhuifan, collect, point, display, tag1, tag2, tag3)"
-                      " VALUES ('%1', '%2', 0, 0, 0, %3, 0, 0, 1, 0, 0, 0)").arg(anime.name, anime.keywords, anime.zhuifan?"1":"0");
+                      " VALUES ('%1', '%2', 0, 0, 0, %3, 0, 0, %4, 0, 0, 0)").arg(anime.name, anime.keywords, anime.zhuifan?"1":"0", anime.display?"1":"0");
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -340,10 +358,10 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
         cmd = QString("INSERT INTO `season` (aid, name, release_date, see, see_episode, total_episode, collect, point, display, tag1, tag2, tag3)"
-                      " VALUES (%1, '%2', '%3', 0, 0, 0, %4, %5, 1, 0, 0, 0)")
+                      " VALUES (%1, '%2', '%3', 0, 0, 0, %4, %5, %6, 0, 0, 0)")
                 .arg(QString::number(season.aid), season.name,
                      season.release_date_valid?season.release_date.toString("yyyy-MM-dd"):"0000-00-00",
-                     QString::number(season.collect), QString::number(season.point));
+                     QString::number(season.collect), QString::number(season.point), season.display?"1":"0");
         mQuery.exec(cmd);
 
         calcAnimeSee(season.aid);

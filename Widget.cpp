@@ -386,14 +386,16 @@ void Widget::genFindAnimeSql()
 void Widget::on_listWidget_Anime_Anime_itemClicked(QListWidgetItem *item)
 {
     int row = ui->listWidget_Anime_Anime->row(item);
+    AnimeData anime = gIPD.anime.animes.at(row);
     gIPD.index_anime.a_row = row;
     gIPD.index_anime.aid = gIPD.anime.animes.at(row).aid;
     gIPD.index_anime.a_pos = ui->listWidget_Anime_Anime->verticalScrollBar()->value();
     showBarAnimeId(1);
     getAnimeSeason(1);
-    ui->checkBox_AA_Zhuifan->setChecked(gIPD.anime.animes.at(row).zhuifan);
-    ui->lineEdit_AA_Name->setText(gIPD.anime.animes.at(row).name);
-    ui->lineEdit_AA_Keyword->setText(gIPD.anime.animes.at(row).keywords);
+    ui->checkBox_AA_Display->setChecked(anime.display);
+    ui->checkBox_AA_Zhuifan->setChecked(anime.zhuifan);
+    ui->lineEdit_AA_Name->setText(anime.name);
+    ui->lineEdit_AA_Keyword->setText(anime.keywords);
 }
 
 ///动漫季点击
@@ -407,6 +409,7 @@ void Widget::on_listWidget_Anime_Season_itemClicked(QListWidgetItem *item)
     showBarAnimeId(2);
     getAnimeEpisode(1);
     ui->lineEdit_AS_Name->setText(season.name);
+    ui->checkBox_AS_Display->setChecked(season.display);
     if(season.release_date_valid)
     {
         ui->checkBox_AS_ReleaseDateEnable->setChecked(true);
@@ -758,6 +761,32 @@ void Widget::on_checkBox_AA_Zhuifan_clicked(bool checked)
     QVariant var_send;
     var_send.setValue(anime);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_ZHUIFAN, var_send);
+}
+
+///动漫公开提交
+void Widget::on_checkBox_AA_Display_clicked(bool checked)
+{
+    gIPD.index_anime.a_click = false;
+    gIPD.index_anime.s_click = false;
+    gIPD.index_anime.e_click = false;
+    AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.a_row);
+    anime.display = checked;
+    QVariant var_send;
+    var_send.setValue(anime);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_ANIME_DISPLAY, var_send);
+}
+
+///动漫季公开提交
+void Widget::on_checkBox_AS_Display_clicked(bool checked)
+{
+    gIPD.index_anime.a_click = true;
+    gIPD.index_anime.s_click = false;
+    gIPD.index_anime.e_click = false;
+    AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
+    season.display = checked ? 1 : 0;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_SEASON_DISPLAY, var_send);
 }
 
 ///动漫季要收藏提交

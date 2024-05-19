@@ -27,6 +27,7 @@ void AnimeSeasonNewDialog::Hi(int aid)
 {
     mAid = aid;
     ui->lineEdit_Name->clear();
+    ui->checkBox_Display->setChecked(false);
     ui->checkBox_ReleaseDateEnable->setChecked(false);
     ui->dateEdit_ReleaseDate->setDate(QDate::currentDate());
     ui->dateEdit_ReleaseDate->setVisible(false);
@@ -50,6 +51,7 @@ void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
     AnimeSeasonData season;
     season.aid = mAid;
     season.name = name;
+    season.display = ui->checkBox_Display->isChecked();
     season.release_date_valid = ui->checkBox_ReleaseDateEnable->isChecked();
     season.release_date = ui->dateEdit_ReleaseDate->date();
     season.point = ui->comboBox_Point->currentIndex();

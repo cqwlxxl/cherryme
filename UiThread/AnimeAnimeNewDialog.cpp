@@ -28,6 +28,7 @@ void AnimeAnimeNewDialog::Hi()
     ui->lineEdit_Name->clear();
     ui->lineEdit_Keywords->clear();
     ui->checkBox_Zhuifan->setChecked(false);
+    ui->checkBox_Display->setChecked(false);
     this->exec();
 }
 
@@ -47,6 +48,7 @@ void AnimeAnimeNewDialog::on_pushButton_Ok_clicked()
     anime.name = name;
     anime.keywords = keywords;
     anime.zhuifan = ui->checkBox_Zhuifan->isChecked();
+    anime.display = ui->checkBox_Display->isChecked();
     //
     QVariant var_send;
     var_send.setValue(anime);

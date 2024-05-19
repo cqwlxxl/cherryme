@@ -50,6 +50,8 @@ private slots:
     void on_dateEdit_AS_ReleaseDate_dateChanged(const QDate &date); //动漫季发布日期改变
     void on_comboBox_AS_Point_activated(int index);     //动漫季评分改变
     void on_checkBox_AA_Zhuifan_clicked(bool checked);  //动漫追番提交
+    void on_checkBox_AA_Display_clicked(bool checked);  //动漫公开提交
+    void on_checkBox_AS_Display_clicked(bool checked);  //动漫季公开提交
     void on_checkBox_AS_CollectIt_clicked(bool checked);    //动漫季要收藏提交
     void on_checkBox_AS_CollectOk_clicked(bool checked);    //动漫季已收藏提交
     void on_pushButton_FindAnime_clicked();     //检索动漫

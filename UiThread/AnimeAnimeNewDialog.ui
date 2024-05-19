@@ -33,6 +33,13 @@
       <widget class="QLineEdit" name="lineEdit_Name"/>
      </item>
      <item>
+      <widget class="QCheckBox" name="checkBox_Display">
+       <property name="text">
+        <string>公开</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QCheckBox" name="checkBox_Zhuifan">
        <property name="text">
         <string>追番</string>
