@@ -161,6 +161,31 @@ private slots:
     void on_pushButton_TS_Delete_clicked();     //删除电视剧部
     void on_pushButton_TE_New_clicked();        //新增电视剧集
     void on_pushButton_TE_Delete_clicked();     //删除电视剧集
+    //tv操作ip
+    void on_lineEdit_TP_Name_textChanged(const QString &arg1);  //电视剧名称改变
+    void on_pushButton_TP_NameOk_clicked();                     //电视剧名称提交
+    void on_checkBox_TP_Display_clicked(bool checked);  //电视剧公开提交
+    void on_checkBox_TP_Zhuiju_clicked(bool checked);   //电视剧追剧提交
+    void on_lineEdit_TP_Keyword_textChanged(const QString &arg1);   //电视剧关键词改变
+    void on_pushButton_TP_KeywordsOk_clicked();                     //电视剧关键词提交
+    //tv操作季
+    void on_lineEdit_TS_Name_textChanged(const QString &arg1);  //电视剧部名称改变
+    void on_pushButton_TS_NaneOk_clicked();                     //电视剧部名称提交
+    void on_checkBox_TS_Display_clicked(bool checked);  //电视剧部公开提交
+    void on_checkBox_TS_ReleaseDateEnable_clicked(bool checked);    //电视剧部发布日期有效
+    void on_dateEdit_TS_ReleaseDate_dateChanged(const QDate &date); //电视剧部发布日期改变
+    void on_pushButton_TS_ReleaseDateOk_clicked();                  //电视剧部发布日期提交
+    void on_comboBox_TS_Point_activated(int index);     //电视剧部评分改变
+    void on_checkBox_TS_CollectIt_clicked(bool checked);    //电视剧部要收藏提交
+    void on_checkBox_TS_CollectOk_clicked(bool checked);    //电视剧部已收藏提交
+    //tv操作集
+    void on_lineEdit_TE_Episode_textChanged(const QString &arg1);   //电视剧集序号改变
+    void on_pushButton_TE_EpisodeOk_clicked();                      //电视剧集序号提交
+    void on_lineEdit_TE_Title_textChanged(const QString &arg1);     //电视剧集标题改变
+    void on_pushButton_TE_TitleOk_clicked();                        //电视剧集标题提交
+    void on_checkBox_TE_Tag1_clicked(bool checked);     //电视剧集tag1提交
+    void on_checkBox_TE_Tag2_clicked(bool checked);     //电视剧集tag2提交
+    void on_checkBox_TE_Tag3_clicked(bool checked);     //电视剧集tag3提交
 
 private:
     void qian();    //init

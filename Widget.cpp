@@ -548,6 +548,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     case SOT_TELL_TV_RESHOW:
         getTvIp(ui->lineEdit_TP_Page->text().toInt());
         break;
+    case SOT_UPDATE_TV_EPISODE_SEE:
     case SOT_DELETE_TV_IP:
     case SOT_DELETE_TV_SEASON:
         emit gIPD.SIGNALSendQuery(SOT_SELECT_TV_RECENT, mLimit);
@@ -2984,5 +2985,323 @@ void Widget::on_pushButton_TE_Delete_clicked()
             emit gIPD.SIGNALSendQuery(SOT_DELETE_TV_EPISODE, var_send);
         }
     }
+}
+
+///电视剧名称改变
+void Widget::on_lineEdit_TP_Name_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.tv_ip.ips.at(gIPD.index_tv.p_row).name)
+    {
+        ui->lineEdit_TP_Name->setStyleSheet("#lineEdit_TP_Name{background-color:#fcae74;}");
+        ui->pushButton_TP_NameOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_TP_Name->setStyleSheet("");
+        ui->pushButton_TP_NameOk->setEnabled(false);
+    }
+}
+
+///电视剧名称提交
+void Widget::on_pushButton_TP_NameOk_clicked()
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = false;
+    gIPD.index_tv.e_click = false;
+    ui->lineEdit_TP_Name->setStyleSheet("");
+    ui->pushButton_TP_NameOk->setEnabled(false);
+    TvIpData ip = gIPD.tv_ip.ips.at(gIPD.index_tv.p_row);
+    ip.name = ui->lineEdit_TP_Name->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_IP_NAME, var_send);
+}
+
+///电视剧公开提交
+void Widget::on_checkBox_TP_Display_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = false;
+    gIPD.index_tv.e_click = false;
+    TvIpData ip = gIPD.tv_ip.ips.at(gIPD.index_tv.p_row);
+    ip.display = checked;
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_IP_DISPLAY, var_send);
+}
+
+///电视剧追剧提交
+void Widget::on_checkBox_TP_Zhuiju_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = false;
+    gIPD.index_tv.e_click = false;
+    TvIpData ip = gIPD.tv_ip.ips.at(gIPD.index_tv.p_row);
+    ip.zhuiju = checked;
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_IP_ZHUIJU, var_send);
+}
+
+///电视剧关键词改变
+void Widget::on_lineEdit_TP_Keyword_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.tv_ip.ips.at(gIPD.index_tv.p_row).keywords)
+    {
+        ui->lineEdit_TP_Keyword->setStyleSheet("#lineEdit_TP_Keyword{background-color:#fcae74;}");
+        ui->pushButton_TP_KeywordsOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_TP_Keyword->setStyleSheet("");
+        ui->pushButton_TP_KeywordsOk->setEnabled(false);
+    }
+}
+
+///电视剧关键词提交
+void Widget::on_pushButton_TP_KeywordsOk_clicked()
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = false;
+    gIPD.index_tv.e_click = false;
+    ui->lineEdit_TP_Keyword->setStyleSheet("");
+    ui->pushButton_TP_KeywordsOk->setEnabled(false);
+    TvIpData ip = gIPD.tv_ip.ips.at(gIPD.index_tv.p_row);
+    ip.keywords = ui->lineEdit_TP_Keyword->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_IP_KEYWORDS, var_send);
+}
+
+///电视剧部名称改变
+void Widget::on_lineEdit_TS_Name_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).name)
+    {
+        ui->lineEdit_TS_Name->setStyleSheet("#lineEdit_TS_Name{background-color:#fcae74;}");
+        ui->pushButton_TS_NaneOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_TS_Name->setStyleSheet("");
+        ui->pushButton_TS_NaneOk->setEnabled(false);
+    }
+}
+
+///电视剧部名称提交
+void Widget::on_pushButton_TS_NaneOk_clicked()
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = false;
+    ui->lineEdit_TS_Name->setStyleSheet("");
+    ui->pushButton_TS_NaneOk->setEnabled(false);
+    TvSeasonData season = gIPD.tv_season.seasons.at(gIPD.index_tv.s_row);
+    season.name = ui->lineEdit_TS_Name->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_SEASON_NAME, var_send);
+}
+
+///电视剧部公开提交
+void Widget::on_checkBox_TS_Display_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = false;
+    TvSeasonData season = gIPD.tv_season.seasons.at(gIPD.index_tv.s_row);
+    season.display = checked ? 1 : 0;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_SEASON_DISPLAY, var_send);
+}
+
+///电视剧部发布日期有效
+void Widget::on_checkBox_TS_ReleaseDateEnable_clicked(bool checked)
+{
+    ui->dateEdit_TS_ReleaseDate->setVisible(checked);
+    bool can_update = false;
+    if(checked && (gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).release_date != ui->dateEdit_TS_ReleaseDate->date()))
+    {
+        can_update = true;
+    }
+    if(checked != gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).release_date_valid)
+    {
+        can_update = true;
+    }
+    ui->pushButton_TS_ReleaseDateOk->setEnabled(can_update);
+}
+
+///电视剧部发布日期改变
+void Widget::on_dateEdit_TS_ReleaseDate_dateChanged(const QDate &date)
+{
+    bool can_update = false;
+    if(ui->checkBox_TS_ReleaseDateEnable->isChecked() && (gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).release_date != date))
+    {
+        can_update = true;
+    }
+    if(ui->checkBox_TS_ReleaseDateEnable->isChecked() != gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).release_date_valid)
+    {
+        can_update = true;
+    }
+    ui->pushButton_TS_ReleaseDateOk->setEnabled(can_update);
+}
+
+///电视剧部发布日期提交
+void Widget::on_pushButton_TS_ReleaseDateOk_clicked()
+{
+    ui->pushButton_TS_ReleaseDateOk->setEnabled(false);
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = false;
+    TvSeasonData season = gIPD.tv_season.seasons.at(gIPD.index_tv.s_row);
+    season.release_date_valid = ui->checkBox_TS_ReleaseDateEnable->isChecked();
+    season.release_date = ui->dateEdit_TS_ReleaseDate->date();
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_SEASON_RELEASE_DATE, var_send);
+}
+
+///电视剧部评分改变
+void Widget::on_comboBox_TS_Point_activated(int index)
+{
+    if(gIPD.tv_season.seasons.at(gIPD.index_tv.s_row).point != index)
+    {
+        gIPD.index_tv.p_click = true;
+        gIPD.index_tv.s_click = true;
+        gIPD.index_tv.e_click = false;
+        TvSeasonData season = gIPD.tv_season.seasons.at(gIPD.index_tv.s_row);
+        season.point = index;
+        QVariant var_send;
+        var_send.setValue(season);
+        emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_SEASON_POINT, var_send);
+    }
+}
+
+///电视剧部要收藏提交
+void Widget::on_checkBox_TS_CollectIt_clicked(bool checked)
+{
+    ui->checkBox_TS_CollectOk->setEnabled(checked);
+    ui->checkBox_TS_CollectOk->setChecked(false);
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = false;
+    TvSeasonData season = gIPD.tv_season.seasons.at(gIPD.index_tv.s_row);
+    season.collect = checked ? 1 : 0;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_SEASON_COLLECT, var_send);
+}
+
+///电视剧部已收藏提交
+void Widget::on_checkBox_TS_CollectOk_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = false;
+    TvSeasonData season = gIPD.tv_season.seasons.at(gIPD.index_tv.s_row);
+    season.collect = checked ? 2 : 1;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_SEASON_COLLECT, var_send);
+}
+
+///电视剧集序号改变
+void Widget::on_lineEdit_TE_Episode_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.tv_ep.eps.at(gIPD.index_tv.e_row).episode)
+    {
+        ui->lineEdit_TE_Episode->setStyleSheet("#lineEdit_TE_Episode{background-color:#fcae74;}");
+        ui->pushButton_TE_EpisodeOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_TE_Episode->setStyleSheet("");
+        ui->pushButton_TE_EpisodeOk->setEnabled(false);
+    }
+}
+
+///电视剧集序号提交
+void Widget::on_pushButton_TE_EpisodeOk_clicked()
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = true;
+    ui->lineEdit_TE_Episode->setStyleSheet("");
+    ui->pushButton_TE_EpisodeOk->setEnabled(false);
+    TvEpisodeData episode = gIPD.tv_ep.eps.at(gIPD.index_tv.e_row);
+    episode.episode = ui->lineEdit_TE_Episode->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_EPISODE, var_send);
+}
+
+///电视剧集标题改变
+void Widget::on_lineEdit_TE_Title_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.tv_ep.eps.at(gIPD.index_tv.e_row).title)
+    {
+        ui->lineEdit_TE_Title->setStyleSheet("#lineEdit_TE_Title{background-color:#fcae74;}");
+        ui->pushButton_TE_TitleOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_TE_Title->setStyleSheet("");
+        ui->pushButton_TE_TitleOk->setEnabled(false);
+    }
+}
+
+///电视剧集标题提交
+void Widget::on_pushButton_TE_TitleOk_clicked()
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = true;
+    ui->lineEdit_TE_Title->setStyleSheet("");
+    ui->pushButton_TE_TitleOk->setEnabled(false);
+    TvEpisodeData episode = gIPD.tv_ep.eps.at(gIPD.index_tv.e_row);
+    episode.title = ui->lineEdit_TE_Title->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_TITLE, var_send);
+}
+
+///电视剧集tag1提交
+void Widget::on_checkBox_TE_Tag1_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = true;
+    TvEpisodeData episode = gIPD.tv_ep.eps.at(gIPD.index_tv.e_row);
+    episode.tag1 = checked;
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_TAG1, var_send);
+}
+
+///电视剧集tag2提交
+void Widget::on_checkBox_TE_Tag2_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = true;
+    TvEpisodeData episode = gIPD.tv_ep.eps.at(gIPD.index_tv.e_row);
+    episode.tag2 = checked;
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_TAG2, var_send);
+}
+
+///电视剧集tag3提交
+void Widget::on_checkBox_TE_Tag3_clicked(bool checked)
+{
+    gIPD.index_tv.p_click = true;
+    gIPD.index_tv.s_click = true;
+    gIPD.index_tv.e_click = true;
+    TvEpisodeData episode = gIPD.tv_ep.eps.at(gIPD.index_tv.e_row);
+    episode.tag3 = checked;
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_TAG3, var_send);
 }
 

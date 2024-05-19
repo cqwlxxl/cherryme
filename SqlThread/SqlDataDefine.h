@@ -36,9 +36,9 @@ enum SqlOperateType
     SOT_INFO_ANIME_EPISODE_PAGE,    //动漫话页面信息
     SOT_TELL_ANIME_RESHOW,                  //重新显示动漫
     SOT_UPDATE_ANIME_IP_NAME,               //更新动漫，名称
-    SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
-    SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
     SOT_UPDATE_ANIME_IP_DISPLAY,            //更新动漫，公开
+    SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
+    SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
     SOT_UPDATE_ANIME_SEASON_NAME,           //更新动漫季，名称
     SOT_UPDATE_ANIME_SEASON_DISPLAY,        //更新动漫季，公开
     SOT_UPDATE_ANIME_SEASON_RELEASE_DATE,   //更新动漫季，发布日期
@@ -89,7 +89,21 @@ enum SqlOperateType
     SOT_INFO_TV_SEASON_PAGE,    //电视剧部页面信息
     SOT_INFO_TV_EPISODE_PAGE,   //电视剧集页面信息
     SOT_TELL_TV_RESHOW,         //重新显示电视剧
-    SOT_UPDATE_TV_EPISODE_SEE,  //更新电视剧集，看完     ///xxl_todo: tv ep see
+    SOT_UPDATE_TV_IP_NAME,      //更新电视剧，名称
+    SOT_UPDATE_TV_IP_DISPLAY,   //更新电视剧，公开
+    SOT_UPDATE_TV_IP_ZHUIJU,    //更新电视剧，追剧
+    SOT_UPDATE_TV_IP_KEYWORDS,  //更新电视剧，关键词
+    SOT_UPDATE_TV_SEASON_NAME,          //更新电视剧部，名称
+    SOT_UPDATE_TV_SEASON_DISPLAY,       //更新电视剧部，公开
+    SOT_UPDATE_TV_SEASON_RELEASE_DATE,  //更新电视剧部，发布日期
+    SOT_UPDATE_TV_SEASON_POINT,         //更新电视剧部，评分
+    SOT_UPDATE_TV_SEASON_COLLECT,       //更新电视剧部，收藏
+    SOT_UPDATE_TV_EPISODE_SEE,      //更新电视剧集，看完
+    SOT_UPDATE_TV_EPISODE_EPISODE,  //更新电视剧集，序号
+    SOT_UPDATE_TV_EPISODE_TITLE,    //更新电视剧集，标题
+    SOT_UPDATE_TV_EPISODE_TAG1,     //更新电视剧集，tag1
+    SOT_UPDATE_TV_EPISODE_TAG2,     //更新电视剧集，tag2
+    SOT_UPDATE_TV_EPISODE_TAG3,     //更新电视剧集，tag3
     SOT_INSERT_TV_IP,           //新增电视剧ip
     SOT_INSERT_TV_SEASON,       //新增电视剧部
     SOT_INSERT_TV_EPISODE,      //新增电视剧集

@@ -1107,6 +1107,164 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_DELETE_TV_RECENT, QVariant());
     }
         break;
+    case SOT_UPDATE_TV_IP_NAME:
+    {
+        TvIpData ip = var.value<TvIpData>();
+        ip.name.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET name='%3' WHERE pid=%1").arg(ip.pid).arg(TABLE_TV_IP, ip.name);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_IP_DISPLAY:
+    {
+        TvIpData ip = var.value<TvIpData>();
+        cmd = QString("UPDATE `%3` SET display=%1 WHERE pid=%2").arg(ip.display?1:0).arg(ip.pid).arg(TABLE_TV_IP);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_IP_ZHUIJU:
+    {
+        TvIpData ip = var.value<TvIpData>();
+        cmd = QString("UPDATE `%3` SET zhuiju=%1 WHERE pid=%2").arg(ip.zhuiju?1:0).arg(ip.pid).arg(TABLE_TV_IP);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_IP_KEYWORDS:
+    {
+        TvIpData ip = var.value<TvIpData>();
+        ip.keywords.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET keywords='%3' WHERE pid=%1").arg(ip.pid).arg(TABLE_TV_IP, ip.keywords);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_SEASON_NAME:
+    {
+        TvSeasonData season = var.value<TvSeasonData>();
+        season.name.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET name='%3' WHERE sid=%1").arg(season.sid).arg(TABLE_TV_SEASON, season.name);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_SEASON_DISPLAY:
+    {
+        TvSeasonData season = var.value<TvSeasonData>();
+        cmd = QString("UPDATE `%3` SET display=%1 WHERE sid=%2").arg(season.display).arg(season.sid).arg(TABLE_TV_SEASON);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_SEASON_RELEASE_DATE:
+    {
+        TvSeasonData season = var.value<TvSeasonData>();
+        QString date = "0000-00-00";
+        if(season.release_date_valid)
+        {
+            date = season.release_date.toString("yyyy-MM-dd");
+        }
+        cmd = QString("UPDATE `%2` SET release_date='%3' WHERE sid=%1").arg(season.sid).arg(TABLE_TV_SEASON, date);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_SEASON_POINT:
+    {
+        TvSeasonData season = var.value<TvSeasonData>();
+        cmd = QString("UPDATE `%3` SET point=%1 WHERE sid=%2").arg(season.point).arg(season.sid).arg(TABLE_TV_SEASON);
+        mQuery.exec(cmd);
+
+        calcTvPoint(season.pid);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_SEASON_COLLECT:
+    {
+        TvSeasonData season = var.value<TvSeasonData>();
+        cmd = QString("UPDATE `%3` SET collect=%1 WHERE sid=%2").arg(season.collect).arg(season.sid).arg(TABLE_TV_SEASON);
+        mQuery.exec(cmd);
+
+        calcTvCollect(season.pid);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_EPISODE_SEE:
+    {
+        TvEpisodeData episode = var.value<TvEpisodeData>();
+        cmd = QString("UPDATE `%3` SET see=%1 WHERE eid=%2").arg(episode.see?1:0).arg(episode.eid).arg(TABLE_TV_EPISODE);
+        mQuery.exec(cmd);
+
+        calcTvSee(episode.pid, episode.sid);
+        calcTvRecent(episode.pid, episode.sid);
+
+        emit SIGNALSendQueryData(SOT_UPDATE_TV_EPISODE_SEE, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_EPISODE_EPISODE:
+    {
+        TvEpisodeData episode = var.value<TvEpisodeData>();
+        episode.episode.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET episode='%3' WHERE eid=%1").arg(episode.eid).arg(TABLE_TV_EPISODE, episode.episode);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_EPISODE_TITLE:
+    {
+        TvEpisodeData episode = var.value<TvEpisodeData>();
+        episode.title.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET title='%3' WHERE eid=%1").arg(episode.eid).arg(TABLE_TV_EPISODE, episode.title);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_TV_EPISODE_TAG1:
+    {
+        TvEpisodeData episode = var.value<TvEpisodeData>();
+        cmd = QString("UPDATE `%3` SET tag1=%1 WHERE eid=%2").arg(episode.tag1?1:0).arg(episode.eid).arg(TABLE_TV_EPISODE);
+        mQuery.exec(cmd);
+
+        calcTvTag1(episode.pid, episode.sid);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+    break;
+    case SOT_UPDATE_TV_EPISODE_TAG2:
+    {
+        TvEpisodeData episode = var.value<TvEpisodeData>();
+        cmd = QString("UPDATE `%3` SET tag2=%1 WHERE eid=%2").arg(episode.tag2?1:0).arg(episode.eid).arg(TABLE_TV_EPISODE);
+        mQuery.exec(cmd);
+
+        calcTvTag2(episode.pid, episode.sid);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+    break;
+    case SOT_UPDATE_TV_EPISODE_TAG3:
+    {
+        TvEpisodeData episode = var.value<TvEpisodeData>();
+        cmd = QString("UPDATE `%3` SET tag3=%1 WHERE eid=%2").arg(episode.tag3?1:0).arg(episode.eid).arg(TABLE_TV_EPISODE);
+        mQuery.exec(cmd);
+
+        calcTvTag3(episode.pid, episode.sid);
+
+        emit SIGNALSendQueryData(SOT_TELL_TV_RESHOW, QVariant());
+    }
+    break;
     default:
         break;
     }
