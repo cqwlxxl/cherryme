@@ -5949,16 +5949,6 @@ QLabel:hover
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_Link">
-      <attribute name="title">
-       <string>书签</string>
-      </attribute>
-     </widget>
-     <widget class="QWidget" name="tab_Setting">
-      <attribute name="title">
-       <string>设置</string>
-      </attribute>
-     </widget>
     </widget>
    </item>
    <item row="0" column="0">
