@@ -470,6 +470,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         calcAnimeSee(season.pid);
         calcAnimePoint(season.pid);
         calcAnimeCollect(season.pid);
+        calcAnimeTag1(season.pid, season.sid);
+        calcAnimeTag2(season.pid, season.sid);
+        calcAnimeTag3(season.pid, season.sid);
 
         emit SIGNALSendQueryData(SOT_DELETE_ANIME_SEASON, QVariant());
     }
@@ -1081,6 +1084,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         calcTvSee(season.pid);
         calcTvPoint(season.pid);
         calcTvCollect(season.pid);
+        calcTvTag1(season.pid, season.sid);
+        calcTvTag2(season.pid, season.sid);
+        calcTvTag3(season.pid, season.sid);
 
         emit SIGNALSendQueryData(SOT_DELETE_TV_SEASON, QVariant());
     }
