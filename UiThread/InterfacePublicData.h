@@ -44,6 +44,8 @@ struct IndexAnimeData
     int     a_pos {0};
     int     s_pos {0};
     int     e_pos {0};
+    int     s_page {1};
+    int     e_page {1};
     bool    a_click {false};
     bool    s_click {false};
     bool    e_click {false};

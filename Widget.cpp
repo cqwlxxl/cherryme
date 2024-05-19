@@ -172,6 +172,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         QStringList strs = var.toStringList();
         mASPageTotal = strs[1].toInt();
         ui->lineEdit_AS_Page->setText(strs[0]);
+        gIPD.index_anime.s_page = ui->lineEdit_AS_Page->text().toInt();
         ui->label_AS_PageTotal->setText("/"+strs[1]);
         ui->label_AS_Total->setText(QString(tr("共%1季")).arg(strs[2]));
     }
@@ -208,6 +209,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         QStringList strs = var.toStringList();
         mAEPageTotal = strs[1].toInt();
         ui->lineEdit_AE_Page->setText(strs[0]);
+        gIPD.index_anime.e_page = ui->lineEdit_AE_Page->text().toInt();
         ui->label_AE_PageTotal->setText("/"+strs[1]);
         ui->label_AE_Total->setText(QString(tr("共%1话")).arg(strs[2]));
     }
@@ -633,7 +635,7 @@ void Widget::on_listWidget_Anime_Anime_itemClicked(QListWidgetItem *item)
     gIPD.index_anime.aid = gIPD.anime.animes.at(row).aid;
     gIPD.index_anime.a_pos = ui->listWidget_Anime_Anime->verticalScrollBar()->value();
     showBarAnimeId(1);
-    getAnimeSeason(1);
+    getAnimeSeason(gIPD.index_anime.s_click?gIPD.index_anime.s_page:1);
     ui->checkBox_AA_Display->setChecked(anime.display);
     ui->checkBox_AA_Zhuifan->setChecked(anime.zhuifan);
     ui->lineEdit_AA_Name->setText(anime.name);
@@ -649,7 +651,7 @@ void Widget::on_listWidget_Anime_Season_itemClicked(QListWidgetItem *item)
     gIPD.index_anime.sid = season.sid;
     gIPD.index_anime.s_pos = ui->listWidget_Anime_Season->verticalScrollBar()->value();
     showBarAnimeId(2);
-    getAnimeEpisode(1);
+    getAnimeEpisode(gIPD.index_anime.e_click?gIPD.index_anime.e_page:1);
     ui->lineEdit_AS_Name->setText(season.name);
     ui->checkBox_AS_Display->setChecked(season.display);
     if(season.release_date_valid)
