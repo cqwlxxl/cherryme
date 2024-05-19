@@ -35,7 +35,7 @@ CREATE TABLE `anime_episode` (
   `see` tinyint(4) NOT NULL DEFAULT 0,
   `tag1` tinyint(4) NOT NULL DEFAULT 0,
   `tag2` tinyint(4) NOT NULL DEFAULT 0,
-  `tag3` tinyint(4) NOT NULL DEFAULT 1
+  `tag3` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
@@ -57,7 +57,7 @@ CREATE TABLE `anime_ip` (
   `display` tinyint(4) DEFAULT 0,
   `tag1` tinyint(4) NOT NULL DEFAULT 0,
   `tag2` tinyint(4) NOT NULL DEFAULT 0,
-  `tag3` tinyint(4) NOT NULL DEFAULT 1
+  `tag3` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
@@ -93,7 +93,7 @@ CREATE TABLE `anime_season` (
   `display` tinyint(4) NOT NULL DEFAULT 0,
   `tag1` tinyint(4) NOT NULL DEFAULT 0,
   `tag2` tinyint(4) NOT NULL DEFAULT 0,
-  `tag3` tinyint(4) NOT NULL DEFAULT 1
+  `tag3` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 --
