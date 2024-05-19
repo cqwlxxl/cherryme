@@ -111,12 +111,11 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             gIPD.index_anime.p_click = false;
             //查看是否还有显示
             bool has {false};
-            for(int j = 0; j < gIPD.anime_ip.ips.size(); j++)
+            if(gIPD.index_anime.p_row < gIPD.anime_ip.ips.size())
             {
-                if(gIPD.anime_ip.ips.at(j).pid == gIPD.index_anime.pid)
+                if(gIPD.anime_ip.ips.at(gIPD.index_anime.p_row).pid == gIPD.index_anime.pid)
                 {
                     has = true;
-                    break;
                 }
             }
             if(has)
@@ -175,9 +174,25 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         else if(gIPD.index_anime.s_click)
         {
             gIPD.index_anime.s_click = false;
-            ui->listWidget_AS->verticalScrollBar()->setValue(gIPD.index_anime.s_pos);
-            ui->listWidget_AS->setCurrentRow(gIPD.index_anime.s_row);
-            on_listWidget_AS_itemClicked(gIPD.anime_season.items.at(gIPD.index_anime.s_row));
+            //查看是否还有显示
+            bool has {false};
+            if(gIPD.index_anime.s_row < gIPD.anime_season.seasons.size())
+            {
+                if(gIPD.anime_season.seasons.at(gIPD.index_anime.s_row).sid == gIPD.index_anime.sid)
+                {
+                    has = true;
+                }
+            }
+            if(has)
+            {
+                ui->listWidget_AS->verticalScrollBar()->setValue(gIPD.index_anime.s_pos);
+                ui->listWidget_AS->setCurrentRow(gIPD.index_anime.s_row);
+                on_listWidget_AS_itemClicked(gIPD.anime_season.items.at(gIPD.index_anime.s_row));
+            }
+            else
+            {
+                gIPD.index_anime.e_click = false;
+            }
         }
         break;
     case SOT_ANIME_SEASON_PAGE:
@@ -267,12 +282,11 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             gIPD.index_movie.p_click = false;
             //查看是否还有显示
             bool has {false};
-            for(int j = 0; j < gIPD.movie_ip.ips.size(); j++)
+            if(gIPD.index_movie.p_row < gIPD.movie_ip.ips.size())
             {
-                if(gIPD.movie_ip.ips.at(j).pid == gIPD.index_movie.pid)
+                if(gIPD.movie_ip.ips.at(gIPD.index_movie.p_row).pid == gIPD.index_movie.pid)
                 {
                     has = true;
-                    break;
                 }
             }
             if(has)
@@ -315,7 +329,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
         for(int i = 0; i < gIPD.movie_season.seasons.size(); i++)
         {
             QListWidgetItem *item = new QListWidgetItem();  //初始化item
-            MovieSeasonWidgetItem *widget = new MovieSeasonWidgetItem(gIPD.movie_season.seasons.at(i), ui->listWidget_MS);
+            MovieSeasonWidgetItem *widget = new MovieSeasonWidgetItem(gIPD.movie_season.seasons.at(i), i, ui->listWidget_MS);
             item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
             ui->listWidget_MS->insertItem(i, item);
             ui->listWidget_MS->setItemWidget(item, widget);
@@ -347,6 +361,9 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     case SOT_UPDATE_MOVIE:
         getMovieIp(ui->lineEdit_MP_Page->text().toInt());
         break;
+    case SOT_UPDATE_MOVIE_SEASON_SEE:
+        getMovieIp(ui->lineEdit_MP_Page->text().toInt());
+        break;
     default:
         break;
     }
@@ -363,6 +380,18 @@ void Widget::slotAnimeEpisodeSee(AnimeEpisodeData episode, int row)
     QVariant var_send;
     var_send.setValue(episode);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_SEE, var_send);
+}
+
+///电影部看完
+void Widget::slotMovieSeasonSee(MovieSeasonData season, int row)
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    gIPD.index_movie.s_row = row;
+    gIPD.index_movie.s_pos = ui->listWidget_MS->verticalScrollBar()->value();
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_SEE, var_send);
 }
 
 /////连接|断开服务器
@@ -456,6 +485,7 @@ void Widget::qian()
     connect(&gIPD, &InterfacePublicData::SIGNALSendQuery, this, &Widget::slotSendQuery, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALReceiveQueryData, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALAnimeEpisodeSee, this, &Widget::slotAnimeEpisodeSee, Qt::UniqueConnection);
+    connect(&gIPD, &InterfacePublicData::SIGNALMovieSeasonSee, this, &Widget::slotMovieSeasonSee, Qt::UniqueConnection);
 
     //初始化后操作
     QTimer::singleShot(0, this, [this]{
@@ -1229,7 +1259,7 @@ void Widget::on_pushButton_AS_NaneOk_clicked()
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_SEASON_NAME, var_send);
 }
 
-///发布日期有效
+///动漫季发布日期有效
 void Widget::on_checkBox_AS_ReleaseDateEnable_clicked(bool checked)
 {
     ui->dateEdit_AS_ReleaseDate->setVisible(checked);
@@ -1307,7 +1337,7 @@ void Widget::on_checkBox_AP_Zhuifan_clicked(bool checked)
 ///动漫公开提交
 void Widget::on_checkBox_AP_Display_clicked(bool checked)
 {
-    gIPD.index_anime.p_click = false;
+    gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = false;
     gIPD.index_anime.e_click = false;
     AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
@@ -1321,7 +1351,7 @@ void Widget::on_checkBox_AP_Display_clicked(bool checked)
 void Widget::on_checkBox_AS_Display_clicked(bool checked)
 {
     gIPD.index_anime.p_click = true;
-    gIPD.index_anime.s_click = false;
+    gIPD.index_anime.s_click = true;
     gIPD.index_anime.e_click = false;
     AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
     season.display = checked ? 1 : 0;
@@ -1384,23 +1414,23 @@ void Widget::on_lineEdit_AP_Name_textChanged(const QString &arg1)
     if(arg1 != gIPD.anime_ip.ips.at(gIPD.index_anime.p_row).name)
     {
         ui->lineEdit_AP_Name->setStyleSheet("#lineEdit_AP_Name{background-color:#fcae74;}");
-        ui->pushButton_AP_NaneOk->setEnabled(true);
+        ui->pushButton_AP_NameOk->setEnabled(true);
     }
     else
     {
         ui->lineEdit_AP_Name->setStyleSheet("");
-        ui->pushButton_AP_NaneOk->setEnabled(false);
+        ui->pushButton_AP_NameOk->setEnabled(false);
     }
 }
 
 ///动漫名称提交
-void Widget::on_pushButton_AP_NaneOk_clicked()
+void Widget::on_pushButton_AP_NameOk_clicked()
 {
     gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = false;
     gIPD.index_anime.e_click = false;
     ui->lineEdit_AP_Name->setStyleSheet("");
-    ui->pushButton_AP_NaneOk->setEnabled(false);
+    ui->pushButton_AP_NameOk->setEnabled(false);
     AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
     ip.name = ui->lineEdit_AP_Name->text().trimmed();
     QVariant var_send;
@@ -1598,6 +1628,9 @@ void Widget::on_listWidget_MS_itemClicked(QListWidgetItem *item)
         ui->checkBox_MS_CollectOk->setChecked(true);
         ui->checkBox_MS_CollectOk->setEnabled(true);
     }
+    ui->checkBox_MS_Tag1->setChecked(season.tag1);
+    ui->checkBox_MS_Tag2->setChecked(season.tag2);
+    ui->checkBox_MS_Tag3->setChecked(season.tag3);
 }
 
 ///电影ip上一页
@@ -1704,5 +1737,226 @@ void Widget::on_pushButton_MS_Delete_clicked()
             emit gIPD.SIGNALSendQuery(SOT_DELETE_MOVIE_SEASON, var_send);
         }
     }
+}
+
+///电影名称改变
+void Widget::on_lineEdit_MP_Name_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.movie_ip.ips.at(gIPD.index_movie.p_row).name)
+    {
+        ui->lineEdit_MP_Name->setStyleSheet("#lineEdit_MP_Name{background-color:#fcae74;}");
+        ui->pushButton_MP_NameOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_MP_Name->setStyleSheet("");
+        ui->pushButton_MP_NameOk->setEnabled(false);
+    }
+}
+
+///电影名称提交
+void Widget::on_pushButton_MP_NameOk_clicked()
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = false;
+    ui->lineEdit_MP_Name->setStyleSheet("");
+    ui->pushButton_MP_NameOk->setEnabled(false);
+    MovieIpData ip = gIPD.movie_ip.ips.at(gIPD.index_movie.p_row);
+    ip.name = ui->lineEdit_MP_Name->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_IP_NAME, var_send);
+}
+
+///电影公开提交
+void Widget::on_checkBox_MP_Display_clicked(bool checked)
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = false;
+    MovieIpData ip = gIPD.movie_ip.ips.at(gIPD.index_movie.p_row);
+    ip.display = checked;
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_IP_DISPLAY, var_send);
+}
+
+///电影关键词改变
+void Widget::on_lineEdit_MP_Keyword_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.movie_ip.ips.at(gIPD.index_movie.p_row).keywords)
+    {
+        ui->lineEdit_MP_Keyword->setStyleSheet("#lineEdit_MP_Keyword{background-color:#fcae74;}");
+        ui->pushButton_MP_KeywordsOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_MP_Keyword->setStyleSheet("");
+        ui->pushButton_MP_KeywordsOk->setEnabled(false);
+    }
+}
+
+///电影关键词提交
+void Widget::on_pushButton_MP_KeywordsOk_clicked()
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = false;
+    ui->lineEdit_MP_Keyword->setStyleSheet("");
+    ui->pushButton_MP_KeywordsOk->setEnabled(false);
+    MovieIpData ip = gIPD.movie_ip.ips.at(gIPD.index_movie.p_row);
+    ip.keywords = ui->lineEdit_MP_Keyword->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_IP_KEYWORDS, var_send);
+}
+
+///电影部名称改变
+void Widget::on_lineEdit_MS_Name_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.movie_season.seasons.at(gIPD.index_movie.s_row).name)
+    {
+        ui->lineEdit_MS_Name->setStyleSheet("#lineEdit_MS_Name{background-color:#fcae74;}");
+        ui->pushButton_MS_NaneOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_MS_Name->setStyleSheet("");
+        ui->pushButton_MS_NaneOk->setEnabled(false);
+    }
+}
+
+///电影部名称提交
+void Widget::on_pushButton_MS_NaneOk_clicked()
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    ui->lineEdit_MS_Name->setStyleSheet("");
+    ui->pushButton_MS_NaneOk->setEnabled(false);
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.name = ui->lineEdit_MS_Name->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_NAME, var_send);
+}
+
+///电影部发布日期有效
+void Widget::on_checkBox_MS_ReleaseDateEnable_clicked(bool checked)
+{
+    ui->dateEdit_MS_ReleaseDate->setVisible(checked);
+    bool can_update = false;
+    if(checked && (gIPD.movie_season.seasons.at(gIPD.index_movie.s_row).release_date != ui->dateEdit_MS_ReleaseDate->date()))
+    {
+        can_update = true;
+    }
+    if(checked != gIPD.movie_season.seasons.at(gIPD.index_movie.s_row).release_date_valid)
+    {
+        can_update = true;
+    }
+    ui->pushButton_MS_ReleaseDateOk->setEnabled(can_update);
+}
+
+///电影部发布日期改变
+void Widget::on_dateEdit_MS_ReleaseDate_dateChanged(const QDate &date)
+{
+    bool can_update = false;
+    if(ui->checkBox_MS_ReleaseDateEnable->isChecked() && (gIPD.movie_season.seasons.at(gIPD.index_movie.s_row).release_date != date))
+    {
+        can_update = true;
+    }
+    if(ui->checkBox_MS_ReleaseDateEnable->isChecked() != gIPD.movie_season.seasons.at(gIPD.index_movie.s_row).release_date_valid)
+    {
+        can_update = true;
+    }
+    ui->pushButton_MS_ReleaseDateOk->setEnabled(can_update);
+}
+
+///电影部发布日期提交
+void Widget::on_pushButton_MS_ReleaseDateOk_clicked()
+{
+    ui->pushButton_MS_ReleaseDateOk->setEnabled(false);
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.release_date_valid = ui->checkBox_MS_ReleaseDateEnable->isChecked();
+    season.release_date = ui->dateEdit_MS_ReleaseDate->date();
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_RELEASE_DATE, var_send);
+}
+
+///电影部评分改变
+void Widget::on_comboBox_MS_Point_activated(int index)
+{
+    if(gIPD.movie_season.seasons.at(gIPD.index_movie.s_row).point != index)
+    {
+        gIPD.index_movie.p_click = true;
+        gIPD.index_movie.s_click = true;
+        MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+        season.point = index;
+        QVariant var_send;
+        var_send.setValue(season);
+        emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_POINT, var_send);
+    }
+}
+
+///电影部要收藏提交
+void Widget::on_checkBox_MS_CollectIt_clicked(bool checked)
+{
+    ui->checkBox_MS_CollectOk->setEnabled(checked);
+    ui->checkBox_MS_CollectOk->setChecked(false);
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.collect = checked ? 1 : 0;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_COLLECT, var_send);
+}
+
+///电影部已收藏提交
+void Widget::on_checkBox_MS_CollectOk_clicked(bool checked)
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.collect = checked ? 2 : 1;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_COLLECT, var_send);
+}
+
+///电影部tag1提交
+void Widget::on_checkBox_MS_Tag1_clicked(bool checked)
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.tag1 = checked;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_TAG1, var_send);
+}
+
+///电影部tag2提交
+void Widget::on_checkBox_MS_Tag2_clicked(bool checked)
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.tag2 = checked;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_TAG2, var_send);
+}
+
+///电影部tag3提交
+void Widget::on_checkBox_MS_Tag3_clicked(bool checked)
+{
+    gIPD.index_movie.p_click = true;
+    gIPD.index_movie.s_click = true;
+    MovieSeasonData season = gIPD.movie_season.seasons.at(gIPD.index_movie.s_row);
+    season.tag3 = checked;
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_MOVIE_SEASON_TAG3, var_send);
 }
 

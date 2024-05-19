@@ -3,14 +3,18 @@
 
 #include <QTimer>
 
-MovieSeasonWidgetItem::MovieSeasonWidgetItem(MovieSeasonData season, QWidget *parent) :
+#include "UiThread/InterfacePublicData.h"
+
+MovieSeasonWidgetItem::MovieSeasonWidgetItem(MovieSeasonData season, int row, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MovieSeasonWidgetItem)
 {
     ui->setupUi(this);
 
     mSeason = season;
+    mRow = row;
     ui->label_Name->setText(season.name);
+    ui->pushButton_See->setChecked(season.see);
     ui->pushButton_Collect->setVisible(season.collect==0 ? false : true);
     ui->pushButton_Collect->setChecked(season.collect==2);
     setPoint(season.point);
@@ -27,6 +31,13 @@ MovieSeasonWidgetItem::MovieSeasonWidgetItem(MovieSeasonData season, QWidget *pa
 MovieSeasonWidgetItem::~MovieSeasonWidgetItem()
 {
     delete ui;
+}
+
+///电影部看完
+void MovieSeasonWidgetItem::on_pushButton_See_clicked(bool checked)
+{
+    mSeason.see = checked;
+    emit gIPD.SIGNALMovieSeasonSee(mSeason, mRow);
 }
 
 ///设置评分

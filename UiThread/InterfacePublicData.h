@@ -91,6 +91,7 @@ signals:
     void SIGNALSendQuery(SqlOperateType operate, QVariant var);         //执行Sql
     void SIGNALReceiveQueryData(SqlOperateType operate, QVariant var);  //接收Sql结果信号
     void SIGNALAnimeEpisodeSee(AnimeEpisodeData episode, int row);      //动漫话看完信号
+    void SIGNALMovieSeasonSee(MovieSeasonData season, int row);         //电影部看完信号
 
 private slots:
     void slotSendQuery(SqlOperateType operate, QVariant var);   //发送到数据库前执行的操作

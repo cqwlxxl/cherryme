@@ -14,11 +14,14 @@ class MovieSeasonWidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit MovieSeasonWidgetItem(MovieSeasonData season, QWidget *parent = nullptr);
+    explicit MovieSeasonWidgetItem(MovieSeasonData season, int row, QWidget *parent = nullptr);
     ~MovieSeasonWidgetItem();
 
 private:
     Ui::MovieSeasonWidgetItem *ui;
+
+private slots:
+    void on_pushButton_See_clicked(bool checked);   //电影部看完
 
 private:
     void setPoint(int point);   //设置评分
@@ -29,6 +32,7 @@ private:
 
 private:
     MovieSeasonData     mSeason;
+    int mRow {-1};
 };
 
 #endif // MOVIESEASONWIDGETITEM_H

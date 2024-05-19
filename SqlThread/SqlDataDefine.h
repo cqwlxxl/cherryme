@@ -35,11 +35,11 @@ enum SqlOperateType
     SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
     SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
     SOT_UPDATE_ANIME_IP_DISPLAY,            //更新动漫，公开
-    SOT_UPDATE_ANIME_SEASON_COLLECT,        //更新动漫，收藏
     SOT_UPDATE_ANIME_SEASON_NAME,           //更新动漫季，名称
+    SOT_UPDATE_ANIME_SEASON_DISPLAY,        //更新动漫季，公开
     SOT_UPDATE_ANIME_SEASON_RELEASE_DATE,   //更新动漫季，发布日期
     SOT_UPDATE_ANIME_SEASON_POINT,          //更新动漫季，评分
-    SOT_UPDATE_ANIME_SEASON_DISPLAY,        //更新动漫季，公开
+    SOT_UPDATE_ANIME_SEASON_COLLECT,        //更新动漫季，收藏
     SOT_UPDATE_ANIME_EPISODE_SEE,           //更新动漫话，看完
     SOT_UPDATE_ANIME_EPISODE_EPISODE,       //更新动漫话，序号
     SOT_UPDATE_ANIME_EPISODE_TITLE,         //更新动漫话，标题
@@ -59,7 +59,18 @@ enum SqlOperateType
     SOT_MOVIE_IP_PAGE,          //电影页面
     SOT_GET_MOVIE_SEASON,       //获取电影部
     SOT_MOVIE_SEASON_PAGE,      //电影部页面
-    SOT_UPDATE_MOVIE,           //更新电影
+    SOT_UPDATE_MOVIE,                       //更新电影
+    SOT_UPDATE_MOVIE_IP_NAME,               //更新电影，名称
+    SOT_UPDATE_MOVIE_IP_DISPLAY,            //更新电影，公开
+    SOT_UPDATE_MOVIE_IP_KEYWORDS,           //更新电影，关键词
+    SOT_UPDATE_MOVIE_SEASON_NAME,           //更新电影部，名称
+    SOT_UPDATE_MOVIE_SEASON_RELEASE_DATE,   //更新电影部，发布日期
+    SOT_UPDATE_MOVIE_SEASON_POINT,          //更新电影部，评分
+    SOT_UPDATE_MOVIE_SEASON_COLLECT,        //更新电影部，收藏
+    SOT_UPDATE_MOVIE_SEASON_TAG1,           //更新电影部，tag1
+    SOT_UPDATE_MOVIE_SEASON_TAG2,           //更新电影部，tag2
+    SOT_UPDATE_MOVIE_SEASON_TAG3,           //更新电影部，tag3
+    SOT_UPDATE_MOVIE_SEASON_SEE,            //更新电影部，看完
     SOT_INSERT_MOVIE_IP,        //新增电影ip
     SOT_INSERT_MOVIE_SEASON,    //新增电影部
     SOT_DELETE_MOVIE_IP,        //删除电影ip

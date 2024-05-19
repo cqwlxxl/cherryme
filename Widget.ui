@@ -17,13 +17,13 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>CherryMe</string>
+   <string>Cherry Me !!</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_Anime">
       <attribute name="title">
@@ -1289,7 +1289,7 @@ QLabel:hover
 }</string>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_ADefault">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -1339,7 +1339,7 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_AP_NaneOk">
+              <widget class="QPushButton" name="pushButton_AP_NameOk">
                <property name="minimumSize">
                 <size>
                  <width>24</width>
@@ -3230,7 +3230,7 @@ QLabel:hover
 }</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_MDefault">
           <layout class="QGridLayout" name="gridLayout_3">
@@ -3280,7 +3280,7 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_MP_NaneOk">
+              <widget class="QPushButton" name="pushButton_MP_NameOk">
                <property name="minimumSize">
                 <size>
                  <width>24</width>
@@ -3583,21 +3583,21 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_ME_Tag1">
+              <widget class="QCheckBox" name="checkBox_MS_Tag1">
                <property name="text">
                 <string>Tag1</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_ME_Tag2">
+              <widget class="QCheckBox" name="checkBox_MS_Tag2">
                <property name="text">
                 <string>Tag2</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_ME_Tag3">
+              <widget class="QCheckBox" name="checkBox_MS_Tag3">
                <property name="text">
                 <string>Tag3</string>
                </property>

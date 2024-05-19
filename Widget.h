@@ -41,7 +41,8 @@ public:
 private slots:
     void slotSendQuery(SqlOperateType operate, QVariant var);
     void slotReceiveQueryData(SqlOperateType operate, QVariant var);    //接收sql结果槽函数
-    void slotAnimeEpisodeSee(AnimeEpisodeData episode, int row);     //动漫话看完
+    void slotAnimeEpisodeSee(AnimeEpisodeData episode, int row);        //动漫话看完
+    void slotMovieSeasonSee(MovieSeasonData season, int row);           //电影部看完
 
 private slots:
     void on_pushButton_ConnectMysql_clicked(bool checked);    //连接|断开服务器
@@ -69,7 +70,7 @@ private slots:
     void on_pushButton_AE_Delete_clicked(); //删除动漫话
     //anime操作ip
     void on_lineEdit_AP_Name_textChanged(const QString &arg1);  //动漫名称改变
-    void on_pushButton_AP_NaneOk_clicked();                     //动漫名称提交
+    void on_pushButton_AP_NameOk_clicked();                     //动漫名称提交
     void on_checkBox_AP_Display_clicked(bool checked);  //动漫公开提交
     void on_checkBox_AP_Zhuifan_clicked(bool checked);  //动漫追番提交
     void on_lineEdit_AP_Keyword_textChanged(const QString &arg1);   //动漫关键词改变
@@ -78,9 +79,9 @@ private slots:
     void on_lineEdit_AS_Name_textChanged(const QString &arg1);  //动漫季名称改变
     void on_pushButton_AS_NaneOk_clicked();                     //动漫季名称提交
     void on_checkBox_AS_Display_clicked(bool checked);  //动漫季公开提交
-    void on_checkBox_AS_ReleaseDateEnable_clicked(bool checked);    //发布日期有效
-    void on_pushButton_AS_ReleaseDateOk_clicked();                  //动漫季发布日期提交
+    void on_checkBox_AS_ReleaseDateEnable_clicked(bool checked);    //动漫季发布日期有效
     void on_dateEdit_AS_ReleaseDate_dateChanged(const QDate &date); //动漫季发布日期改变
+    void on_pushButton_AS_ReleaseDateOk_clicked();                  //动漫季发布日期提交
     void on_comboBox_AS_Point_activated(int index);     //动漫季评分改变
     void on_checkBox_AS_CollectIt_clicked(bool checked);    //动漫季要收藏提交
     void on_checkBox_AS_CollectOk_clicked(bool checked);    //动漫季已收藏提交
@@ -108,6 +109,24 @@ private slots:
     void on_pushButton_MP_Delete_clicked();     //删除电影ip
     void on_pushButton_MS_New_clicked();        //新增电影部
     void on_pushButton_MS_Delete_clicked();     //删除电影部
+    //movie操作ip
+    void on_lineEdit_MP_Name_textChanged(const QString &arg1);  //电影名称改变
+    void on_pushButton_MP_NameOk_clicked();                     //电影名称提交
+    void on_checkBox_MP_Display_clicked(bool checked);  //电影公开提交
+    void on_lineEdit_MP_Keyword_textChanged(const QString &arg1);   //电影关键词改变
+    void on_pushButton_MP_KeywordsOk_clicked();                     //电影关键词提交
+    //movie操作部
+    void on_lineEdit_MS_Name_textChanged(const QString &arg1);  //电影部名称改变
+    void on_pushButton_MS_NaneOk_clicked();                     //电影部名称提交
+    void on_checkBox_MS_ReleaseDateEnable_clicked(bool checked);    //电影部发布日期有效
+    void on_dateEdit_MS_ReleaseDate_dateChanged(const QDate &date); //电影部发布日期改变
+    void on_pushButton_MS_ReleaseDateOk_clicked();                  //电影部发布日期提交
+    void on_comboBox_MS_Point_activated(int index);     //电影部评分改变
+    void on_checkBox_MS_CollectIt_clicked(bool checked);    //电影部要收藏提交
+    void on_checkBox_MS_CollectOk_clicked(bool checked);    //电影部已收藏提交
+    void on_checkBox_MS_Tag1_clicked(bool checked);     //电影部tag1提交
+    void on_checkBox_MS_Tag2_clicked(bool checked);     //电影部tag2提交
+    void on_checkBox_MS_Tag3_clicked(bool checked);     //电影部tag3提交
 
 private:
     void qian();    //init
