@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QVariant>
 
+#include "PublicData.h"
 #include "SqlThread/SqlDataDefine.h"
 #include "UiThread/AnimeAnimeWidgetItem.h"
 #include "UiThread/AnimeSeasonWidgetItem.h"

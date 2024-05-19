@@ -1,0 +1,9 @@
+编译信息:
+  MySQL: mysql-installer-community-5.7.40.0.msi
+  Qt   : Qt 5.12.12 (MinGW 7.3.0 64-bit)
+
+使用方法:
+  1. 复制 libmysql.dll 到
+     [Qt安装目录]\5.12.12\mingw73_64\bin\libmysql.dll
+  2. 复制 qsqlmysql.dll 和 qsqlmysqld.dll 到
+     [Qt安装目录]\5.12.12\mingw73_64\plugins\sqldrivers\qsqlmysql.dll

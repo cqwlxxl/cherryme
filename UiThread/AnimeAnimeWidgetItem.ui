@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -82,7 +82,7 @@
            <enum>QProgressBar::TopToBottom</enum>
           </property>
           <property name="format">
-           <string>999/999</string>
+           <string notr="true">999/999</string>
           </property>
          </widget>
         </item>
@@ -101,7 +101,7 @@
            </size>
           </property>
           <property name="text">
-           <string>神作 12</string>
+           <string notr="true">神作 12</string>
           </property>
          </widget>
         </item>
@@ -114,7 +114,7 @@
            </size>
           </property>
           <property name="text">
-           <string>A</string>
+           <string notr="true">A</string>
           </property>
          </widget>
         </item>
@@ -127,7 +127,7 @@
            </size>
           </property>
           <property name="text">
-           <string>B</string>
+           <string notr="true">B</string>
           </property>
          </widget>
         </item>
@@ -140,7 +140,7 @@
            </size>
           </property>
           <property name="text">
-           <string>C</string>
+           <string notr="true">C</string>
           </property>
          </widget>
         </item>
@@ -164,7 +164,7 @@
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="text">
-           <string>追番中</string>
+           <string notr="true">追番中</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

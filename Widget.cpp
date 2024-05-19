@@ -11,6 +11,8 @@ Q_DECLARE_METATYPE(AnimeData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
 Q_DECLARE_METATYPE(AnimeEpisodeData)
 
+PublicUseData   gPUD;
+
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)

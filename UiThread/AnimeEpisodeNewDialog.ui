@@ -32,7 +32,7 @@
         <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
-        <string>01</string>
+        <string notr="true">01</string>
        </property>
       </widget>
      </item>
@@ -75,7 +75,7 @@
         </size>
        </property>
        <property name="text">
-        <string>01</string>
+        <string notr="true">01</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -140,7 +140,7 @@
         </size>
        </property>
        <property name="text">
-        <string>12</string>
+        <string notr="true">12</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -181,7 +181,7 @@
         <string>[%ep%]代表序号数字部分</string>
        </property>
        <property name="text">
-        <string>[%ep%]</string>
+        <string notr="true">[%ep%]</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -219,7 +219,7 @@
         </size>
        </property>
        <property name="text">
-        <string>1</string>
+        <string notr="true">1</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

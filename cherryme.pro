@@ -21,6 +21,7 @@ SOURCES += \
     Widget.cpp
 
 HEADERS += \
+    PublicData.h \
     SqlThread/SqlDataDefine.h \
     SqlThread/SqlThread.h \
     UiThread/AnimeAnimeNewDialog.h \
@@ -40,6 +41,9 @@ FORMS += \
     UiThread/AnimeSeasonNewDialog.ui \
     UiThread/AnimeSeasonWidgetItem.ui \
     Widget.ui
+
+TRANSLATIONS += \
+    Language/zh_CN.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

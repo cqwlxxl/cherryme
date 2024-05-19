@@ -1,0 +1,7 @@
+这里以64位打包为例，32位类似
+  1) 打开控制台 Qt 5.12.12 (MinGW 7.3.0 64-bit)
+  2) 命令 windeployqt "D:\pack\cherryme.exe"
+  3) 复制 translations\qt_zh_CN.qm 到 RunFiles\src\language\qt_zh_CN.qm
+  4) 删除 translations 文件夹
+  5) 复制 RunFiles\src 整个文件夹到 pack 目录
+  6) 复制 RunFilesDesign\mysql_libs\x64\libmysql.dll 到 pack 目录
