@@ -493,11 +493,11 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
 bool SqlThread::login()
 {
     //连接数据库
-    mDB.setHostName("localhost");
-    mDB.setDatabaseName("cherryme");
-    mDB.setPort(3306);
-    mDB.setUserName("cherryme");
-    mDB.setPassword("cherryme");
+    mDB.setHostName(MYSQL_IP);
+    mDB.setDatabaseName(MYSQL_DATABASE);
+    mDB.setPort(MYSQL_PORT);
+    mDB.setUserName(MYSQL_USER);
+    mDB.setPassword(MYSQL_PWD);
     mQuery = QSqlQuery(mDB);
     if(!mDB.open())
     {

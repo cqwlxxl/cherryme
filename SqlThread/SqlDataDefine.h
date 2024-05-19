@@ -9,6 +9,12 @@
 #define TABLE_ANIME_EPISODE "anime_episode"
 #define TABLE_ANIME_RECENT  "anime_recent"
 
+#define MYSQL_IP        "localhost"
+#define MYSQL_PORT      3306
+#define MYSQL_DATABASE  "cherryme"
+#define MYSQL_USER      "cherryme"
+#define MYSQL_PWD       "cherryme"
+
 ///数据操作
 enum SqlOperateType
 {

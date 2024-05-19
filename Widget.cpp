@@ -47,7 +47,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     {
     case SOT_LOGIN_ANIME:
         mConnectedAnime = var.toBool();
-        ui->pushButton_AnimeLogin->setText(mConnectedAnime?tr("断开服务器"):tr("连接服务器"));
+        ui->pushButton_AnimeLogin->setText(mConnectedAnime?QString("%2:%1(%3)").arg(MYSQL_PORT).arg(MYSQL_IP, tr("点击断开")):tr("连接服务器"));
         ui->pushButton_AnimeLogin->setChecked(mConnectedAnime);
         if(mConnectedAnime)
         {   //连接上服务器了
