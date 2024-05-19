@@ -1,11 +1,11 @@
-#include "AnimeIpWidgetItem.h"
-#include "ui_AnimeIpWidgetItem.h"
+#include "MovieIpWidgetItem.h"
+#include "ui_MovieIpWidgetItem.h"
 
 #include <QTimer>
 
-AnimeIpWidgetItem::AnimeIpWidgetItem(AnimeIpData ip, QWidget *parent) :
+MovieIpWidgetItem::MovieIpWidgetItem(MovieIpData ip, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::AnimeIpWidgetItem)
+    ui(new Ui::MovieIpWidgetItem)
 {
     ui->setupUi(this);
 
@@ -17,7 +17,6 @@ AnimeIpWidgetItem::AnimeIpWidgetItem(AnimeIpData ip, QWidget *parent) :
     setTag1(ip.tag1);
     setTag2(ip.tag2);
     setTag3(ip.tag3);
-    setZhuifan(ip.zhuifan);
     ui->progressBar_Radio->setRange(0, ip.total_season);
     ui->progressBar_Radio->setValue(ip.see_season);
     ui->progressBar_Radio->setFormat(QString("%1/%2").arg(ip.see_season).arg(ip.total_season));
@@ -29,13 +28,13 @@ AnimeIpWidgetItem::AnimeIpWidgetItem(AnimeIpData ip, QWidget *parent) :
     });
 }
 
-AnimeIpWidgetItem::~AnimeIpWidgetItem()
+MovieIpWidgetItem::~MovieIpWidgetItem()
 {
     delete ui;
 }
 
 ///设置评分
-void AnimeIpWidgetItem::setPoint(int point)
+void MovieIpWidgetItem::setPoint(int point)
 {
     if(point == 0)
     {
@@ -68,7 +67,7 @@ void AnimeIpWidgetItem::setPoint(int point)
     ui->label_Point->setStyleSheet(QString("QLabel{border:1px solid grey;color:white;background-color:%1;margin-left:3px;}").arg(color));
 }
 
-void AnimeIpWidgetItem::setTag1(bool tag1)
+void MovieIpWidgetItem::setTag1(bool tag1)
 {
     ui->label_Tag1->setVisible(tag1);
     if(tag1)
@@ -77,7 +76,7 @@ void AnimeIpWidgetItem::setTag1(bool tag1)
     }
 }
 
-void AnimeIpWidgetItem::setTag2(bool tag2)
+void MovieIpWidgetItem::setTag2(bool tag2)
 {
     ui->label_Tag2->setVisible(tag2);
     if(tag2)
@@ -86,21 +85,11 @@ void AnimeIpWidgetItem::setTag2(bool tag2)
     }
 }
 
-void AnimeIpWidgetItem::setTag3(bool tag3)
+void MovieIpWidgetItem::setTag3(bool tag3)
 {
     ui->label_Tag3->setVisible(tag3);
     if(tag3)
     {
         ui->label_Tag3->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#008000;margin-left:3px;}");
-    }
-}
-
-///设置追番
-void AnimeIpWidgetItem::setZhuifan(bool zhuifan)
-{
-    ui->label_Zhuifan->setVisible(zhuifan);
-    if(zhuifan)
-    {
-        ui->label_Zhuifan->setStyleSheet("QLabel{color:red;margin-left:3px;}");
     }
 }

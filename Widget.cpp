@@ -7,10 +7,13 @@
 
 #include "UiThread/Anime/AnimeIpWidgetItem.h"
 
-Q_DECLARE_METATYPE(AnimeData)
+Q_DECLARE_METATYPE(AnimeIpData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
 Q_DECLARE_METATYPE(AnimeEpisodeData)
 Q_DECLARE_METATYPE(AnimeRecentData)
+Q_DECLARE_METATYPE(MovieIpData)
+Q_DECLARE_METATYPE(MovieSeasonData)
+Q_DECLARE_METATYPE(MovieRecentData)
 
 PublicUseData   gPUD;
 
@@ -45,62 +48,72 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     ui->tab_Anime->setEnabled(true);
     switch(operate)
     {
-    case SOT_LOGIN_ANIME:
+    case SOT_CONNECT_MYSQL:
         mConnectedMysql = var.toBool();
         ui->pushButton_ConnectMysql->setText(mConnectedMysql?QString("%2:%1(%3)").arg(MYSQL_PORT).arg(MYSQL_IP, tr("点击断开")):tr("连接服务器"));
         ui->pushButton_ConnectMysql->setChecked(mConnectedMysql);
         if(mConnectedMysql)
         {   //连接上服务器了
             emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
+            emit gIPD.SIGNALSendQuery(SOT_GET_MOVIE_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
+            on_pushButton_FindMovie_clicked();
         }
         else
         {   //断开服务器
             mAnimeRecents.clear();
+            mMovieRecents.clear();
             mAnimeRecentMode.enable = false;
+            mMovieRecentMode.enable = false;
             ui->label_A_LockRecent->setVisible(false);
             ui->label_A_UnlockRecent->setVisible(false);
+            ui->label_M_LockRecent->setVisible(false);
+            ui->label_M_UnlockRecent->setVisible(false);
             setAnimeRecentLabel();
+            setMovieRecentLabel();
             showBarAnimeId(-1);
+            showBarMovieId(-1);
             ui->listWidget_AP->clear();
             ui->listWidget_AS->clear();
             ui->listWidget_AE->clear();
+            ui->listWidget_MP->clear();
+            ui->listWidget_MS->clear();
         }
         break;
     case SOT_GET_ANIME_IP:
     {
-        gIPD.anime.animes = var.value<QList<AnimeData> >();
-        gIPD.anime.items.clear();
-        gIPD.anime.widgets.clear();
+        gIPD.anime_ip.ips = var.value<QList<AnimeIpData> >();
+        gIPD.anime_ip.items.clear();
+        gIPD.anime_ip.widgets.clear();
         ui->listWidget_AP->clear();
         ui->listWidget_AS->clear();
         ui->listWidget_AE->clear();
-        if(gIPD.anime.animes.size() == 0)
+        if(gIPD.anime_ip.ips.size() == 0)
         {
             break;
         }
-        for(int i = 0; i < gIPD.anime.animes.size(); i++)
+        for(int i = 0; i < gIPD.anime_ip.ips.size(); i++)
         {
             QListWidgetItem *item = new QListWidgetItem();  //初始化item
-            AnimeIpWidgetItem *widget = new AnimeIpWidgetItem(gIPD.anime.animes.at(i), ui->listWidget_AP);
+            AnimeIpWidgetItem *widget = new AnimeIpWidgetItem(gIPD.anime_ip.ips.at(i), ui->listWidget_AP);
             item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
             ui->listWidget_AP->insertItem(i, item);
             ui->listWidget_AP->setItemWidget(item, widget);
-            gIPD.anime.items.append(item);
-            gIPD.anime.widgets.append(widget);
+            gIPD.anime_ip.items.append(item);
+            gIPD.anime_ip.widgets.append(widget);
         }
         if(mAnimeRecentMode.enable)
         {   //最近模式
-            on_listWidget_AP_itemClicked(gIPD.anime.items.at(0));
+            on_listWidget_AP_itemClicked(gIPD.anime_ip.items.at(0));
         }
         else if(gIPD.index_anime.p_click)
         {
             gIPD.index_anime.p_click = false;
             //查看是否还有显示
             bool has {false};
-            for(int j = 0; j < gIPD.anime.animes.size(); j++)
+            for(int j = 0; j < gIPD.anime_ip.ips.size(); j++)
             {
-                if(gIPD.anime.animes.at(j).pid == gIPD.index_anime.pid)
+                if(gIPD.anime_ip.ips.at(j).pid == gIPD.index_anime.pid)
                 {
                     has = true;
                     break;
@@ -110,7 +123,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             {
                 ui->listWidget_AP->verticalScrollBar()->setValue(gIPD.index_anime.p_pos);
                 ui->listWidget_AP->setCurrentRow(gIPD.index_anime.p_row);
-                on_listWidget_AP_itemClicked(gIPD.anime.items.at(gIPD.index_anime.p_row));
+                on_listWidget_AP_itemClicked(gIPD.anime_ip.items.at(gIPD.index_anime.p_row));
             }
             else
             {
@@ -118,8 +131,8 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
                 gIPD.index_anime.e_click = false;
             }
         }
-        break;
     }
+        break;
     case SOT_GET_ANIME_RECENT:
     {
         mAnimeRecents = var.value<QList<AnimeRecentData> >();
@@ -129,7 +142,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     case SOT_ANIME_IP_PAGE:
     {
         QStringList strs = var.toStringList();
-        mAAPageTotal = strs[1].toInt();
+        mAPPageTotal = strs[1].toInt();
         ui->lineEdit_AP_Page->setText(strs[0]);
         ui->label_AP_PageTotal->setText("/"+strs[1]);
         ui->label_AP_Total->setText(QString(tr("共%1个系列")).arg(strs[2]));
@@ -224,6 +237,112 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
     case SOT_DELETE_ANIME_RECENT:
         emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
         break;
+    case SOT_GET_MOVIE_IP:
+    {
+        gIPD.movie_ip.ips = var.value<QList<MovieIpData> >();
+        gIPD.movie_ip.items.clear();
+        gIPD.movie_ip.widgets.clear();
+        ui->listWidget_MP->clear();
+        ui->listWidget_MS->clear();
+        if(gIPD.movie_ip.ips.size() == 0)
+        {
+            break;
+        }
+        for(int i = 0; i < gIPD.movie_ip.ips.size(); i++)
+        {
+            QListWidgetItem *item = new QListWidgetItem();  //初始化item
+            MovieIpWidgetItem *widget = new MovieIpWidgetItem(gIPD.movie_ip.ips.at(i), ui->listWidget_MP);
+            item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
+            ui->listWidget_MP->insertItem(i, item);
+            ui->listWidget_MP->setItemWidget(item, widget);
+            gIPD.movie_ip.items.append(item);
+            gIPD.movie_ip.widgets.append(widget);
+        }
+        if(mMovieRecentMode.enable)
+        {   //最近模式
+            ///xxl_todo: on_listWidget_MP_itemClicked(gIPD.movie_ip.items.at(0));
+        }
+        else if(gIPD.index_movie.p_click)
+        {
+            gIPD.index_movie.p_click = false;
+            //查看是否还有显示
+            bool has {false};
+            for(int j = 0; j < gIPD.movie_ip.ips.size(); j++)
+            {
+                if(gIPD.movie_ip.ips.at(j).pid == gIPD.index_movie.pid)
+                {
+                    has = true;
+                    break;
+                }
+            }
+            if(has)
+            {
+                ui->listWidget_MP->verticalScrollBar()->setValue(gIPD.index_movie.p_pos);
+                ui->listWidget_MP->setCurrentRow(gIPD.index_movie.p_row);
+            }
+            else
+            {
+                gIPD.index_movie.s_click = false;
+            }
+        }
+    }
+        break;
+    case SOT_GET_MOVIE_RECENT:
+    {
+        mMovieRecents = var.value<QList<MovieRecentData> >();
+        setMovieRecentLabel();
+    }
+        break;
+    case SOT_MOVIE_IP_PAGE:
+    {
+        QStringList strs = var.toStringList();
+        mMPPageTotal = strs[1].toInt();
+        ui->lineEdit_MP_Page->setText(strs[0]);
+        ui->label_MP_PageTotal->setText("/"+strs[1]);
+        ui->label_MP_Total->setText(QString(tr("共%1个系列")).arg(strs[2]));
+    }
+        break;
+    case SOT_GET_MOVIE_SEASON:
+        gIPD.movie_season.seasons = var.value<QList<MovieSeasonData> >();
+        gIPD.movie_season.items.clear();
+        gIPD.movie_season.widgets.clear();
+        ui->listWidget_MS->clear();
+        if(gIPD.movie_season.seasons.size() == 0)
+        {
+            break;
+        }
+        for(int i = 0; i < gIPD.movie_season.seasons.size(); i++)
+        {
+            QListWidgetItem *item = new QListWidgetItem();  //初始化item
+            MovieSeasonWidgetItem *widget = new MovieSeasonWidgetItem(gIPD.movie_season.seasons.at(i), ui->listWidget_MS);
+            item->setSizeHint(QSize(0, widget->height()));  //设置自定义item高度
+            ui->listWidget_MS->insertItem(i, item);
+            ui->listWidget_MS->setItemWidget(item, widget);
+            gIPD.movie_season.items.append(item);
+            gIPD.movie_season.widgets.append(widget);
+        }
+        if(mMovieRecentMode.enable)
+        {   //最近模式
+            on_listWidget_MS_itemClicked(gIPD.movie_season.items.at(0));
+        }
+        else if(gIPD.index_movie.s_click)
+        {
+            gIPD.index_movie.s_click = false;
+            ui->listWidget_MS->verticalScrollBar()->setValue(gIPD.index_movie.s_pos);
+            ui->listWidget_MS->setCurrentRow(gIPD.index_movie.s_row);
+            on_listWidget_MS_itemClicked(gIPD.movie_season.items.at(gIPD.index_movie.s_row));
+        }
+        break;
+    case SOT_MOVIE_SEASON_PAGE:
+    {
+        QStringList strs = var.toStringList();
+        mMSPageTotal = strs[1].toInt();
+        ui->lineEdit_MS_Page->setText(strs[0]);
+        gIPD.index_movie.s_page = ui->lineEdit_MS_Page->text().toInt();
+        ui->label_MS_PageTotal->setText("/"+strs[1]);
+        ui->label_MS_Total->setText(QString(tr("共%1部")).arg(strs[2]));
+    }
+        break;
     default:
         break;
     }
@@ -245,7 +364,7 @@ void Widget::slotAnimeEpisodeSee(AnimeEpisodeData episode, int row)
 /////连接|断开服务器
 void Widget::on_pushButton_ConnectMysql_clicked(bool checked)
 {
-    emit gIPD.SIGNALSendQuery(SOT_LOGIN_ANIME, checked);
+    emit gIPD.SIGNALSendQuery(SOT_CONNECT_MYSQL, checked);
     if(checked)
     {
         ui->pushButton_ConnectMysql->setText(tr("连接中.."));
@@ -255,9 +374,11 @@ void Widget::on_pushButton_ConnectMysql_clicked(bool checked)
 ///init
 void Widget::qian()
 {
-    mAnimeAnimeNewDialog = new AnimeIpNewDialog(this);
+    mAnimeIpNewDialog = new AnimeIpNewDialog(this);
     mAnimeSeasonNewDialog = new AnimeSeasonNewDialog(this);
     mAnimeEpisodeNewDialog = new AnimeEpisodeNewDialog(this);
+    mMovieIpNewDialog = new MovieIpNewDialog(this);
+    mMovieSeasonNewDialog = new MovieSeasonNewDialog(this);
 
     ui->label_BarA_PidText->setVisible(false);
     ui->label_BarA_SidText->setVisible(false);
@@ -265,9 +386,16 @@ void Widget::qian()
     ui->label_BarA_Pid->setVisible(false);
     ui->label_BarA_Sid->setVisible(false);
     ui->label_BarA_Eid->setVisible(false);
+    ui->label_BarM_PidText->setVisible(false);
+    ui->label_BarM_SidText->setVisible(false);
+    ui->label_BarM_Pid->setVisible(false);
+    ui->label_BarM_Sid->setVisible(false);
     ui->dateEdit_AS_ReleaseDate->setVisible(false);
     ui->checkBox_AS_CollectOk->setEnabled(false);
+    ui->dateEdit_MS_ReleaseDate->setVisible(false);
+    ui->checkBox_MS_CollectOk->setEnabled(false);
     ui->stackedWidget_Anime->setCurrentWidget(ui->page_ADefault);
+    ui->stackedWidget_Movie->setCurrentWidget(ui->page_MDefault);
 
     mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent1_Name, ui->label_A_Recent1_Close));
     mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent2_Name, ui->label_A_Recent2_Close));
@@ -278,6 +406,16 @@ void Widget::qian()
     mAnimeRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_A_Recent7_Name, ui->label_A_Recent7_Close));
     setAnimeRecentLabel();
     ui->label_A_LockRecent->setVisible(false);
+    ui->label_A_UnlockRecent->setVisible(false);
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent1_Name, ui->label_M_Recent1_Close));
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent2_Name, ui->label_M_Recent2_Close));
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent3_Name, ui->label_M_Recent3_Close));
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent4_Name, ui->label_M_Recent4_Close));
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent5_Name, ui->label_M_Recent5_Close));
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent6_Name, ui->label_M_Recent6_Close));
+    mMovieRecentLabels.append(QPair<QLabel *, QLabel *>(ui->label_M_Recent7_Name, ui->label_M_Recent7_Close));
+    setMovieRecentLabel();
+    ui->label_M_LockRecent->setVisible(false);
     ui->label_A_UnlockRecent->setVisible(false);
 
     ui->label_A_UnlockRecent->installEventFilter(this);
@@ -295,6 +433,21 @@ void Widget::qian()
     ui->label_A_Recent5_Close->installEventFilter(this);
     ui->label_A_Recent6_Close->installEventFilter(this);
     ui->label_A_Recent7_Close->installEventFilter(this);
+    ui->label_M_UnlockRecent->installEventFilter(this);
+    ui->label_M_Recent1_Name->installEventFilter(this);
+    ui->label_M_Recent2_Name->installEventFilter(this);
+    ui->label_M_Recent3_Name->installEventFilter(this);
+    ui->label_M_Recent4_Name->installEventFilter(this);
+    ui->label_M_Recent5_Name->installEventFilter(this);
+    ui->label_M_Recent6_Name->installEventFilter(this);
+    ui->label_M_Recent7_Name->installEventFilter(this);
+    ui->label_M_Recent1_Close->installEventFilter(this);
+    ui->label_M_Recent2_Close->installEventFilter(this);
+    ui->label_M_Recent3_Close->installEventFilter(this);
+    ui->label_M_Recent4_Close->installEventFilter(this);
+    ui->label_M_Recent5_Close->installEventFilter(this);
+    ui->label_M_Recent6_Close->installEventFilter(this);
+    ui->label_M_Recent7_Close->installEventFilter(this);
 
     connect(&gIPD, &InterfacePublicData::SIGNALSendQuery, this, &Widget::slotSendQuery, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALReceiveQueryData, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
@@ -303,10 +456,11 @@ void Widget::qian()
     //初始化后操作
     QTimer::singleShot(0, this, [this]{
         showBarAnimeId(-1);
+        showBarMovieId(-1);
     });
 }
 
-///获取动漫
+///获取动漫ip
 void Widget::getAnimeIp(int page)
 {
     showBarAnimeId(0);
@@ -339,7 +493,7 @@ void Widget::getAnimeEpisode(int page)
     emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_EPISODE, strs);   //获取动漫话
 }
 
-///显示id条
+///显示动漫id条
 void Widget::showBarAnimeId(int what)
 {
     bool show_ap {false};
@@ -358,7 +512,7 @@ void Widget::showBarAnimeId(int what)
         ui->widget_AP_Op->setEnabled(true);
         ui->stackedWidget_Anime->setCurrentWidget(ui->page_ADefault);
         break;
-    case 1:     //点击了aa
+    case 1:     //点击了ap
         show_ap = true;
         ui->label_BarA_Pid->setText(QString::number(gIPD.index_anime.pid));
         ui->stackedWidget_Anime->setCurrentWidget(ui->page_AP);
@@ -413,15 +567,15 @@ void Widget::genFindAnimeSql()
     {   //正常检索模式
         if(!ui->checkBox_Limit->isChecked())
         {
-            mFindAnimeSql += " AND display = 1";
+            mFindAnimeSql += " AND display=1";
         }
         if(ui->checkBox_FindAnimeZhuifan->isChecked())
         {
-            mFindAnimeSql += " AND zhuifan = 1";
+            mFindAnimeSql += " AND zhuifan=1";
         }
         if(ui->checkBox_FindAnimeNotsee->isChecked())
         {
-            mFindAnimeSql += " AND see = 0";
+            mFindAnimeSql += " AND see=0";
         }
         int point_a = ui->comboBox_FindAnimePointA->currentIndex();
         int point_b = ui->comboBox_FindAnimePointB->currentIndex();
@@ -431,7 +585,7 @@ void Widget::genFindAnimeSql()
         {
             if(point_min == point_max)
             {
-                mFindAnimeSql += QString(" AND point = %1").arg(point_max);
+                mFindAnimeSql += QString(" AND point=%1").arg(point_max);
             }
             else
             {
@@ -493,6 +647,139 @@ void Widget::closeAnimeRecent(int index)
     if(ret == QMessageBox::Ok)
     {
         emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_RECENT, mAnimeRecents.at(index).id);
+    }
+}
+
+///获取电影ip
+void Widget::getMovieIp(int page)
+{
+    showBarMovieId(0);
+    QStringList strs;
+    strs << QString::number(page)
+         << mFindMovieSql;
+    emit gIPD.SIGNALSendQuery(SOT_GET_MOVIE_IP, strs);   //获取电影ip
+}
+
+///获取电影部
+void Widget::getMovieSeason(int page)
+{
+    showBarMovieId(1);
+    QStringList strs;
+    strs << QString::number(gIPD.index_movie.pid)
+         << QString::number(page);
+    emit gIPD.SIGNALSendQuery(SOT_GET_MOVIE_SEASON, strs);   //获取电影部
+}
+
+///显示电影id条
+void Widget::showBarMovieId(int what)
+{
+    bool show_mp {false};
+    bool show_ms {false};
+    switch(what)
+    {
+    case -1:    //断开服务器
+        ui->widget_MP_Op->setEnabled(false);
+        ui->lineEdit_MP_Page->setText("0");
+        ui->label_MP_PageTotal->setText("/0");
+        ui->label_MP_Total->setText("少女祈祷中..");
+        ui->stackedWidget_Movie->setCurrentWidget(ui->page_MDefault);
+        break;
+    case 0:     //连上了服务器
+        ui->widget_MP_Op->setEnabled(true);
+        ui->stackedWidget_Movie->setCurrentWidget(ui->page_MDefault);
+        break;
+    case 1:     //点击了mp
+        show_mp = true;
+        ui->label_BarM_Pid->setText(QString::number(gIPD.index_movie.pid));
+        ui->stackedWidget_Movie->setCurrentWidget(ui->page_MP);
+        break;
+    case 2:     //点击了ms
+        show_mp = true;
+        show_ms = true;
+        ui->label_BarM_Sid->setText(QString::number(gIPD.index_movie.sid));
+        ui->stackedWidget_Movie->setCurrentWidget(ui->page_MS);
+        break;
+    default:
+        break;
+    }
+    ui->label_BarM_PidText->setVisible(show_mp);
+    ui->label_BarM_SidText->setVisible(show_ms);
+    ui->label_BarM_Pid->setVisible(show_mp);
+    ui->label_BarM_Sid->setVisible(show_ms);
+    ui->widget_MS_Op->setEnabled(show_mp);
+    if(!show_mp)
+    {
+        ui->lineEdit_MS_Page->setText("0");
+        ui->label_MS_PageTotal->setText("/0");
+        ui->label_MS_Total->setText("少女祈祷中..");
+    }
+}
+
+///更新查找电影条件
+void Widget::genFindMovieSql()
+{
+    mFindMovieSql.clear();
+    if(mMovieRecentMode.enable)
+    {   //锁定最近模式
+        mFindMovieSql += QString(" AND pid=%1").arg(mMovieRecentMode.pid);
+    }
+    else
+    {   //正常检索模式
+        if(!ui->checkBox_Limit->isChecked())
+        {
+            mFindMovieSql += " AND display=1";
+        }
+        if(ui->checkBox_FindMovieNotsee->isChecked())
+        {
+            mFindMovieSql += " AND see=0";
+        }
+        int point_a = ui->comboBox_FindMoviePointA->currentIndex();
+        int point_b = ui->comboBox_FindMoviePointB->currentIndex();
+        int point_min = qMin(point_a, point_b);
+        int point_max = qMax(point_a, point_b);
+        if(point_min != 0 || point_max != 12)
+        {
+            if(point_min == point_max)
+            {
+                mFindMovieSql += QString(" AND point=%1").arg(point_max);
+            }
+            else
+            {
+                mFindMovieSql += QString(" AND (point BETWEEN %1 AND %2)").arg(point_min).arg(point_max);
+            }
+        }
+        QString movie_name = ui->lineEdit_FindMovieName->text().trimmed().replace("'", "''");
+        if(!movie_name.isEmpty())
+        {
+            mFindMovieSql += QString(" AND (name LIKE '%%1%' OR keywords LIKE '%%1%')").arg(movie_name);
+        }
+    }
+    if(!mFindMovieSql.isEmpty())
+    {
+        mFindMovieSql.remove(0, 5);
+        mFindMovieSql = " WHERE " + mFindMovieSql;
+    }
+}
+
+///设置最近观看
+void Widget::setMovieRecentLabel()
+{
+    for(int i = 0; i < mMovieRecentLabels.size(); i++)
+    {
+        mMovieRecentLabels.at(i).first->setVisible(false);
+        mMovieRecentLabels.at(i).second->setVisible(false);
+    }
+    QString qss_display = QString("QLabel{padding-left:2px;padding-right:2px;border:1px solid grey;border-right:none;background-color:#99cc99;color:white;}"
+                          "QLabel:hover{background-color:white;color:#99cc99;}");
+    QString qss_hide = QString("QLabel{padding-left:2px;padding-right:2px;border:1px solid grey;border-right:none;background-color:red;color:white;}"
+                          "QLabel:hover{background-color:white;color:red;}");
+    for(int i = 0; i < mMovieRecents.size(); i++)
+    {
+        mMovieRecentLabels.at(i).first->setText(mMovieRecents.at(i).name);
+        mMovieRecentLabels.at(i).first->setToolTip(mMovieRecents.at(i).name);
+        mMovieRecentLabels.at(i).first->setStyleSheet(mMovieRecents.at(i).display?qss_display:qss_hide);
+        mMovieRecentLabels.at(i).first->setVisible(true);
+        mMovieRecentLabels.at(i).second->setVisible(true);
     }
 }
 
@@ -626,20 +913,20 @@ bool Widget::eventFilter(QObject *obj, QEvent *event)
     return QWidget::eventFilter(obj, event);
 }
 
-///动漫点击
+///动漫ip点击
 void Widget::on_listWidget_AP_itemClicked(QListWidgetItem *item)
 {
     int row = ui->listWidget_AP->row(item);
-    AnimeData anime = gIPD.anime.animes.at(row);
+    AnimeIpData ip = gIPD.anime_ip.ips.at(row);
     gIPD.index_anime.p_row = row;
-    gIPD.index_anime.pid = gIPD.anime.animes.at(row).pid;
+    gIPD.index_anime.pid = gIPD.anime_ip.ips.at(row).pid;
     gIPD.index_anime.p_pos = ui->listWidget_AP->verticalScrollBar()->value();
     showBarAnimeId(1);
     getAnimeSeason(gIPD.index_anime.s_click?gIPD.index_anime.s_page:1);
-    ui->checkBox_AP_Display->setChecked(anime.display);
-    ui->checkBox_AA_Zhuifan->setChecked(anime.zhuifan);
-    ui->lineEdit_AP_Name->setText(anime.name);
-    ui->lineEdit_AP_Keyword->setText(anime.keywords);
+    ui->checkBox_AP_Display->setChecked(ip.display);
+    ui->checkBox_AP_Zhuifan->setChecked(ip.zhuifan);
+    ui->lineEdit_AP_Name->setText(ip.name);
+    ui->lineEdit_AP_Keyword->setText(ip.keywords);
 }
 
 ///动漫季点击
@@ -702,7 +989,7 @@ void Widget::on_listWidget_AE_itemClicked(QListWidgetItem *item)
     ui->lineEdit_AE_Title->setText(gIPD.anime_ep.eps.at(row).title);
 }
 
-///动漫上一页
+///动漫ip上一页
 void Widget::on_pushButton_AP_PrePage_clicked()
 {
     if(mConnectedMysql)
@@ -715,13 +1002,13 @@ void Widget::on_pushButton_AP_PrePage_clicked()
     }
 }
 
-///动漫下一页
+///动漫ip下一页
 void Widget::on_pushButton_AP_NextPage_clicked()
 {
     if(mConnectedMysql)
     {
         int page = ui->lineEdit_AP_Page->text().toInt() + 1;
-        if(page <= mAAPageTotal)
+        if(page <= mAPPageTotal)
         {
             getAnimeIp(page);
         }
@@ -789,7 +1076,9 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
         {
             mLimit = false;
             emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
+            emit gIPD.SIGNALSendQuery(SOT_GET_MOVIE_RECENT, mLimit);
             on_pushButton_FindAnime_clicked();
+            on_pushButton_FindMovie_clicked();
         }
         else
         {
@@ -800,7 +1089,9 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
     {
         mLimit = true;
         emit gIPD.SIGNALSendQuery(SOT_GET_ANIME_RECENT, mLimit);
+        emit gIPD.SIGNALSendQuery(SOT_GET_MOVIE_RECENT, mLimit);
         on_pushButton_FindAnime_clicked();
+        on_pushButton_FindMovie_clicked();
     }
     ui->lineEdit_Limit->clear();
 }
@@ -997,15 +1288,15 @@ void Widget::on_comboBox_AS_Point_activated(int index)
 }
 
 ///动漫追番提交
-void Widget::on_checkBox_AA_Zhuifan_clicked(bool checked)
+void Widget::on_checkBox_AP_Zhuifan_clicked(bool checked)
 {
     gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = false;
     gIPD.index_anime.e_click = false;
-    AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.p_row);
-    anime.zhuifan = checked;
+    AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
+    ip.zhuifan = checked;
     QVariant var_send;
-    var_send.setValue(anime);
+    var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_ZHUIFAN, var_send);
 }
 
@@ -1015,10 +1306,10 @@ void Widget::on_checkBox_AP_Display_clicked(bool checked)
     gIPD.index_anime.p_click = false;
     gIPD.index_anime.s_click = false;
     gIPD.index_anime.e_click = false;
-    AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.p_row);
-    anime.display = checked;
+    AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
+    ip.display = checked;
     QVariant var_send;
-    var_send.setValue(anime);
+    var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_DISPLAY, var_send);
 }
 
@@ -1086,7 +1377,7 @@ void Widget::on_pushButton_FindAnimeReset_clicked()
 ///动漫名称改变
 void Widget::on_lineEdit_AP_Name_textChanged(const QString &arg1)
 {
-    if(arg1 != gIPD.anime.animes.at(gIPD.index_anime.p_row).name)
+    if(arg1 != gIPD.anime_ip.ips.at(gIPD.index_anime.p_row).name)
     {
         ui->lineEdit_AP_Name->setStyleSheet("#lineEdit_AP_Name{background-color:#fcae74;}");
         ui->pushButton_AP_NaneOk->setEnabled(true);
@@ -1106,17 +1397,17 @@ void Widget::on_pushButton_AP_NaneOk_clicked()
     gIPD.index_anime.e_click = false;
     ui->lineEdit_AP_Name->setStyleSheet("");
     ui->pushButton_AP_NaneOk->setEnabled(false);
-    AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.p_row);
-    anime.name = ui->lineEdit_AP_Name->text().trimmed();
+    AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
+    ip.name = ui->lineEdit_AP_Name->text().trimmed();
     QVariant var_send;
-    var_send.setValue(anime);
+    var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_NAME, var_send);
 }
 
 ///动漫关键词改变
 void Widget::on_lineEdit_AP_Keyword_textChanged(const QString &arg1)
 {
-    if(arg1 != gIPD.anime.animes.at(gIPD.index_anime.p_row).keywords)
+    if(arg1 != gIPD.anime_ip.ips.at(gIPD.index_anime.p_row).keywords)
     {
         ui->lineEdit_AP_Keyword->setStyleSheet("#lineEdit_AP_Keyword{background-color:#fcae74;}");
         ui->pushButton_AP_KeywordsOk->setEnabled(true);
@@ -1136,20 +1427,20 @@ void Widget::on_pushButton_AP_KeywordsOk_clicked()
     gIPD.index_anime.e_click = false;
     ui->lineEdit_AP_Keyword->setStyleSheet("");
     ui->pushButton_AP_KeywordsOk->setEnabled(false);
-    AnimeData anime = gIPD.anime.animes.at(gIPD.index_anime.p_row);
-    anime.keywords = ui->lineEdit_AP_Keyword->text().trimmed();
+    AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
+    ip.keywords = ui->lineEdit_AP_Keyword->text().trimmed();
     QVariant var_send;
-    var_send.setValue(anime);
+    var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_KEYWORDS, var_send);
 }
 
-///新增动漫
+///新增动漫ip
 void Widget::on_pushButton_AP_New_clicked()
 {
-    mAnimeAnimeNewDialog->Hi();
+    mAnimeIpNewDialog->Hi();
 }
 
-///删除动漫
+///删除动漫ip
 void Widget::on_pushButton_AP_Delete_clicked()
 {
     int row = ui->listWidget_AP->currentRow();
@@ -1160,10 +1451,10 @@ void Widget::on_pushButton_AP_Delete_clicked()
     }
     else
     {
-        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除动漫《%1》?\n注意: 其包含的所有季度和话数据均会被关联删除!")).arg(gIPD.anime.animes.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除动漫《%1》?\n注意: 其包含的所有季度和话数据均会被关联删除!")).arg(gIPD.anime_ip.ips.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
         if(ret == QMessageBox::Ok)
         {
-            emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_IP, gIPD.anime.animes.at(row).pid);
+            emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_IP, gIPD.anime_ip.ips.at(row).pid);
         }
     }
 }
@@ -1225,6 +1516,83 @@ void Widget::on_pushButton_AE_Delete_clicked()
             var_send.setValue(gIPD.anime_ep.eps.at(row));
             emit gIPD.SIGNALSendQuery(SOT_DELETE_ANIME_EPISODE, var_send);
         }
+    }
+}
+
+///重置条件
+void Widget::on_pushButton_FindMovieReset_clicked()
+{
+    ui->lineEdit_FindMovieName->clear();
+    ui->checkBox_FindMovieNotsee->setChecked(false);
+    ui->comboBox_FindMoviePointA->setCurrentIndex(0);
+    ui->comboBox_FindMoviePointB->setCurrentIndex(12);
+}
+
+///检索电影
+void Widget::on_pushButton_FindMovie_clicked()
+{
+    if(mConnectedMysql)
+    {
+        genFindMovieSql();
+        getMovieIp(1);
+    }
+}
+
+///电影ip点击
+void Widget::on_listWidget_MP_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->listWidget_MP->row(item);
+    MovieIpData ip = gIPD.movie_ip.ips.at(row);
+    gIPD.index_movie.p_row = row;
+    gIPD.index_movie.pid = gIPD.movie_ip.ips.at(row).pid;
+    gIPD.index_movie.p_pos = ui->listWidget_MP->verticalScrollBar()->value();
+    showBarMovieId(1);
+    getMovieSeason(gIPD.index_movie.s_click?gIPD.index_movie.s_page:1);
+    ui->checkBox_MP_Display->setChecked(ip.display);
+    ui->lineEdit_MP_Name->setText(ip.name);
+    ui->lineEdit_MP_Keyword->setText(ip.keywords);
+}
+
+///电影部点击
+void Widget::on_listWidget_MS_itemClicked(QListWidgetItem *item)
+{
+    int row = ui->listWidget_MS->row(item);
+    MovieSeasonData season = gIPD.movie_season.seasons.at(row);
+    gIPD.index_movie.s_row = row;
+    gIPD.index_movie.sid = season.sid;
+    gIPD.index_movie.s_pos = ui->listWidget_MS->verticalScrollBar()->value();
+    showBarMovieId(2);
+    ui->lineEdit_MS_Name->setText(season.name);
+    if(season.release_date_valid)
+    {
+        ui->checkBox_MS_ReleaseDateEnable->setChecked(true);
+        ui->dateEdit_MS_ReleaseDate->setDate(season.release_date);
+        ui->dateEdit_MS_ReleaseDate->setVisible(true);
+    }
+    else
+    {
+        ui->checkBox_MS_ReleaseDateEnable->setChecked(false);
+        ui->dateEdit_MS_ReleaseDate->setDate(QDate::currentDate());
+        ui->dateEdit_MS_ReleaseDate->setVisible(false);
+    }
+    ui->comboBox_MS_Point->setCurrentIndex(season.point);
+    if(season.collect == 0)
+    {   //不收藏
+        ui->checkBox_MS_CollectIt->setChecked(false);
+        ui->checkBox_MS_CollectOk->setChecked(false);
+        ui->checkBox_MS_CollectOk->setEnabled(false);
+    }
+    else if(season.collect == 1)
+    {
+        ui->checkBox_MS_CollectIt->setChecked(true);
+        ui->checkBox_MS_CollectOk->setChecked(false);
+        ui->checkBox_MS_CollectOk->setEnabled(true);
+    }
+    else if(season.collect == 2)
+    {
+        ui->checkBox_MS_CollectIt->setChecked(true);
+        ui->checkBox_MS_CollectOk->setChecked(true);
+        ui->checkBox_MS_CollectOk->setEnabled(true);
     }
 }
 

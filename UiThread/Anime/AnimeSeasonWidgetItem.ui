@@ -133,7 +133,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_A">
+         <widget class="QLabel" name="label_Tag1">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -146,7 +146,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_B">
+         <widget class="QLabel" name="label_Tag2">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -159,7 +159,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_C">
+         <widget class="QLabel" name="label_Tag3">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -215,7 +215,7 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset resource="../Resource.qrc">
+           <iconset resource="../../Resource.qrc">
             <normaloff>:/File/img/collec_it.png</normaloff>
             <normalon>:/File/img/collec_ok.png</normalon>
             <disabledoff>:/File/img/collec_it.png</disabledoff>
@@ -260,7 +260,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../Resource.qrc"/>
+  <include location="../../Resource.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,41 +1,36 @@
-#include "AnimeIpWidgetItem.h"
-#include "ui_AnimeIpWidgetItem.h"
+#include "MovieSeasonWidgetItem.h"
+#include "ui_MovieSeasonWidgetItem.h"
 
 #include <QTimer>
 
-AnimeIpWidgetItem::AnimeIpWidgetItem(AnimeIpData ip, QWidget *parent) :
+MovieSeasonWidgetItem::MovieSeasonWidgetItem(MovieSeasonData season, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::AnimeIpWidgetItem)
+    ui(new Ui::MovieSeasonWidgetItem)
 {
     ui->setupUi(this);
 
-    ui->label_Name->setText(ip.name);
-    ui->label_Name->setStyleSheet(QString("QLabel{color:%1;}").arg(ip.display?"black":"red"));
-    ui->pushButton_Collect->setVisible(ip.collect==0 ? false : true);
-    ui->pushButton_Collect->setChecked(ip.collect==2);
-    setPoint(ip.point);
-    setTag1(ip.tag1);
-    setTag2(ip.tag2);
-    setTag3(ip.tag3);
-    setZhuifan(ip.zhuifan);
-    ui->progressBar_Radio->setRange(0, ip.total_season);
-    ui->progressBar_Radio->setValue(ip.see_season);
-    ui->progressBar_Radio->setFormat(QString("%1/%2").arg(ip.see_season).arg(ip.total_season));
+    mSeason = season;
+    ui->label_Name->setText(season.name);
+    ui->pushButton_Collect->setVisible(season.collect==0 ? false : true);
+    ui->pushButton_Collect->setChecked(season.collect==2);
+    setPoint(season.point);
+    setTag1(season.tag1);
+    setTag2(season.tag2);
+    setTag3(season.tag3);
+    setReleaseDate();
     this->adjustSize();
-    QTimer::singleShot(0, this, [this, ip]{
-        ui->widget->setStyleSheet(QString("#widget{border-left:5px solid %1;}").arg(ip.see?"#99cc99":"#ffb050"));
-        ui->progressBar_Radio->setStyleSheet(QString("QProgressBar::chunk{background-color:%1;width:1px;}QProgressBar{border:1px solid grey;}")
-                                             .arg(ip.see_season==ip.total_season?"#99cc99":"#ffb050"));
+    QTimer::singleShot(0, this, [this, season]{
+        ui->widget->setStyleSheet(QString("#widget{border-left:5px solid %1;}").arg(season.see?"#99cc99":"#ffb050"));
     });
 }
 
-AnimeIpWidgetItem::~AnimeIpWidgetItem()
+MovieSeasonWidgetItem::~MovieSeasonWidgetItem()
 {
     delete ui;
 }
 
 ///设置评分
-void AnimeIpWidgetItem::setPoint(int point)
+void MovieSeasonWidgetItem::setPoint(int point)
 {
     if(point == 0)
     {
@@ -68,7 +63,7 @@ void AnimeIpWidgetItem::setPoint(int point)
     ui->label_Point->setStyleSheet(QString("QLabel{border:1px solid grey;color:white;background-color:%1;margin-left:3px;}").arg(color));
 }
 
-void AnimeIpWidgetItem::setTag1(bool tag1)
+void MovieSeasonWidgetItem::setTag1(bool tag1)
 {
     ui->label_Tag1->setVisible(tag1);
     if(tag1)
@@ -77,7 +72,7 @@ void AnimeIpWidgetItem::setTag1(bool tag1)
     }
 }
 
-void AnimeIpWidgetItem::setTag2(bool tag2)
+void MovieSeasonWidgetItem::setTag2(bool tag2)
 {
     ui->label_Tag2->setVisible(tag2);
     if(tag2)
@@ -86,7 +81,7 @@ void AnimeIpWidgetItem::setTag2(bool tag2)
     }
 }
 
-void AnimeIpWidgetItem::setTag3(bool tag3)
+void MovieSeasonWidgetItem::setTag3(bool tag3)
 {
     ui->label_Tag3->setVisible(tag3);
     if(tag3)
@@ -95,12 +90,17 @@ void AnimeIpWidgetItem::setTag3(bool tag3)
     }
 }
 
-///设置追番
-void AnimeIpWidgetItem::setZhuifan(bool zhuifan)
+///设置发布日期
+void MovieSeasonWidgetItem::setReleaseDate()
 {
-    ui->label_Zhuifan->setVisible(zhuifan);
-    if(zhuifan)
+    if(mSeason.release_date_valid)
     {
-        ui->label_Zhuifan->setStyleSheet("QLabel{color:red;margin-left:3px;}");
+        ui->label_ReleaseDate->setText(mSeason.release_date.toString("yyyy-MM-dd"));
+        ui->label_ReleaseDate->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#cccccc;margin-left:3px;padding-left:2px;padding-right:2px;}");
+    }
+    else
+    {
+        ui->label_ReleaseDate->setVisible(false);
+        ui->label_ReleaseDate->setStyleSheet("");
     }
 }

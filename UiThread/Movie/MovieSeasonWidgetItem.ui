@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AnimeIpWidgetItem</class>
- <widget class="QWidget" name="AnimeIpWidgetItem">
+ <class>MovieSeasonWidgetItem</class>
+ <widget class="QWidget" name="MovieSeasonWidgetItem">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
-    <height>49</height>
+    <width>326</width>
+    <height>45</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Form</string>
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
@@ -59,30 +59,29 @@
          <number>10</number>
         </property>
         <item>
-         <widget class="QProgressBar" name="progressBar_Radio">
+         <widget class="QLabel" name="label_ReleaseDate">
           <property name="maximumSize">
            <size>
-            <width>60</width>
+            <width>16777215</width>
             <height>16</height>
            </size>
           </property>
-          <property name="value">
-           <number>24</number>
+          <property name="font">
+           <font>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="text">
+           <string notr="true">2022-07-01</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
-          </property>
-          <property name="textVisible">
-           <bool>true</bool>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="textDirection">
-           <enum>QProgressBar::TopToBottom</enum>
-          </property>
-          <property name="format">
-           <string notr="true">999/999</string>
           </property>
          </widget>
         </item>
@@ -141,33 +140,6 @@
           </property>
           <property name="text">
            <string notr="true">C</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_Zhuifan">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Sunken</enum>
-          </property>
-          <property name="text">
-           <string notr="true">追番中</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>

@@ -2,11 +2,15 @@
 
 #include <QTimer>
 #include <QtMath>
+#include <QDebug>   ///xxl_debug: qdb
 
-Q_DECLARE_METATYPE(AnimeData)
+Q_DECLARE_METATYPE(AnimeIpData)
 Q_DECLARE_METATYPE(AnimeSeasonData)
 Q_DECLARE_METATYPE(AnimeEpisodeData)
 Q_DECLARE_METATYPE(AnimeRecentData)
+Q_DECLARE_METATYPE(MovieIpData)
+Q_DECLARE_METATYPE(MovieSeasonData)
+Q_DECLARE_METATYPE(MovieRecentData)
 
 SqlThread::SqlThread(QObject *parent)
     : QObject{parent}
@@ -31,15 +35,15 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     QString cmd;
     switch(operate)
     {
-    case SOT_LOGIN_ANIME:
-        emit SIGNALSendQueryData(SOT_LOGIN_ANIME, var.toBool()?login():logout());
+    case SOT_CONNECT_MYSQL:
+        emit SIGNALSendQueryData(SOT_CONNECT_MYSQL, var.toBool()?login():logout());
         break;
     case SOT_GET_ANIME_IP:
     {
         QStringList strs = var.toStringList();
-        int pagesize = 20;
+        int page_size = 20;
         int page = strs[0].toInt();
-        int offset = (page-1)*pagesize;
+        int offset = (page-1)*page_size;
         cmd = QString("SELECT pid,name,keywords,see,see_season,"
                       "total_season,zhuifan,collect,point,display,"
                       "tag1,tag2,tag3 FROM `%1`").arg(TABLE_ANIME_IP);
@@ -47,31 +51,31 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         {
             cmd += strs[1];
         }
-        cmd += QString(" ORDER BY CONVERT(name using gbk) LIMIT %1, %2").arg(offset).arg(pagesize);
+        cmd += QString(" ORDER BY CONVERT(name using gbk) LIMIT %1,%2").arg(offset).arg(page_size);
         if(mQuery.exec(cmd))
         {
-            QList<AnimeData> animes;
+            QList<AnimeIpData> ips;
             while(mQuery.next())
             {
-                AnimeData anime;
-                anime.pid = mQuery.value(0).toInt();
-                anime.name = mQuery.value(1).toString();
-                anime.keywords = mQuery.value(2).toString();
-                anime.see = (mQuery.value(3).toInt() == 1);
-                anime.see_season = mQuery.value(4).toInt();
-                anime.total_season = mQuery.value(5).toInt();
-                anime.zhuifan = (mQuery.value(6).toInt() == 1);
-                anime.collect = mQuery.value(7).toInt();
-                anime.point = mQuery.value(8).toInt();
-                anime.display = (mQuery.value(9).toInt() == 1);
-                anime.tag1 = (mQuery.value(10).toInt() == 1);
-                anime.tag2 = (mQuery.value(11).toInt() == 1);
-                anime.tag3 = (mQuery.value(12).toInt() == 1);
-                animes.append(anime);
+                AnimeIpData ip;
+                ip.pid = mQuery.value(0).toInt();
+                ip.name = mQuery.value(1).toString();
+                ip.keywords = mQuery.value(2).toString();
+                ip.see = (mQuery.value(3).toInt() == 1);
+                ip.see_season = mQuery.value(4).toInt();
+                ip.total_season = mQuery.value(5).toInt();
+                ip.zhuifan = (mQuery.value(6).toInt() == 1);
+                ip.collect = mQuery.value(7).toInt();
+                ip.point = mQuery.value(8).toInt();
+                ip.display = (mQuery.value(9).toInt() == 1);
+                ip.tag1 = (mQuery.value(10).toInt() == 1);
+                ip.tag2 = (mQuery.value(11).toInt() == 1);
+                ip.tag3 = (mQuery.value(12).toInt() == 1);
+                ips.append(ip);
             }
 
             QVariant sendVar;
-            sendVar.setValue(animes);
+            sendVar.setValue(ips);
             emit SIGNALSendQueryData(SOT_GET_ANIME_IP, sendVar);
         }
         cmd = QString("SELECT count(*) FROM `%1`").arg(TABLE_ANIME_IP);
@@ -82,7 +86,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         mQuery.exec(cmd);
         mQuery.next();
         int total = mQuery.value(0).toInt();
-        int total_page = qCeil(total/(double)pagesize);
+        int total_page = qCeil(total/(double)page_size);
 
         QStringList strs_send;
         strs_send << QString::number(page)
@@ -117,13 +121,13 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         QStringList strs = var.toStringList();
         int sid = strs[3].toInt();
-        int pagesize = 20;
+        int page_size = 20;
         int page = strs[1].toInt();
-        int offset = (page-1)*pagesize;
+        int offset = (page-1)*page_size;
         bool limit = (strs[2].toInt() == 1);
         cmd = QString("SELECT sid,pid,name,release_date,see,"
                       "see_episode,total_episode,collect,point,display,"
-                      "tag1,tag2,tag3 FROM `%2` WHERE pid=%1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
+                      "tag1,tag2,tag3 FROM `%1` WHERE pid=%2").arg(TABLE_ANIME_SEASON, strs[0]);
         if(sid != -1)
         {   //最近模式
             cmd += QString(" AND sid=%1").arg(sid);
@@ -132,7 +136,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         {
             cmd += " AND display = 1";
         }
-        cmd += QString(" LIMIT %1, %2").arg(offset).arg(pagesize);
+        cmd += QString(" LIMIT %1, %2").arg(offset).arg(page_size);
         if(mQuery.exec(cmd))
         {
             QList<AnimeSeasonData> seasons;
@@ -156,11 +160,11 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
                 seasons.append(season);
             }
 
-            QVariant sendVar;
-            sendVar.setValue(seasons);
-            emit SIGNALSendQueryData(SOT_GET_ANIME_SEASON, sendVar);
+            QVariant send_var;
+            send_var.setValue(seasons);
+            emit SIGNALSendQueryData(SOT_GET_ANIME_SEASON, send_var);
         }
-        cmd = QString("SELECT count(*) FROM `%2` WHERE pid=%1").arg(strs[0]).arg(TABLE_ANIME_SEASON);
+        cmd = QString("SELECT count(*) FROM `%1` WHERE pid=%2").arg(TABLE_ANIME_SEASON, strs[0]);
         if(limit)
         {
             cmd += " AND display = 1";
@@ -168,7 +172,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         mQuery.exec(cmd);
         mQuery.next();
         int total = mQuery.value(0).toInt();
-        int total_page = qCeil(total/(double)pagesize);
+        int total_page = qCeil(total/(double)page_size);
 
         QStringList strs_send;
         strs_send << QString::number(page)
@@ -222,9 +226,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         break;
     case SOT_UPDATE_ANIME_IP_NAME:
     {
-        AnimeData anime = var.value<AnimeData>();
-        anime.name.replace("'", "''");
-        cmd = QString("UPDATE `%2` SET name='%3' WHERE pid=%1").arg(anime.pid).arg(TABLE_ANIME_IP, anime.name);
+        AnimeIpData ip = var.value<AnimeIpData>();
+        ip.name.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET name='%3' WHERE pid=%1").arg(ip.pid).arg(TABLE_ANIME_IP, ip.name);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -232,9 +236,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         break;
     case SOT_UPDATE_ANIME_IP_KEYWORDS:
     {
-        AnimeData anime = var.value<AnimeData>();
-        anime.keywords.replace("'", "''");
-        cmd = QString("UPDATE `%2` SET keywords='%3' WHERE pid=%1").arg(anime.pid).arg(TABLE_ANIME_IP, anime.keywords);
+        AnimeIpData ip = var.value<AnimeIpData>();
+        ip.keywords.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET keywords='%3' WHERE pid=%1").arg(ip.pid).arg(TABLE_ANIME_IP, ip.keywords);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -242,8 +246,8 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         break;
     case SOT_UPDATE_ANIME_IP_ZHUIFAN:
     {
-        AnimeData anime = var.value<AnimeData>();
-        cmd = QString("UPDATE `%3` SET zhuifan=%1 WHERE pid=%2").arg(anime.zhuifan?1:0).arg(anime.pid).arg(TABLE_ANIME_IP);
+        AnimeIpData ip = var.value<AnimeIpData>();
+        cmd = QString("UPDATE `%3` SET zhuifan=%1 WHERE pid=%2").arg(ip.zhuifan?1:0).arg(ip.pid).arg(TABLE_ANIME_IP);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -251,8 +255,8 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         break;
     case SOT_UPDATE_ANIME_IP_DISPLAY:
     {
-        AnimeData anime = var.value<AnimeData>();
-        cmd = QString("UPDATE `%3` SET display=%1 WHERE pid=%2").arg(anime.display?1:0).arg(anime.pid).arg(TABLE_ANIME_IP);
+        AnimeIpData ip = var.value<AnimeIpData>();
+        cmd = QString("UPDATE `%3` SET display=%1 WHERE pid=%2").arg(ip.display?1:0).arg(ip.pid).arg(TABLE_ANIME_IP);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -380,11 +384,11 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         break;
     case SOT_INSERT_ANIME_IP:
     {
-        AnimeData anime = var.value<AnimeData>();
-        anime.name.replace("'", "''");
-        anime.keywords.replace("'", "''");
+        AnimeIpData ip = var.value<AnimeIpData>();
+        ip.name.replace("'", "''");
+        ip.keywords.replace("'", "''");
         cmd = QString("INSERT INTO `%1` (name, keywords, see, see_season, total_season, zhuifan, collect, point, display, tag1, tag2, tag3)"
-                      " VALUES ('%2', '%3', 0, 0, 0, %4, 0, 0, %5, 0, 0, 0)").arg(TABLE_ANIME_IP, anime.name, anime.keywords, anime.zhuifan?"1":"0", anime.display?"1":"0");
+                      " VALUES ('%2', '%3', 0, 0, 0, %4, 0, 0, %5, 0, 0, 0)").arg(TABLE_ANIME_IP, ip.name, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
@@ -422,12 +426,13 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         }
         mDB.transaction();
         mQuery.exec(cmd);
-        mDB.commit();
 
         calcAnimeSee(pid, sid);
         calcAnimeTag1(pid, sid);
         calcAnimeTag2(pid, sid);
         calcAnimeTag3(pid, sid);
+        mQuery.clear();
+        mDB.commit();
 
         emit SIGNALSendQueryData(SOT_UPDATE_ANIME, QVariant());
     }
@@ -482,6 +487,130 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_DELETE_ANIME_RECENT, QVariant());
+    }
+        break;
+    case SOT_GET_MOVIE_IP:
+    {
+        QStringList strs = var.toStringList();
+        int page_size = 20;
+        int page = strs[0].toInt();
+        int offset = (page-1)*page_size;
+        cmd = QString("SELECT pid,name,keywords,see,see_season,"
+                      "total_season,collect,point,display,"
+                      "tag1,tag2,tag3 FROM `%1`").arg(TABLE_MOVIE_IP);
+        if(!strs[1].isEmpty())
+        {
+            cmd += strs[1];
+        }
+        cmd += QString(" ORDER BY CONVERT(name using gbk) LIMIT %1,%2").arg(offset).arg(page_size);
+        if(mQuery.exec(cmd))
+        {
+            QList<MovieIpData> ips;
+            while(mQuery.next())
+            {
+                MovieIpData ip;
+                ip.pid = mQuery.value(0).toInt();
+                ip.name = mQuery.value(1).toString();
+                ip.keywords = mQuery.value(2).toString();
+                ip.see = (mQuery.value(3).toInt() == 1);
+                ip.see_season = mQuery.value(4).toInt();
+                ip.total_season = mQuery.value(5).toInt();
+                ip.collect = mQuery.value(6).toInt();
+                ip.point = mQuery.value(7).toInt();
+                ip.display = (mQuery.value(8).toInt() == 1);
+                ip.tag1 = (mQuery.value(9).toInt() == 1);
+                ip.tag2 = (mQuery.value(10).toInt() == 1);
+                ip.tag3 = (mQuery.value(11).toInt() == 1);
+                ips.append(ip);
+            }
+
+            QVariant sendVar;
+            sendVar.setValue(ips);
+            emit SIGNALSendQueryData(SOT_GET_MOVIE_IP, sendVar);
+        }
+        cmd = QString("SELECT count(*) FROM `%1`").arg(TABLE_MOVIE_IP);
+        if(!strs[1].isEmpty())
+        {
+            cmd += strs[1];
+        }
+        mQuery.exec(cmd);
+        mQuery.next();
+        int total = mQuery.value(0).toInt();
+        int total_page = qCeil(total/(double)page_size);
+
+        QStringList strs_send;
+        strs_send << QString::number(page)
+                  << QString::number(total_page)
+                  << QString::number(total);
+        emit SIGNALSendQueryData(SOT_MOVIE_IP_PAGE, strs_send);
+    }
+        break;
+    case SOT_GET_MOVIE_RECENT:
+    {
+        bool limit = var.toBool();
+        QList<MovieRecentData> recents;
+        cmd = QString("SELECT id,pid,name,display FROM `%1`%2 ORDER BY id DESC LIMIT 7").arg(TABLE_MOVIE_RECENT, limit?" WHERE display=1":"");
+        mQuery.exec(cmd);
+        while(mQuery.next())
+        {
+            MovieRecentData recent;
+            recent.id = mQuery.value(0).toInt();
+            recent.pid = mQuery.value(1).toInt();
+            recent.name = mQuery.value(2).toString();
+            recent.display = (mQuery.value(3).toInt()==1);
+            recents.append(recent);
+        }
+
+        QVariant var_send;
+        var_send.setValue(recents);
+        emit SIGNALSendQueryData(SOT_GET_MOVIE_RECENT, var_send);
+    }
+        break;
+    case SOT_GET_MOVIE_SEASON:
+    {
+        QStringList strs = var.toStringList();
+        int page_size = 20;
+        int page = strs[1].toInt();
+        int offset = (page-1)*page_size;
+        cmd = QString("SELECT sid,pid,name,release_date,see,"
+                      "collect,point,tag1,tag2,tag3"
+                      " FROM `%3` WHERE pid=%4 LIMIT %1, %2")
+                .arg(offset).arg(page_size).arg(TABLE_MOVIE_SEASON, strs[0]);
+        if(mQuery.exec(cmd))
+        {
+            QList<MovieSeasonData> seasons;
+            while(mQuery.next())
+            {
+                MovieSeasonData season;
+                season.sid = mQuery.value(0).toInt();
+                season.pid = mQuery.value(1).toInt();
+                season.name = mQuery.value(2).toString();
+                season.release_date_valid = !((mQuery.value(3).toString() == "0000-00-00") || (mQuery.value(3).toString() == ""));
+                season.release_date = season.release_date_valid ? QDate::fromString(mQuery.value(3).toString(), "yyyy-MM-dd") : QDate::currentDate();
+                season.see = (mQuery.value(4).toInt() == 1);
+                season.collect = mQuery.value(5).toInt();
+                season.point = mQuery.value(6).toInt();
+                season.tag1 = (mQuery.value(7).toInt() == 1);
+                season.tag2 = (mQuery.value(8).toInt() == 1);
+                season.tag3 = (mQuery.value(9).toInt() == 1);
+                seasons.append(season);
+            }
+
+            QVariant send_var;
+            send_var.setValue(seasons);
+            emit SIGNALSendQueryData(SOT_GET_MOVIE_SEASON, send_var);
+        }
+        cmd = QString("SELECT count(*) FROM `%1` WHERE pid=%2").arg(TABLE_MOVIE_SEASON, strs[0]);
+        mQuery.exec(cmd);
+        mQuery.next();
+        int total = mQuery.value(0).toInt();
+        int total_page = qCeil(total/(double)page_size);
+
+        QStringList strs_send;
+        strs_send << QString::number(page)
+                  << QString::number(total_page)
+                  << QString::number(total);
+        emit SIGNALSendQueryData(SOT_MOVIE_SEASON_PAGE, strs_send);
     }
         break;
     default:

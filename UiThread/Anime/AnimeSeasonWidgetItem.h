@@ -18,14 +18,14 @@ public:
     ~AnimeSeasonWidgetItem();
 
 private:
+    Ui::AnimeSeasonWidgetItem *ui;
+
+private:
     void setPoint(int point);   //设置评分
     void setTag1(bool tag1);
     void setTag2(bool tag2);
     void setTag3(bool tag3);
     void setReleaseDate();    //设置发布日期
-
-private:
-    Ui::AnimeSeasonWidgetItem *ui;
 
 private:
     AnimeSeasonData     mSeason;

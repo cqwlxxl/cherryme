@@ -6,7 +6,7 @@
 
 #include "SqlThread/SqlDataDefine.h"
 
-Q_DECLARE_METATYPE(AnimeData)
+Q_DECLARE_METATYPE(AnimeIpData)
 
 AnimeIpNewDialog::AnimeIpNewDialog(QWidget *parent) :
     QDialog(parent),
@@ -44,14 +44,14 @@ void AnimeIpNewDialog::on_pushButton_Ok_clicked()
         QMessageBox::information(this, tr("名称未填"), tr("请填写动漫名称"), QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
-    AnimeData anime;
-    anime.name = name;
-    anime.keywords = keywords;
-    anime.zhuifan = ui->checkBox_Zhuifan->isChecked();
-    anime.display = ui->checkBox_Display->isChecked();
+    AnimeIpData ip;
+    ip.name = name;
+    ip.keywords = keywords;
+    ip.zhuifan = ui->checkBox_Zhuifan->isChecked();
+    ip.display = ui->checkBox_Display->isChecked();
     //
     QVariant var_send;
-    var_send.setValue(anime);
+    var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_INSERT_ANIME_IP, var_send);
     this->accept();
 }

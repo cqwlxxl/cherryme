@@ -39,28 +39,28 @@ void AnimeEpisodeWidgetItem::on_pushButton_See_clicked(bool checked)
 
 void AnimeEpisodeWidgetItem::setTag1(bool tag1)
 {
-    ui->label_A->setVisible(tag1);
+    ui->label_Tag1->setVisible(tag1);
     if(tag1)
     {
-        ui->label_A->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#ff00ff;margin-left:3px;}");
+        ui->label_Tag1->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#ff00ff;margin-left:3px;}");
     }
 }
 
 void AnimeEpisodeWidgetItem::setTag2(bool tag2)
 {
-    ui->label_B->setVisible(tag2);
+    ui->label_Tag2->setVisible(tag2);
     if(tag2)
     {
-        ui->label_B->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#ff4500;margin-left:3px;}");
+        ui->label_Tag2->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#ff4500;margin-left:3px;}");
     }
 }
 
 void AnimeEpisodeWidgetItem::setTag3(bool tag3)
 {
-    ui->label_C->setVisible(tag3);
+    ui->label_Tag3->setVisible(tag3);
     if(tag3)
     {
-        ui->label_C->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#008000;margin-left:3px;}");
+        ui->label_Tag3->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#008000;margin-left:3px;}");
     }
 }
 

@@ -14,8 +14,11 @@ class AnimeIpWidgetItem : public QWidget
     Q_OBJECT
 
 public:
-    explicit AnimeIpWidgetItem(AnimeData anime, QWidget *parent = nullptr);
+    explicit AnimeIpWidgetItem(AnimeIpData ip, QWidget *parent = nullptr);
     ~AnimeIpWidgetItem();
+
+private:
+    Ui::AnimeIpWidgetItem *ui;
 
 private:
     void setPoint(int point);   //设置评分
@@ -23,9 +26,6 @@ private:
     void setTag2(bool tag2);
     void setTag3(bool tag3);
     void setZhuifan(bool zhuifan);  //设置追番
-
-private:
-    Ui::AnimeIpWidgetItem *ui;
 };
 
 #endif // ANIMEIPWIDGETITEM_H

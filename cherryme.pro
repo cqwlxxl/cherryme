@@ -17,6 +17,10 @@ SOURCES += \
     UiThread/Anime/AnimeSeasonNewDialog.cpp \
     UiThread/Anime/AnimeSeasonWidgetItem.cpp \
     UiThread/InterfacePublicData.cpp \
+    UiThread/Movie/MovieIpNewDialog.cpp \
+    UiThread/Movie/MovieIpWidgetItem.cpp \
+    UiThread/Movie/MovieSeasonNewDialog.cpp \
+    UiThread/Movie/MovieSeasonWidgetItem.cpp \
     main.cpp \
     Widget.cpp
 
@@ -31,6 +35,10 @@ HEADERS += \
     UiThread/Anime/AnimeSeasonNewDialog.h \
     UiThread/Anime/AnimeSeasonWidgetItem.h \
     UiThread/InterfacePublicData.h \
+    UiThread/Movie/MovieIpNewDialog.h \
+    UiThread/Movie/MovieIpWidgetItem.h \
+    UiThread/Movie/MovieSeasonNewDialog.h \
+    UiThread/Movie/MovieSeasonWidgetItem.h \
     Widget.h
 
 FORMS += \
@@ -40,6 +48,10 @@ FORMS += \
     UiThread/Anime/AnimeIpWidgetItem.ui \
     UiThread/Anime/AnimeSeasonNewDialog.ui \
     UiThread/Anime/AnimeSeasonWidgetItem.ui \
+    UiThread/Movie/MovieIpNewDialog.ui \
+    UiThread/Movie/MovieIpWidgetItem.ui \
+    UiThread/Movie/MovieSeasonNewDialog.ui \
+    UiThread/Movie/MovieSeasonWidgetItem.ui \
     Widget.ui
 
 TRANSLATIONS += \

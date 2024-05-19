@@ -23,7 +23,7 @@
    <item row="2" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_Anime">
       <attribute name="title">
@@ -1289,7 +1289,7 @@ QLabel:hover
 }</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="page_ADefault">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -1368,7 +1368,7 @@ QLabel:hover
               </widget>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox_AA_Zhuifan">
+              <widget class="QCheckBox" name="checkBox_AP_Zhuifan">
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
                </property>

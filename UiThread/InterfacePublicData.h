@@ -10,12 +10,14 @@
 #include "UiThread/Anime/AnimeIpWidgetItem.h"
 #include "UiThread/Anime/AnimeSeasonWidgetItem.h"
 #include "UiThread/Anime/AnimeEpisodeWidgetItem.h"
+#include "UiThread/Movie/MovieIpWidgetItem.h"
+#include "UiThread/Movie/MovieSeasonWidgetItem.h"
 
-struct AnimeItemData
+struct AnimeIpItemData
 {
     QList<QListWidgetItem *> items;
     QList<AnimeIpWidgetItem *> widgets;
-    QList<AnimeData> animes;
+    QList<AnimeIpData> ips;
 };
 
 struct AnimeSeasonItemData
@@ -30,6 +32,20 @@ struct AnimeEpisodeItemData
     QList<QListWidgetItem *> items;
     QList<AnimeEpisodeWidgetItem *> widgets;
     QList<AnimeEpisodeData> eps;
+};
+
+struct MovieIpItemData
+{
+    QList<QListWidgetItem *> items;
+    QList<MovieIpWidgetItem *> widgets;
+    QList<MovieIpData> ips;
+};
+
+struct MovieSeasonItemData
+{
+    QList<QListWidgetItem *> items;
+    QList<MovieSeasonWidgetItem *> widgets;
+    QList<MovieSeasonData> seasons;
 };
 
 //导航数据
@@ -51,6 +67,20 @@ struct IndexAnimeData
     bool    e_click {false};
 };
 
+//导航数据
+struct IndexMovieData
+{
+    int     pid {0};
+    int     sid {0};
+    int     p_row {0};
+    int     s_row {0};
+    int     p_pos {0};
+    int     s_pos {0};
+    int     s_page {1};
+    bool    p_click {false};
+    bool    s_click {false};
+};
+
 class InterfacePublicData : public QObject
 {
     Q_OBJECT
@@ -67,10 +97,13 @@ private slots:
     void slotReceiveQueryData(SqlOperateType operate, QVariant var);    //接收sql结果槽函数
 
 public:
-    AnimeItemData           anime;
+    AnimeIpItemData         anime_ip;
     AnimeSeasonItemData     anime_season;
     AnimeEpisodeItemData    anime_ep;
+    MovieIpItemData         movie_ip;
+    MovieSeasonItemData     movie_season;
     IndexAnimeData          index_anime;    //导航数据
+    IndexMovieData          index_movie;    //导航数据
 };
 
 extern InterfacePublicData gIPD;    //界面公共数据
