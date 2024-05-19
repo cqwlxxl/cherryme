@@ -295,7 +295,7 @@ void Widget::slotReceiveQueryData(SqlOperateType operate, QVariant var)
             {
                 ui->listWidget_MP->verticalScrollBar()->setValue(gIPD.index_movie.p_pos);
                 ui->listWidget_MP->setCurrentRow(gIPD.index_movie.p_row);
-                on_listWidget_MP_itemClicked(gIPD.movie_ip.items.at(0));
+                on_listWidget_MP_itemClicked(gIPD.movie_ip.items.at(gIPD.index_movie.p_row));
             }
             else
             {
