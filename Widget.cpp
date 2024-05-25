@@ -1710,6 +1710,7 @@ void Widget::on_listWidget_AS_itemClicked(QListWidgetItem *item)
     showBarAnimeId(2);
     getAnimeEpisode(gIPD.index_anime.e_click?gIPD.index_anime.e_page:1);
     ui->lineEdit_AS_Name->setText(season.name);
+    ui->lineEdit_AS_NameOrigin->setText(season.origin);
     ui->checkBox_AS_Display->setChecked(season.display);
     if(season.release_date_valid)
     {
@@ -2015,6 +2016,21 @@ void Widget::on_lineEdit_AS_Name_textChanged(const QString &arg1)
     }
 }
 
+///动漫季原始名称改变
+void Widget::on_lineEdit_AS_NameOrigin_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.anime_season.seasons.at(gIPD.index_anime.s_row).origin)
+    {
+        ui->lineEdit_AS_NameOrigin->setStyleSheet("#lineEdit_AS_NameOrigin{background-color:#fcae74;}");
+        ui->pushButton_AS_NaneOriginOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_AS_NameOrigin->setStyleSheet("");
+        ui->pushButton_AS_NaneOriginOk->setEnabled(false);
+    }
+}
+
 ///动漫季名称提交
 void Widget::on_pushButton_AS_NaneOk_clicked()
 {
@@ -2028,6 +2044,21 @@ void Widget::on_pushButton_AS_NaneOk_clicked()
     QVariant var_send;
     var_send.setValue(season);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_SEASON_NAME, var_send);
+}
+
+///动漫季原始名称提交
+void Widget::on_pushButton_AS_NaneOriginOk_clicked()
+{
+    gIPD.index_anime.p_click = true;
+    gIPD.index_anime.s_click = true;
+    gIPD.index_anime.e_click = false;
+    ui->lineEdit_AS_NameOrigin->setStyleSheet("");
+    ui->pushButton_AS_NaneOriginOk->setEnabled(false);
+    AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
+    season.origin = ui->lineEdit_AS_NameOrigin->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(season);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_SEASON_NAME_ORIGIN, var_send);
 }
 
 ///动漫季发布日期有效
@@ -2288,7 +2319,7 @@ void Widget::on_pushButton_AS_Delete_clicked()
     }
     else
     {
-        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除季度《%1》?\n注意: 其包含的所有话数据均会被关联删除!")).arg(gIPD.anime_season.seasons.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除季度\n%1\n%2\n注意: 其包含的所有话数据均会被关联删除!")).arg(gIPD.anime_season.seasons.at(row).name, gIPD.anime_season.seasons.at(row).origin), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
         if(ret == QMessageBox::Ok)
         {
             gIPD.index_anime.p_click = true;

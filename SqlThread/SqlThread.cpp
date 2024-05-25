@@ -128,7 +128,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         int page = strs[1].toInt();
         int offset = (page-1)*page_size;
         bool limit = (strs[2].toInt() == 1);
-        cmd = QString("SELECT sid,pid,name,release_date,see,"
+        cmd = QString("SELECT sid,pid,name,origin,release_date,see,"
                       "see_episode,total_episode,collect,point,display,"
                       "tag1,tag2,tag3 FROM `%1` WHERE pid=%2").arg(TABLE_ANIME_SEASON, strs[0]);
         if(sid != -1)
@@ -150,17 +150,18 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
                 season.sid = mQuery.value(0).toInt();
                 season.pid = mQuery.value(1).toInt();
                 season.name = mQuery.value(2).toString();
-                season.release_date_valid = !((mQuery.value(3).toString() == "0000-00-00") || (mQuery.value(3).toString() == ""));
-                season.release_date = season.release_date_valid ? QDate::fromString(mQuery.value(3).toString(), "yyyy-MM-dd") : QDate::currentDate();
-                season.see = (mQuery.value(4).toInt() == 1);
-                season.see_episode = mQuery.value(5).toInt();
-                season.total_episode = mQuery.value(6).toInt();
-                season.collect = mQuery.value(7).toInt();
-                season.point = mQuery.value(8).toInt();
-                season.display = (mQuery.value(9).toInt() == 1);
-                season.tag1 = (mQuery.value(10).toInt() == 1);
-                season.tag2 = (mQuery.value(11).toInt() == 1);
-                season.tag3 = (mQuery.value(12).toInt() == 1);
+                season.origin = mQuery.value(3).toString();
+                season.release_date_valid = !((mQuery.value(4).toString() == "0000-00-00") || (mQuery.value(4).toString() == ""));
+                season.release_date = season.release_date_valid ? QDate::fromString(mQuery.value(4).toString(), "yyyy-MM-dd") : QDate::currentDate();
+                season.see = (mQuery.value(5).toInt() == 1);
+                season.see_episode = mQuery.value(6).toInt();
+                season.total_episode = mQuery.value(7).toInt();
+                season.collect = mQuery.value(8).toInt();
+                season.point = mQuery.value(9).toInt();
+                season.display = (mQuery.value(10).toInt() == 1);
+                season.tag1 = (mQuery.value(11).toInt() == 1);
+                season.tag2 = (mQuery.value(12).toInt() == 1);
+                season.tag3 = (mQuery.value(13).toInt() == 1);
                 seasons.append(season);
             }
 
@@ -283,6 +284,16 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         AnimeSeasonData season = var.value<AnimeSeasonData>();
         season.name.replace("'", "''");
         cmd = QString("UPDATE `%2` SET name='%3' WHERE sid=%1").arg(season.sid).arg(TABLE_ANIME_SEASON, season.name);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_ANIME_SEASON_NAME_ORIGIN:
+    {
+        AnimeSeasonData season = var.value<AnimeSeasonData>();
+        season.origin.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET origin='%3' WHERE sid=%1").arg(season.sid).arg(TABLE_ANIME_SEASON, season.origin);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
@@ -413,9 +424,10 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeSeasonData season = var.value<AnimeSeasonData>();
         season.name.replace("'", "''");
-        cmd = QString("INSERT INTO `%1` (pid,name,release_date,see,see_episode,total_episode,collect,point,display,tag1,tag2,tag3)"
-                      " VALUES (%2,'%3','%4',0,0,0,%5,%6,%7,0,0,0)")
-                .arg(TABLE_ANIME_SEASON, QString::number(season.pid), season.name,
+        season.origin.replace("'", "''");
+        cmd = QString("INSERT INTO `%1` (pid,name,origin,release_date,see,see_episode,total_episode,collect,point,display,tag1,tag2,tag3)"
+                      " VALUES (%2,'%3','%4','%5',0,0,0,%6,%7,%8,0,0,0)")
+                .arg(TABLE_ANIME_SEASON, QString::number(season.pid), season.name, season.origin,
                      season.release_date_valid?season.release_date.toString("yyyy-MM-dd"):"0000-00-00",
                      QString::number(season.collect), QString::number(season.point), season.display?"1":"0");
         mQuery.exec(cmd);

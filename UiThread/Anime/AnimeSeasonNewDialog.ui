@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>525</width>
-    <height>118</height>
+    <height>149</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,6 +55,20 @@ QCheckBox::indicator:unchecked:disabled
         <string>公开</string>
        </property>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hLayout_NameOrigin">
+     <item>
+      <widget class="QLabel" name="label_NameOrigin">
+       <property name="text">
+        <string>原始名称</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_NameOrigin"/>
      </item>
     </layout>
    </item>

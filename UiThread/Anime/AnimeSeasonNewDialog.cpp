@@ -42,7 +42,9 @@ void AnimeSeasonNewDialog::Hi(int pid)
 void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
 {
     QString name = ui->lineEdit_Name->text().trimmed();
+    QString origin = ui->lineEdit_NameOrigin->text().trimmed();
     ui->lineEdit_Name->setText(name);
+    ui->lineEdit_NameOrigin->setText(origin);
     if(name.isEmpty())
     {
         QMessageBox::information(this, tr("名称未填"), tr("请填写季度名称"), QMessageBox::Ok, QMessageBox::Ok);
@@ -51,6 +53,7 @@ void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
     AnimeSeasonData season;
     season.pid = mPid;
     season.name = name;
+    season.origin = origin;
     season.display = ui->checkBox_Display->isChecked();
     season.release_date_valid = ui->checkBox_ReleaseDateEnable->isChecked();
     season.release_date = ui->dateEdit_ReleaseDate->date();

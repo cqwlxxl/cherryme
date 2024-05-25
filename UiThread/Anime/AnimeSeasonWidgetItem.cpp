@@ -12,6 +12,8 @@ AnimeSeasonWidgetItem::AnimeSeasonWidgetItem(AnimeSeasonData season, QWidget *pa
     mSeason = season;
     ui->label_Name->setText(season.name);
     ui->label_Name->setStyleSheet(QString("QLabel{color:%1;}").arg(season.display?"black":"red"));
+    ui->label_NameOrigin->setText(season.origin);
+    ui->label_NameOrigin->setStyleSheet(QString("QLabel{color:%1;}").arg(season.display?"black":"red"));
     ui->label_Type->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#cccccc;margin-left:3px;padding-left:2px;padding-right:2px;}");
     ui->pushButton_Collect->setVisible(season.collect==0 ? false : true);
     ui->pushButton_Collect->setChecked(season.collect==2);

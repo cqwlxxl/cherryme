@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>649</width>
-    <height>233</height>
+    <height>205</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>新增话</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0">
    <item>
     <layout class="QHBoxLayout" name="hLayout_EpisodePreview" stretch="0,1">
      <item>
@@ -97,6 +97,96 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_Tag1">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
+       <property name="text">
+        <string>Tag1</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_Tag2">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
+       <property name="text">
+        <string>Tag2</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_Tag3">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+       </property>
+       <property name="text">
+        <string>Tag3</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -313,113 +403,6 @@
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_TitleOrigin"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="hLayout_ABC">
-     <item>
-      <spacer name="hSpacer_ABC">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_Tag1">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox
-{
-  spacing: 0px;
-}
-QCheckBox::indicator
-{
-  width: 20px;
-  height: 20px;
-}
-QCheckBox::indicator:checked:enabled
-{
-  image:url(:/File/img/box_check_enable.png);
-}
-QCheckBox::indicator:unchecked:enabled
-{
-  image:url(:/File/img/box_uncheck_enable.png);
-}
-QCheckBox::indicator:unchecked:disabled
-{
-  image:url(:/File/img/box_uncheck_disable.png);
-}</string>
-       </property>
-       <property name="text">
-        <string>Tag1</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_Tag2">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox
-{
-  spacing: 0px;
-}
-QCheckBox::indicator
-{
-  width: 20px;
-  height: 20px;
-}
-QCheckBox::indicator:checked:enabled
-{
-  image:url(:/File/img/box_check_enable.png);
-}
-QCheckBox::indicator:unchecked:enabled
-{
-  image:url(:/File/img/box_uncheck_enable.png);
-}
-QCheckBox::indicator:unchecked:disabled
-{
-  image:url(:/File/img/box_uncheck_disable.png);
-}</string>
-       </property>
-       <property name="text">
-        <string>Tag2</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="checkBox_Tag3">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox
-{
-  spacing: 0px;
-}
-QCheckBox::indicator
-{
-  width: 20px;
-  height: 20px;
-}
-QCheckBox::indicator:checked:enabled
-{
-  image:url(:/File/img/box_check_enable.png);
-}
-QCheckBox::indicator:unchecked:enabled
-{
-  image:url(:/File/img/box_uncheck_enable.png);
-}
-QCheckBox::indicator:unchecked:disabled
-{
-  image:url(:/File/img/box_uncheck_disable.png);
-}</string>
-       </property>
-       <property name="text">
-        <string>Tag3</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>
