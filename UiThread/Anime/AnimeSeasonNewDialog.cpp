@@ -52,6 +52,7 @@ void AnimeSeasonNewDialog::on_pushButton_Ok_clicked()
     }
     AnimeSeasonData season;
     season.pid = mPid;
+    season.type = ui->comboBox_Type->currentIndex();
     season.name = name;
     season.origin = origin;
     season.display = ui->checkBox_Display->isChecked();

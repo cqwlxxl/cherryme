@@ -40,12 +40,14 @@ enum SqlOperateType
     SOT_UPDATE_ANIME_IP_DISPLAY,            //更新动漫，公开
     SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
     SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
+    SOT_UPDATE_ANIME_SEASON_TYPE,           //更新动漫季，类型
     SOT_UPDATE_ANIME_SEASON_NAME,           //更新动漫季，名称
     SOT_UPDATE_ANIME_SEASON_NAME_ORIGIN,    //更新动漫季，原始名称
     SOT_UPDATE_ANIME_SEASON_DISPLAY,        //更新动漫季，公开
     SOT_UPDATE_ANIME_SEASON_RELEASE_DATE,   //更新动漫季，发布日期
     SOT_UPDATE_ANIME_SEASON_POINT,          //更新动漫季，评分
     SOT_UPDATE_ANIME_SEASON_COLLECT,        //更新动漫季，收藏
+    SOT_UPDATE_ANIME_EPISODE_TYPE,          //更新动漫话，类型
     SOT_UPDATE_ANIME_EPISODE_SEE,           //更新动漫话，看完
     SOT_UPDATE_ANIME_EPISODE_EPISODE,       //更新动漫话，序号
     SOT_UPDATE_ANIME_EPISODE_TITLE,         //更新动漫话，标题
@@ -139,6 +141,7 @@ struct AnimeSeasonData
 {
     int     sid {0};                    //sid
     int     pid {0};                    //pid
+    int     type {0};                   //类型
     QString name;                       //名称
     QString origin;                     //原始名称
     QDate   release_date;               //发布日期
@@ -159,6 +162,7 @@ struct AnimeEpisodeData
     int     eid {0};        //eid
     int     pid {0};        //pid
     int     sid {0};        //sid
+    int     type {0};       //类型
     QString episode {"XX"}; //话序号
     QString title;          //标题
     QString origin;         //原标题

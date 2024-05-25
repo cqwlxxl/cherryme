@@ -3,6 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
+-- 生成日期： 2024-05-25 15:41:44
 -- 服务器版本： 5.7.31-log
 -- PHP 版本： 7.4.12
 
@@ -30,8 +31,10 @@ CREATE TABLE `anime_episode` (
   `eid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `sid` int(11) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '0',
   `episode` tinytext NOT NULL,
   `title` text NOT NULL,
+  `origin` text NOT NULL,
   `see` tinyint(4) NOT NULL DEFAULT '0',
   `tag1` tinyint(4) NOT NULL DEFAULT '0',
   `tag2` tinyint(4) NOT NULL DEFAULT '0',
@@ -47,6 +50,7 @@ CREATE TABLE `anime_episode` (
 CREATE TABLE `anime_ip` (
   `pid` int(11) NOT NULL,
   `name` text NOT NULL,
+  `origin` text NOT NULL,
   `keywords` tinytext NOT NULL,
   `see` tinyint(4) NOT NULL DEFAULT '0',
   `see_season` int(11) NOT NULL DEFAULT '0',
@@ -83,7 +87,9 @@ CREATE TABLE `anime_recent` (
 CREATE TABLE `anime_season` (
   `sid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT '0',
   `name` text NOT NULL,
+  `origin` text NOT NULL,
   `release_date` date NOT NULL DEFAULT '0000-00-00',
   `see` tinyint(4) NOT NULL DEFAULT '0',
   `see_episode` int(11) NOT NULL DEFAULT '0',

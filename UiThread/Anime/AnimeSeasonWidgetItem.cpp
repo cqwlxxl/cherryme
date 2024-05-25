@@ -10,11 +10,12 @@ AnimeSeasonWidgetItem::AnimeSeasonWidgetItem(AnimeSeasonData season, QWidget *pa
     ui->setupUi(this);
 
     mSeason = season;
+    setType(season.type);
+    ui->label_Type->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#f57ea0;margin-left:3px;padding-left:2px;padding-right:2px;}");
     ui->label_Name->setText(season.name);
     ui->label_Name->setStyleSheet(QString("QLabel{color:%1;}").arg(season.display?"black":"red"));
     ui->label_NameOrigin->setText(season.origin);
     ui->label_NameOrigin->setStyleSheet(QString("QLabel{color:%1;}").arg(season.display?"black":"red"));
-    ui->label_Type->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#cccccc;margin-left:3px;padding-left:2px;padding-right:2px;}");
     ui->pushButton_Collect->setVisible(season.collect==0 ? false : true);
     ui->pushButton_Collect->setChecked(season.collect==2);
     setPoint(season.point);
@@ -36,6 +37,29 @@ AnimeSeasonWidgetItem::AnimeSeasonWidgetItem(AnimeSeasonData season, QWidget *pa
 AnimeSeasonWidgetItem::~AnimeSeasonWidgetItem()
 {
     delete ui;
+}
+
+///设置类型
+void AnimeSeasonWidgetItem::setType(int type)
+{
+    QString str {""};
+    bool show {true};
+    switch(type)
+    {
+    case AnimeMovie:        str = tr("剧场版");     break;
+    case AnimeTv:           str = tr("TV");         break;
+    case AnimeSep:          str = tr("特别篇");     break;
+    case AnimeCollection:   str = tr("总集篇");     break;
+    case AnimeOva:          str = tr("OVA");        break;
+    case AnimeOad:          str = tr("OAD");        break;
+    case AnimeSp:           str = tr("特典");       break;
+    case AnimeWeb:          str = tr("WEB");        break;
+    default:
+        show = false;
+        break;
+    }
+    ui->label_Type->setText(str);
+    ui->label_Type->setVisible(show);
 }
 
 ///设置评分

@@ -43,6 +43,7 @@ void AnimeEpisodeNewDialog::on_pushButton_Ok_clicked()
     AnimeEpisodeData ep;
     ep.pid = mPid;
     ep.sid = mSid;
+    ep.type = ui->comboBox_Type->currentIndex();
     ep.title = ui->lineEdit_Title->text();
     ep.origin = ui->lineEdit_TitleOrigin->text();
     ep.tag1 = ui->checkBox_Tag1->isChecked();

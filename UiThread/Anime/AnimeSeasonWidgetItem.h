@@ -3,6 +3,7 @@
 
 #include <QWidget>
 
+#include "PublicData.h"
 #include "SqlThread/SqlDataDefine.h"
 
 namespace Ui {
@@ -21,6 +22,7 @@ private:
     Ui::AnimeSeasonWidgetItem *ui;
 
 private:
+    void setType(int type);     //设置类型
     void setPoint(int point);   //设置评分
     void setTag1(bool tag1);
     void setTag2(bool tag2);

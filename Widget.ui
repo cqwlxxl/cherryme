@@ -1967,7 +1967,7 @@ QCheckBox::indicator:unchecked:disabled
 }</string>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page_ADefault">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -2294,74 +2294,57 @@ QCheckBox::indicator:unchecked:disabled
          <widget class="QWidget" name="page_AS">
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <layout class="QHBoxLayout" name="hLayout_AS_Name">
+            <layout class="QHBoxLayout" name="hLayout_AS_Collect">
              <item>
-              <widget class="QLabel" name="label_AS_Name">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
+              <widget class="QComboBox" name="comboBox_AS_Type">
+               <property name="maxVisibleItems">
+                <number>13</number>
                </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>名称</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_AS_Name">
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_AS_NaneOk">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#pushButton_AS_NaneOk
-{
-  border: 0px;
-}</string>
-               </property>
-               <property name="text">
-                <string notr="true"/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normalon>:/File/img/submit_enable.png</normalon>
-                 <disabledon>:/File/img/submit_disable.png</disabledon>
-                </iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
+               <item>
+                <property name="text">
+                 <string>无类型</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>剧场版</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>TV</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>特别篇</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>总集篇</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>OVA</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>OAD</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>特典</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>WEB</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item>
@@ -2394,83 +2377,145 @@ QCheckBox::indicator:unchecked:disabled
                </property>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="hLayout_AS_Name_2">
              <item>
-              <widget class="QLabel" name="label_AS_NameOrigin">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>原始名称</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit_AS_NameOrigin">
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_AS_NaneOriginOk">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
+              <widget class="QCheckBox" name="checkBox_AS_CollectIt">
                <property name="styleSheet">
-                <string notr="true">#pushButton_AS_NaneOriginOk
+                <string notr="true">QCheckBox
 {
-  border: 0px;
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
 }</string>
                </property>
                <property name="text">
-                <string notr="true"/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normalon>:/File/img/submit_enable.png</normalon>
-                 <disabledon>:/File/img/submit_disable.png</disabledon>
-                </iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
+                <string>要收藏</string>
                </property>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="hLayout_AS_Collect">
+             <item>
+              <widget class="QCheckBox" name="checkBox_AS_CollectOk">
+               <property name="styleSheet">
+                <string notr="true">QCheckBox
+{
+  spacing: 0px;
+}
+QCheckBox::indicator
+{
+  width: 20px;
+  height: 20px;
+}
+QCheckBox::indicator:checked:enabled
+{
+  image:url(:/File/img/box_check_enable.png);
+}
+QCheckBox::indicator:unchecked:enabled
+{
+  image:url(:/File/img/box_uncheck_enable.png);
+}
+QCheckBox::indicator:unchecked:disabled
+{
+  image:url(:/File/img/box_uncheck_disable.png);
+}</string>
+               </property>
+               <property name="text">
+                <string>已收藏</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_AS_Point">
+               <property name="text">
+                <string>评分</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_AS_Point">
+               <property name="maxVisibleItems">
+                <number>13</number>
+               </property>
+               <item>
+                <property name="text">
+                 <string>未评 0</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>烂作 1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>不行 2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>极差 3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>很差 4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>略差 5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>及格 6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>海星 7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>一般 8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>很好 9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>完美 10</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>极好 11</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>神作 12</string>
+                </property>
+               </item>
+              </widget>
+             </item>
              <item>
               <widget class="QLabel" name="label_AS_ReleaseDate">
                <property name="text">
@@ -2578,145 +2623,6 @@ QCheckBox::indicator:unchecked:disabled
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_AS_Point">
-               <property name="text">
-                <string>评分</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_AS_Point">
-               <property name="maxVisibleItems">
-                <number>13</number>
-               </property>
-               <item>
-                <property name="text">
-                 <string>未评 0</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>烂作 1</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>不行 2</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>极差 3</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>很差 4</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>略差 5</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>及格 6</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>海星 7</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>一般 8</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>很好 9</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>完美 10</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>极好 11</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>神作 12</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_AS_CollectIt">
-               <property name="styleSheet">
-                <string notr="true">QCheckBox
-{
-  spacing: 0px;
-}
-QCheckBox::indicator
-{
-  width: 20px;
-  height: 20px;
-}
-QCheckBox::indicator:checked:enabled
-{
-  image:url(:/File/img/box_check_enable.png);
-}
-QCheckBox::indicator:unchecked:enabled
-{
-  image:url(:/File/img/box_uncheck_enable.png);
-}
-QCheckBox::indicator:unchecked:disabled
-{
-  image:url(:/File/img/box_uncheck_disable.png);
-}</string>
-               </property>
-               <property name="text">
-                <string>要收藏</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_AS_CollectOk">
-               <property name="styleSheet">
-                <string notr="true">QCheckBox
-{
-  spacing: 0px;
-}
-QCheckBox::indicator
-{
-  width: 20px;
-  height: 20px;
-}
-QCheckBox::indicator:checked:enabled
-{
-  image:url(:/File/img/box_check_enable.png);
-}
-QCheckBox::indicator:unchecked:enabled
-{
-  image:url(:/File/img/box_uncheck_enable.png);
-}
-QCheckBox::indicator:unchecked:disabled
-{
-  image:url(:/File/img/box_uncheck_disable.png);
-}</string>
-               </property>
-               <property name="text">
-                <string>已收藏</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <spacer name="hSpacer_AS_Collect">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -2728,6 +2634,152 @@ QCheckBox::indicator:unchecked:disabled
                 </size>
                </property>
               </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_AS_Name">
+             <item>
+              <widget class="QLabel" name="label_AS_Name">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>名称</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_AS_Name">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_AS_NaneOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AS_NaneOk
+{
+  border: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_AS_Name_2">
+             <item>
+              <widget class="QLabel" name="label_AS_NameOrigin">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>原始名称</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_AS_NameOrigin">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_AS_NaneOriginOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AS_NaneOriginOk
+{
+  border: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -2750,6 +2802,55 @@ QCheckBox::indicator:unchecked:disabled
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <layout class="QHBoxLayout" name="hLayout_AE_Episode">
+             <item>
+              <widget class="QComboBox" name="comboBox_AE_Type">
+               <item>
+                <property name="text">
+                 <string>无类型</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>剧场版</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>TV</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>特别篇</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>总集篇</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>OVA</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>OAD</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>特典</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>WEB</string>
+                </property>
+               </item>
+              </widget>
+             </item>
              <item>
               <widget class="QLabel" name="label_AE_Episode">
                <property name="text">
@@ -2928,8 +3029,23 @@ QCheckBox::indicator:unchecked:disabled
             <layout class="QHBoxLayout" name="hLayout_AE_Title">
              <item>
               <widget class="QLabel" name="label_AE_Title">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="text">
                 <string>标题</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -2986,8 +3102,23 @@ QCheckBox::indicator:unchecked:disabled
             <layout class="QHBoxLayout" name="hLayout_TitleOrigin">
              <item>
               <widget class="QLabel" name="label_AE_TitleOrigin">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="text">
                 <string>原始标题</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>

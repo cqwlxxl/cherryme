@@ -86,17 +86,53 @@
       </widget>
      </item>
      <item>
-      <spacer name="hSpacer_Episode">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      <widget class="QComboBox" name="comboBox_Type">
+       <item>
+        <property name="text">
+         <string>无类型</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>剧场版</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>TV</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>特别篇</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>总集篇</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>OVA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>OAD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>特典</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>WEB</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="checkBox_Tag1">
@@ -187,6 +223,19 @@ QCheckBox::indicator:unchecked:disabled
         <string>Tag3</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="hSpacer_Episode">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>

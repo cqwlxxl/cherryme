@@ -9,6 +9,19 @@
 
 #define CONFIG_FILE_PATH    "src/config/config.ini"             //配置文件路径
 
+enum AnimeType
+{
+    AnimeDefault = 0,       //无
+    AnimeMovie,             //剧场版
+    AnimeTv,                //TV
+    AnimeSep,               //特别篇
+    AnimeCollection,        //总集篇
+    AnimeOva,               //OVA
+    AnimeOad,               //OAD
+    AnimeSp,                //特典
+    AnimeWeb                //WEB
+};
+
 struct PublicUseData
 {
     QString     softwareName {"Cherry Me !!"};  //软件名称

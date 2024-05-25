@@ -1710,6 +1710,7 @@ void Widget::on_listWidget_AS_itemClicked(QListWidgetItem *item)
     gIPD.index_anime.s_pos = ui->listWidget_AS->verticalScrollBar()->value();
     showBarAnimeId(2);
     getAnimeEpisode(gIPD.index_anime.e_click?gIPD.index_anime.e_page:1);
+    ui->comboBox_AS_Type->setCurrentIndex(season.type);
     ui->lineEdit_AS_Name->setText(season.name);
     ui->lineEdit_AS_NameOrigin->setText(season.origin);
     ui->checkBox_AS_Display->setChecked(season.display);
@@ -1750,16 +1751,18 @@ void Widget::on_listWidget_AS_itemClicked(QListWidgetItem *item)
 void Widget::on_listWidget_AE_itemClicked(QListWidgetItem *item)
 {
     int row = ui->listWidget_AE->row(item);
+    AnimeEpisodeData ep = gIPD.anime_ep.eps.at(row);
     gIPD.index_anime.e_row = row;
-    gIPD.index_anime.eid = gIPD.anime_ep.eps.at(row).eid;
+    gIPD.index_anime.eid = ep.eid;
     gIPD.index_anime.e_pos = ui->listWidget_AE->verticalScrollBar()->value();
     showBarAnimeId(3);
-    ui->checkBox_AE_Tag1->setChecked(gIPD.anime_ep.eps.at(row).tag1);
-    ui->checkBox_AE_Tag2->setChecked(gIPD.anime_ep.eps.at(row).tag2);
-    ui->checkBox_AE_Tag3->setChecked(gIPD.anime_ep.eps.at(row).tag3);
-    ui->lineEdit_AE_Episode->setText(gIPD.anime_ep.eps.at(row).episode);
-    ui->lineEdit_AE_Title->setText(gIPD.anime_ep.eps.at(row).title);
-    ui->lineEdit_AE_TitleOrigin->setText(gIPD.anime_ep.eps.at(row).origin);
+    ui->comboBox_AE_Type->setCurrentIndex(ep.type);
+    ui->checkBox_AE_Tag1->setChecked(ep.tag1);
+    ui->checkBox_AE_Tag2->setChecked(ep.tag2);
+    ui->checkBox_AE_Tag3->setChecked(ep.tag3);
+    ui->lineEdit_AE_Episode->setText(ep.episode);
+    ui->lineEdit_AE_Title->setText(ep.title);
+    ui->lineEdit_AE_TitleOrigin->setText(ep.origin);
 }
 
 ///动漫ip上一页
@@ -1871,6 +1874,22 @@ void Widget::on_checkBox_Limit_clicked(bool checked)
         on_pushButton_FindTv_clicked();
     }
     ui->lineEdit_Limit->clear();
+}
+
+///动漫话类型改变
+void Widget::on_comboBox_AE_Type_activated(int index)
+{
+    if(gIPD.anime_ep.eps.at(gIPD.index_anime.e_row).type != index)
+    {
+        gIPD.index_anime.p_click = true;
+        gIPD.index_anime.s_click = true;
+        gIPD.index_anime.e_click = true;
+        AnimeEpisodeData episode = gIPD.anime_ep.eps.at(gIPD.index_anime.e_row);
+        episode.type = index;
+        QVariant var_send;
+        var_send.setValue(episode);
+        emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_TYPE, var_send);
+    }
 }
 
 ///动漫话序号改变
@@ -2000,6 +2019,22 @@ void Widget::on_checkBox_AE_Tag3_clicked(bool checked)
     QVariant var_send;
     var_send.setValue(episode);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_TAG3, var_send);
+}
+
+///动漫类型改变
+void Widget::on_comboBox_AS_Type_activated(int index)
+{
+    if(gIPD.anime_season.seasons.at(gIPD.index_anime.s_row).type != index)
+    {
+        gIPD.index_anime.p_click = true;
+        gIPD.index_anime.s_click = true;
+        gIPD.index_anime.e_click = false;
+        AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
+        season.type = index;
+        QVariant var_send;
+        var_send.setValue(season);
+        emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_SEASON_TYPE, var_send);
+    }
 }
 
 ///动漫季名称改变

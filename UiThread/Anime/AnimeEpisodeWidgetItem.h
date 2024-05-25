@@ -24,6 +24,7 @@ private slots:
     void on_pushButton_See_clicked(bool checked);   //动漫话看完
 
 private:
+    void setType(int type);     //设置类型
     void setTag1(bool tag1);
     void setTag2(bool tag2);
     void setTag3(bool tag3);

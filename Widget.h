@@ -91,6 +91,7 @@ private slots:
     void on_lineEdit_AP_Keyword_textChanged(const QString &arg1);   //动漫关键词改变
     void on_pushButton_AP_KeywordsOk_clicked();                     //动漫关键词提交
     //anime操作季
+    void on_comboBox_AS_Type_activated(int index);              //动漫类型改变
     void on_lineEdit_AS_Name_textChanged(const QString &arg1);  //动漫季名称改变
     void on_lineEdit_AS_NameOrigin_textChanged(const QString &arg1);  //动漫季原始名称改变
     void on_pushButton_AS_NaneOk_clicked();                     //动漫季名称提交
@@ -103,6 +104,7 @@ private slots:
     void on_checkBox_AS_CollectIt_clicked(bool checked);    //动漫季要收藏提交
     void on_checkBox_AS_CollectOk_clicked(bool checked);    //动漫季已收藏提交
     //anime操作话
+    void on_comboBox_AE_Type_activated(int index);                  //动漫话类型改变
     void on_lineEdit_AE_Episode_textChanged(const QString &arg1);   //动漫话序号改变
     void on_pushButton_AE_EpisodeOk_clicked();                      //动漫话序号提交
     void on_lineEdit_AE_Title_textChanged(const QString &arg1);     //动漫话标题改变

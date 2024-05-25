@@ -13,6 +13,8 @@ AnimeEpisodeWidgetItem::AnimeEpisodeWidgetItem(AnimeEpisodeData episode, int row
 
     mEpisode = episode;
     mRow = row;
+    setType(episode.type);
+    ui->label_Type->setStyleSheet("QLabel{border:1px solid grey;color:white;background-color:#f57ea0;margin-left:3px;padding-left:2px;padding-right:2px;}");
     ui->label_Ep->setText(QString("[%1]").arg(episode.episode));
     ui->label_Name->setText(episode.title);
     ui->label_NameOrigin->setText(episode.origin);
@@ -36,6 +38,29 @@ void AnimeEpisodeWidgetItem::on_pushButton_See_clicked(bool checked)
 {
     mEpisode.see = checked;
     emit gIPD.SIGNALAnimeEpisodeSee(mEpisode, mRow);
+}
+
+///设置类型
+void AnimeEpisodeWidgetItem::setType(int type)
+{
+    QString str {""};
+    bool show {true};
+    switch(type)
+    {
+    case AnimeMovie:        str = tr("剧场版");     break;
+    case AnimeTv:           str = tr("TV");         break;
+    case AnimeSep:          str = tr("特别篇");     break;
+    case AnimeCollection:   str = tr("总集篇");     break;
+    case AnimeOva:          str = tr("OVA");        break;
+    case AnimeOad:          str = tr("OAD");        break;
+    case AnimeSp:           str = tr("特典");       break;
+    case AnimeWeb:          str = tr("WEB");        break;
+    default:
+        show = false;
+        break;
+    }
+    ui->label_Type->setText(str);
+    ui->label_Type->setVisible(show);
 }
 
 void AnimeEpisodeWidgetItem::setTag1(bool tag1)
