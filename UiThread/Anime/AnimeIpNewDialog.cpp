@@ -36,8 +36,10 @@ void AnimeIpNewDialog::Hi()
 void AnimeIpNewDialog::on_pushButton_Ok_clicked()
 {
     QString name = ui->lineEdit_Name->text().trimmed();
+    QString origin = ui->lineEdit_NameOrigin->text().trimmed();
     QString keywords = ui->lineEdit_Keywords->text().trimmed();
     ui->lineEdit_Name->setText(name);
+    ui->lineEdit_NameOrigin->setText(origin);
     ui->lineEdit_Keywords->setText(keywords);
     if(name.isEmpty())
     {
@@ -46,6 +48,7 @@ void AnimeIpNewDialog::on_pushButton_Ok_clicked()
     }
     AnimeIpData ip;
     ip.name = name;
+    ip.origin = origin;
     ip.keywords = keywords;
     ip.zhuifan = ui->checkBox_Zhuifan->isChecked();
     ip.display = ui->checkBox_Display->isChecked();

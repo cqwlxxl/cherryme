@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>118</height>
+    <height>149</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -91,6 +91,26 @@ QCheckBox::indicator:unchecked:disabled
         <string>追番</string>
        </property>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hLayout_NameOrigin">
+     <item>
+      <widget class="QLabel" name="label_NameOrigin">
+       <property name="minimumSize">
+        <size>
+         <width>40</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>原始名称</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_NameOrigin"/>
      </item>
     </layout>
    </item>

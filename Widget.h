@@ -83,7 +83,9 @@ private slots:
     void on_pushButton_AE_Delete_clicked(); //删除动漫话
     //anime操作ip
     void on_lineEdit_AP_Name_textChanged(const QString &arg1);  //动漫名称改变
+    void on_lineEdit_AP_NameOrigin_textChanged(const QString &arg1);  //动漫原始名称改变
     void on_pushButton_AP_NameOk_clicked();                     //动漫名称提交
+    void on_pushButton_AP_NameOriginOk_clicked();               //动漫原始名称提交
     void on_checkBox_AP_Display_clicked(bool checked);  //动漫公开提交
     void on_checkBox_AP_Zhuifan_clicked(bool checked);  //动漫追番提交
     void on_lineEdit_AP_Keyword_textChanged(const QString &arg1);   //动漫关键词改变

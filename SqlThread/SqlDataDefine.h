@@ -36,6 +36,7 @@ enum SqlOperateType
     SOT_INFO_ANIME_EPISODE_PAGE,    //动漫话页面信息
     SOT_TELL_ANIME_RESHOW,                  //重新显示动漫
     SOT_UPDATE_ANIME_IP_NAME,               //更新动漫，名称
+    SOT_UPDATE_ANIME_IP_NAME_ORIGIN,        //更新动漫，原始名称
     SOT_UPDATE_ANIME_IP_DISPLAY,            //更新动漫，公开
     SOT_UPDATE_ANIME_IP_ZHUIFAN,            //更新动漫，追番
     SOT_UPDATE_ANIME_IP_KEYWORDS,           //更新动漫，关键词
@@ -120,6 +121,7 @@ struct AnimeIpData
     //MySQL中，ALL int
     int     pid {0};            //pid
     QString name;               //名称
+    QString origin;             //原始名称
     QString keywords;           //关键词
     bool    see {false};        //看完
     int     see_season {0};     //看了的季

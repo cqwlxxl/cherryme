@@ -1967,7 +1967,7 @@ QCheckBox::indicator:unchecked:disabled
 }</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="page_ADefault">
           <layout class="QGridLayout" name="gridLayout_2">
@@ -1991,13 +1991,13 @@ QCheckBox::indicator:unchecked:disabled
               <widget class="QLabel" name="label_AP_Name">
                <property name="minimumSize">
                 <size>
-                 <width>40</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>40</width>
+                 <width>50</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -2131,18 +2131,91 @@ QCheckBox::indicator:unchecked:disabled
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="hLayout_AP_Keywords">
+            <layout class="QHBoxLayout" name="hLayout_AP_NameOrigin">
              <item>
-              <widget class="QLabel" name="label_AP_Keyword">
+              <widget class="QLabel" name="label_AP_NameOrigin">
                <property name="minimumSize">
                 <size>
-                 <width>40</width>
+                 <width>50</width>
                  <height>0</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>40</width>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>原始名称</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit_AP_NameOrigin">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_AP_NameOriginOk">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#pushButton_AP_NameOriginOk
+{
+  border: 0px;
+}</string>
+               </property>
+               <property name="text">
+                <string notr="true"/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normalon>:/File/img/submit_enable.png</normalon>
+                 <disabledon>:/File/img/submit_disable.png</disabledon>
+                </iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="hLayout_AP_Keywords">
+             <item>
+              <widget class="QLabel" name="label_AP_Keyword">
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
                  <height>16777215</height>
                 </size>
                </property>

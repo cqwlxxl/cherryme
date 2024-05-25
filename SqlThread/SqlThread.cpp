@@ -47,7 +47,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         int page_size = 20;
         int page = strs[0].toInt();
         int offset = (page-1)*page_size;
-        cmd = QString("SELECT pid,name,keywords,see,see_season,"
+        cmd = QString("SELECT pid,name,origin,keywords,see,see_season,"
                       "total_season,zhuifan,collect,point,display,"
                       "tag1,tag2,tag3 FROM `%1`").arg(TABLE_ANIME_IP);
         if(!strs[1].isEmpty())
@@ -63,17 +63,18 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
                 AnimeIpData ip;
                 ip.pid = mQuery.value(0).toInt();
                 ip.name = mQuery.value(1).toString();
-                ip.keywords = mQuery.value(2).toString();
-                ip.see = (mQuery.value(3).toInt() == 1);
-                ip.see_season = mQuery.value(4).toInt();
-                ip.total_season = mQuery.value(5).toInt();
-                ip.zhuifan = (mQuery.value(6).toInt() == 1);
-                ip.collect = mQuery.value(7).toInt();
-                ip.point = mQuery.value(8).toInt();
-                ip.display = (mQuery.value(9).toInt() == 1);
-                ip.tag1 = (mQuery.value(10).toInt() == 1);
-                ip.tag2 = (mQuery.value(11).toInt() == 1);
-                ip.tag3 = (mQuery.value(12).toInt() == 1);
+                ip.origin = mQuery.value(2).toString();
+                ip.keywords = mQuery.value(3).toString();
+                ip.see = (mQuery.value(4).toInt() == 1);
+                ip.see_season = mQuery.value(5).toInt();
+                ip.total_season = mQuery.value(6).toInt();
+                ip.zhuifan = (mQuery.value(7).toInt() == 1);
+                ip.collect = mQuery.value(8).toInt();
+                ip.point = mQuery.value(9).toInt();
+                ip.display = (mQuery.value(10).toInt() == 1);
+                ip.tag1 = (mQuery.value(11).toInt() == 1);
+                ip.tag2 = (mQuery.value(12).toInt() == 1);
+                ip.tag3 = (mQuery.value(13).toInt() == 1);
                 ips.append(ip);
             }
 
@@ -235,6 +236,16 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         AnimeIpData ip = var.value<AnimeIpData>();
         ip.name.replace("'", "''");
         cmd = QString("UPDATE `%2` SET name='%3' WHERE pid=%1").arg(ip.pid).arg(TABLE_ANIME_IP, ip.name);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
+    }
+        break;
+    case SOT_UPDATE_ANIME_IP_NAME_ORIGIN:
+    {
+        AnimeIpData ip = var.value<AnimeIpData>();
+        ip.origin.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET origin='%3' WHERE pid=%1").arg(ip.pid).arg(TABLE_ANIME_IP, ip.origin);
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
@@ -412,9 +423,10 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
     {
         AnimeIpData ip = var.value<AnimeIpData>();
         ip.name.replace("'", "''");
+        ip.origin.replace("'", "''");
         ip.keywords.replace("'", "''");
-        cmd = QString("INSERT INTO `%1` (name,keywords,see,see_season,total_season,zhuifan,collect,point,display,tag1,tag2,tag3)"
-                      " VALUES ('%2','%3',0,0,0,%4,0,0,%5,0,0,0)").arg(TABLE_ANIME_IP, ip.name, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
+        cmd = QString("INSERT INTO `%1` (name,origin,keywords,see,see_season,total_season,zhuifan,collect,point,display,tag1,tag2,tag3)"
+                      " VALUES ('%2','%3','%4',0,0,0,%4,0,0,%5,0,0,0)").arg(TABLE_ANIME_IP, ip.name, ip.origin, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());

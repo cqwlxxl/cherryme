@@ -1696,6 +1696,7 @@ void Widget::on_listWidget_AP_itemClicked(QListWidgetItem *item)
     ui->checkBox_AP_Display->setChecked(ip.display);
     ui->checkBox_AP_Zhuifan->setChecked(ip.zhuifan);
     ui->lineEdit_AP_Name->setText(ip.name);
+    ui->lineEdit_AP_NameOrigin->setText(ip.origin);
     ui->lineEdit_AP_Keyword->setText(ip.keywords);
 }
 
@@ -2225,6 +2226,21 @@ void Widget::on_lineEdit_AP_Name_textChanged(const QString &arg1)
     }
 }
 
+///动漫原始名称改变
+void Widget::on_lineEdit_AP_NameOrigin_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.anime_ip.ips.at(gIPD.index_anime.p_row).origin)
+    {
+        ui->lineEdit_AP_NameOrigin->setStyleSheet("#lineEdit_AP_NameOrigin{background-color:#fcae74;}");
+        ui->pushButton_AP_NameOriginOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_AP_NameOrigin->setStyleSheet("");
+        ui->pushButton_AP_NameOriginOk->setEnabled(false);
+    }
+}
+
 ///动漫名称提交
 void Widget::on_pushButton_AP_NameOk_clicked()
 {
@@ -2238,6 +2254,21 @@ void Widget::on_pushButton_AP_NameOk_clicked()
     QVariant var_send;
     var_send.setValue(ip);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_NAME, var_send);
+}
+
+///动漫原始名称提交
+void Widget::on_pushButton_AP_NameOriginOk_clicked()
+{
+    gIPD.index_anime.p_click = true;
+    gIPD.index_anime.s_click = false;
+    gIPD.index_anime.e_click = false;
+    ui->lineEdit_AP_NameOrigin->setStyleSheet("");
+    ui->pushButton_AP_NameOriginOk->setEnabled(false);
+    AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
+    ip.origin = ui->lineEdit_AP_NameOrigin->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(ip);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_IP_NAME_ORIGIN, var_send);
 }
 
 ///动漫关键词改变
@@ -2287,7 +2318,7 @@ void Widget::on_pushButton_AP_Delete_clicked()
     }
     else
     {
-        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除动漫《%1》?\n注意: 其包含的所有季度和话数据均会被关联删除!")).arg(gIPD.anime_ip.ips.at(row).name), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除动漫\n%1\n%2\n注意: 其包含的所有季度和话数据均会被关联删除!")).arg(gIPD.anime_ip.ips.at(row).name, gIPD.anime_ip.ips.at(row).origin), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
         if(ret == QMessageBox::Ok)
         {
             if(mAnimeRecentMode.enable)

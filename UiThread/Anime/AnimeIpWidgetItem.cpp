@@ -11,6 +11,8 @@ AnimeIpWidgetItem::AnimeIpWidgetItem(AnimeIpData ip, QWidget *parent) :
 
     ui->label_Name->setText(ip.name);
     ui->label_Name->setStyleSheet(QString("QLabel{color:%1;}").arg(ip.display?"black":"red"));
+    ui->label_NameOrigin->setText(ip.origin);
+    ui->label_NameOrigin->setStyleSheet(QString("QLabel{color:%1;}").arg(ip.display?"black":"red"));
     ui->pushButton_Collect->setVisible(ip.collect==0 ? false : true);
     ui->pushButton_Collect->setChecked(ip.collect==2);
     setPoint(ip.point);
