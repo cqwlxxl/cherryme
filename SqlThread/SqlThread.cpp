@@ -426,7 +426,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         ip.origin.replace("'", "''");
         ip.keywords.replace("'", "''");
         cmd = QString("INSERT INTO `%1` (name,origin,keywords,see,see_season,total_season,zhuifan,collect,point,display,tag1,tag2,tag3)"
-                      " VALUES ('%2','%3','%4',0,0,0,%4,0,0,%5,0,0,0)").arg(TABLE_ANIME_IP, ip.name, ip.origin, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
+                      " VALUES ('%2','%3','%4',0,0,0,%5,0,0,%6,0,0,0)").arg(TABLE_ANIME_IP, ip.name, ip.origin, ip.keywords, ip.zhuifan?"1":"0", ip.display?"1":"0");
         mQuery.exec(cmd);
 
         emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
