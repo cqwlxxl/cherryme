@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>649</width>
-    <height>197</height>
+    <height>233</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>新增话</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0,0,0">
    <item>
     <layout class="QHBoxLayout" name="hLayout_EpisodePreview" stretch="0,1">
      <item>
@@ -299,6 +299,20 @@
         <bool>true</bool>
        </property>
       </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="hLayout_TitleOrigin">
+     <item>
+      <widget class="QLabel" name="label_TitleOrigin">
+       <property name="text">
+        <string>原始标题</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_TitleOrigin"/>
      </item>
     </layout>
    </item>

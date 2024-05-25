@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>469</width>
-    <height>49</height>
+    <height>65</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -58,6 +58,50 @@
         <property name="leftMargin">
          <number>10</number>
         </property>
+        <item>
+         <widget class="QPushButton" name="pushButton_Collect">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#pushButton_Collect
+{
+  border: 0px;
+}</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../Resource.qrc">
+            <normaloff>:/File/img/star_uncheck_enable.png</normaloff>
+            <normalon>:/File/img/star_check_enable.png</normalon>
+            <disabledoff>:/File/img/star_uncheck_enable.png</disabledoff>
+            <disabledon>:/File/img/star_check_enable.png</disabledon>:/File/img/star_uncheck_enable.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QProgressBar" name="progressBar_Radio">
           <property name="maximumSize">
@@ -154,6 +198,7 @@
           </property>
           <property name="font">
            <font>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -187,54 +232,10 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="hLayout_Bottom" stretch="0,1">
+       <layout class="QHBoxLayout" name="hLayout_Name" stretch="1">
         <property name="leftMargin">
          <number>10</number>
         </property>
-        <item>
-         <widget class="QPushButton" name="pushButton_Collect">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">#pushButton_Collect
-{
-  border: 0px;
-}</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="../../Resource.qrc">
-            <normaloff>:/File/img/star_uncheck_enable.png</normaloff>
-            <normalon>:/File/img/star_check_enable.png</normalon>
-            <disabledoff>:/File/img/star_uncheck_enable.png</disabledoff>
-            <disabledon>:/File/img/star_check_enable.png</disabledon>:/File/img/star_uncheck_enable.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QLabel" name="label_Name">
           <property name="font">
@@ -245,6 +246,29 @@
           </property>
           <property name="text">
            <string notr="true">显示名称</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="hLayout_NameOrigin">
+        <property name="leftMargin">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_NameOrigin">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string notr="true">原始名称</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

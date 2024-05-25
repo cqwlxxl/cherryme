@@ -139,6 +139,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         {
             cmd += " AND display=1";
         }
+        cmd += " ORDER BY release_date";
         cmd += QString(" LIMIT %1,%2").arg(offset).arg(page_size);
         if(mQuery.exec(cmd))
         {
@@ -190,7 +191,7 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         int pagesize = 24;
         int page = strs[2].toInt();
         int offset = (page-1)*pagesize;
-        cmd = QString("SELECT eid,pid,sid,episode,title,"
+        cmd = QString("SELECT eid,pid,sid,episode,title,origin,"
                       "see,tag1,tag2,tag3 FROM `%3` WHERE pid=%4 AND sid=%5 LIMIT %1,%2").arg(offset).arg(pagesize)
                 .arg(TABLE_ANIME_EPISODE, strs[0], strs[1]);
         if(mQuery.exec(cmd))
@@ -204,10 +205,11 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
                 ep.sid = mQuery.value(2).toInt();
                 ep.episode = mQuery.value(3).toString();
                 ep.title = mQuery.value(4).toString();
-                ep.see = (mQuery.value(5).toInt() == 1);
-                ep.tag1 = (mQuery.value(6).toInt() == 1);
-                ep.tag2 = (mQuery.value(7).toInt() == 1);
-                ep.tag3 = (mQuery.value(8).toInt() == 1);
+                ep.origin = mQuery.value(5).toString();
+                ep.see = (mQuery.value(6).toInt() == 1);
+                ep.tag1 = (mQuery.value(7).toInt() == 1);
+                ep.tag2 = (mQuery.value(8).toInt() == 1);
+                ep.tag3 = (mQuery.value(9).toInt() == 1);
                 eps.append(ep);
             }
             QVariant sendVar;
@@ -352,6 +354,16 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
     }
         break;
+    case SOT_UPDATE_ANIME_EPISODE_TITLE_ORIGIN:
+    {
+        AnimeEpisodeData episode = var.value<AnimeEpisodeData>();
+        episode.origin.replace("'", "''");
+        cmd = QString("UPDATE `%2` SET origin='%3' WHERE eid=%1").arg(episode.eid).arg(TABLE_ANIME_EPISODE, episode.origin);
+        mQuery.exec(cmd);
+
+        emit SIGNALSendQueryData(SOT_TELL_ANIME_RESHOW, QVariant());
+    }
+        break;
     case SOT_UPDATE_ANIME_EPISODE_TAG1:
     {
         AnimeEpisodeData episode = var.value<AnimeEpisodeData>();
@@ -423,9 +435,9 @@ void SqlThread::SLOTReceiveQuery(SqlOperateType operate, QVariant var)
         cmd.clear();
         foreach(AnimeEpisodeData ep, eps)
         {
-            cmd += QString("INSERT INTO `%6` (pid,sid,episode,title,see,tag1,tag2,tag3)"
-                           " VALUES (%1,%2,'%7','%8',0,%3,%4,%5);")
-                    .arg(pid).arg(sid).arg(ep.tag1).arg(ep.tag2).arg(ep.tag3).arg(TABLE_ANIME_EPISODE, ep.episode.replace("'", "''"), ep.title.replace("'", "''"));
+            cmd += QString("INSERT INTO `%6` (pid,sid,episode,title,origin,see,tag1,tag2,tag3)"
+                           " VALUES (%1,%2,'%7','%8','%9',0,%3,%4,%5);")
+                    .arg(pid).arg(sid).arg(ep.tag1).arg(ep.tag2).arg(ep.tag3).arg(TABLE_ANIME_EPISODE, ep.episode.replace("'", "''"), ep.title.replace("'", "''"),ep.origin.replace("'", "''"));
         }
         mDB.transaction();
         mQuery.exec(cmd);

@@ -13,8 +13,9 @@ AnimeEpisodeWidgetItem::AnimeEpisodeWidgetItem(AnimeEpisodeData episode, int row
 
     mEpisode = episode;
     mRow = row;
-    ui->label_Name->setText(QString("[%1] %2").arg(episode.episode, episode.title));
-    ui->label_Name->setStyleSheet("QLabel{margin-left:3px;}");
+    ui->label_Ep->setText(QString("[%1]").arg(episode.episode));
+    ui->label_Name->setText(episode.title);
+    ui->label_NameOrigin->setText(episode.origin);
     ui->pushButton_See->setChecked(episode.see);
     setTag1(episode.tag1);
     setTag2(episode.tag2);

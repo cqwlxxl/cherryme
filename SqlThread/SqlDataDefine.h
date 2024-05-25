@@ -47,6 +47,7 @@ enum SqlOperateType
     SOT_UPDATE_ANIME_EPISODE_SEE,           //更新动漫话，看完
     SOT_UPDATE_ANIME_EPISODE_EPISODE,       //更新动漫话，序号
     SOT_UPDATE_ANIME_EPISODE_TITLE,         //更新动漫话，标题
+    SOT_UPDATE_ANIME_EPISODE_TITLE_ORIGIN,  //更新动漫话，标题原始标题
     SOT_UPDATE_ANIME_EPISODE_TAG1,          //更新动漫话，tag1
     SOT_UPDATE_ANIME_EPISODE_TAG2,          //更新动漫话，tag2
     SOT_UPDATE_ANIME_EPISODE_TAG3,          //更新动漫话，tag3

@@ -102,7 +102,9 @@ private slots:
     void on_lineEdit_AE_Episode_textChanged(const QString &arg1);   //动漫话序号改变
     void on_pushButton_AE_EpisodeOk_clicked();                      //动漫话序号提交
     void on_lineEdit_AE_Title_textChanged(const QString &arg1);     //动漫话标题改变
+    void on_lineEdit_AE_TitleOrigin_textChanged(const QString &arg1);   //动漫话原始标题改变
     void on_pushButton_AE_TitleOk_clicked();                        //动漫话标题提交
+    void on_pushButton_AE_TitleOriginOk_clicked();                  //动漫话原始标题提交
     void on_checkBox_AE_Tag1_clicked(bool checked); //动漫话tag1提交
     void on_checkBox_AE_Tag2_clicked(bool checked); //动漫话tag2提交
     void on_checkBox_AE_Tag3_clicked(bool checked); //动漫话tag3提交

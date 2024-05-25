@@ -1757,6 +1757,7 @@ void Widget::on_listWidget_AE_itemClicked(QListWidgetItem *item)
     ui->checkBox_AE_Tag3->setChecked(gIPD.anime_ep.eps.at(row).tag3);
     ui->lineEdit_AE_Episode->setText(gIPD.anime_ep.eps.at(row).episode);
     ui->lineEdit_AE_Title->setText(gIPD.anime_ep.eps.at(row).title);
+    ui->lineEdit_AE_TitleOrigin->setText(gIPD.anime_ep.eps.at(row).origin);
 }
 
 ///动漫ip上一页
@@ -1915,6 +1916,21 @@ void Widget::on_lineEdit_AE_Title_textChanged(const QString &arg1)
     }
 }
 
+///动漫话原始标题改变
+void Widget::on_lineEdit_AE_TitleOrigin_textChanged(const QString &arg1)
+{
+    if(arg1 != gIPD.anime_ep.eps.at(gIPD.index_anime.e_row).origin)
+    {
+        ui->lineEdit_AE_TitleOrigin->setStyleSheet("#lineEdit_AE_TitleOrigin{background-color:#fcae74;}");
+        ui->pushButton_AE_TitleOriginOk->setEnabled(true);
+    }
+    else
+    {
+        ui->lineEdit_AE_TitleOrigin->setStyleSheet("");
+        ui->pushButton_AE_TitleOriginOk->setEnabled(false);
+    }
+}
+
 ///动漫话标题提交
 void Widget::on_pushButton_AE_TitleOk_clicked()
 {
@@ -1928,6 +1944,21 @@ void Widget::on_pushButton_AE_TitleOk_clicked()
     QVariant var_send;
     var_send.setValue(episode);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_TITLE, var_send);
+}
+
+///动漫话原始标题提交
+void Widget::on_pushButton_AE_TitleOriginOk_clicked()
+{
+    gIPD.index_anime.p_click = true;
+    gIPD.index_anime.s_click = true;
+    gIPD.index_anime.e_click = true;
+    ui->lineEdit_AE_TitleOrigin->setStyleSheet("");
+    ui->pushButton_AE_TitleOriginOk->setEnabled(false);
+    AnimeEpisodeData episode = gIPD.anime_ep.eps.at(gIPD.index_anime.e_row);
+    episode.origin = ui->lineEdit_AE_TitleOrigin->text().trimmed();
+    QVariant var_send;
+    var_send.setValue(episode);
+    emit gIPD.SIGNALSendQuery(SOT_UPDATE_ANIME_EPISODE_TITLE_ORIGIN, var_send);
 }
 
 ///动漫话tag1提交
@@ -2294,7 +2325,7 @@ void Widget::on_pushButton_AE_Delete_clicked()
     }
     else
     {
-        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除话《[%1] %2》?")).arg(gIPD.anime_ep.eps.at(row).episode, gIPD.anime_ep.eps.at(row).title), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
+        int ret = QMessageBox::warning(this, tr("警告"), QString(tr("确认删除话\n[%1]\n%2\n%3")).arg(gIPD.anime_ep.eps.at(row).episode, gIPD.anime_ep.eps.at(row).title, gIPD.anime_ep.eps.at(row).origin), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Cancel);
         if(ret == QMessageBox::Ok)
         {
             gIPD.index_anime.p_click = true;
@@ -3304,4 +3335,3 @@ void Widget::on_checkBox_TE_Tag3_clicked(bool checked)
     var_send.setValue(episode);
     emit gIPD.SIGNALSendQuery(SOT_UPDATE_TV_EPISODE_TAG3, var_send);
 }
-

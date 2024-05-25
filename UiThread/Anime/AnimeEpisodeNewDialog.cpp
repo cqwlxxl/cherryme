@@ -44,6 +44,7 @@ void AnimeEpisodeNewDialog::on_pushButton_Ok_clicked()
     ep.pid = mPid;
     ep.sid = mSid;
     ep.title = ui->lineEdit_Title->text();
+    ep.origin = ui->lineEdit_TitleOrigin->text();
     ep.tag1 = ui->checkBox_Tag1->isChecked();
     ep.tag2 = ui->checkBox_Tag2->isChecked();
     ep.tag3 = ui->checkBox_Tag3->isChecked();
