@@ -1,6 +1,7 @@
 #include "Widget.h"
 #include "ui_Widget.h"
 
+#include <QKeyEvent>
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QTimer>
@@ -726,6 +727,15 @@ void Widget::qian()
     ui->label_T_Recent5_Close->installEventFilter(this);
     ui->label_T_Recent6_Close->installEventFilter(this);
     ui->label_T_Recent7_Close->installEventFilter(this);
+    //修改信息的控件
+    ui->lineEdit_AP_Name->installEventFilter(this);
+    ui->lineEdit_AP_NameOrigin->installEventFilter(this);
+    ui->lineEdit_AP_Keyword->installEventFilter(this);
+    ui->lineEdit_AS_Name->installEventFilter(this);
+    ui->lineEdit_AS_NameOrigin->installEventFilter(this);
+    ui->lineEdit_AE_Episode->installEventFilter(this);
+    ui->lineEdit_AE_Title->installEventFilter(this);
+    ui->lineEdit_AE_TitleOrigin->installEventFilter(this);
 
     connect(&gIPD, &InterfacePublicData::SIGNALSendQuery, this, &Widget::slotSendQuery, Qt::UniqueConnection);
     connect(&gIPD, &InterfacePublicData::SIGNALReceiveQueryData, this, &Widget::slotReceiveQueryData, Qt::UniqueConnection);
@@ -1679,6 +1689,27 @@ bool Widget::eventFilter(QObject *obj, QEvent *event)
             return true;
         }
     }
+    else if(obj == ui->lineEdit_AP_Name || obj == ui->lineEdit_AP_NameOrigin || obj == ui->lineEdit_AP_Keyword ||
+            obj == ui->lineEdit_AS_Name || obj == ui->lineEdit_AS_NameOrigin ||
+            obj == ui->lineEdit_AE_Episode || obj == ui->lineEdit_AE_Title || obj == ui->lineEdit_AE_TitleOrigin)
+    {
+        if(event->type() == QEvent::KeyPress)
+        {   //键盘事件
+            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+            if(keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
+            {   //回车键
+                if(obj == ui->lineEdit_AP_Name){ on_pushButton_AP_NameOk_clicked(); }               //动漫系列名称
+                if(obj == ui->lineEdit_AP_NameOrigin){ on_pushButton_AP_NameOriginOk_clicked(); }   //动漫系列原始名称
+                if(obj == ui->lineEdit_AP_Keyword){ on_pushButton_AP_KeywordOk_clicked(); }         //动漫系列关键词
+                if(obj == ui->lineEdit_AS_Name){ on_pushButton_AS_NameOk_clicked(); }               //动漫季名称
+                if(obj == ui->lineEdit_AS_NameOrigin){ on_pushButton_AS_NameOriginOk_clicked(); }   //动漫季原始名称
+                if(obj == ui->lineEdit_AE_Episode){ on_pushButton_AE_EpisodeOk_clicked(); }         //动漫话序号
+                if(obj == ui->lineEdit_AE_Title){ on_pushButton_AE_TitleOk_clicked(); }             //动漫话标题
+                if(obj == ui->lineEdit_AE_TitleOrigin){ on_pushButton_AE_TitleOriginOk_clicked(); } //动漫话原始标题
+                 ///xxl_debug: add here
+            }
+        }
+    }
 
     return QWidget::eventFilter(obj, event);
 }
@@ -2043,12 +2074,12 @@ void Widget::on_lineEdit_AS_Name_textChanged(const QString &arg1)
     if(arg1 != gIPD.anime_season.seasons.at(gIPD.index_anime.s_row).name)
     {
         ui->lineEdit_AS_Name->setStyleSheet("#lineEdit_AS_Name{background-color:#fcae74;}");
-        ui->pushButton_AS_NaneOk->setEnabled(true);
+        ui->pushButton_AS_NameOk->setEnabled(true);
     }
     else
     {
         ui->lineEdit_AS_Name->setStyleSheet("");
-        ui->pushButton_AS_NaneOk->setEnabled(false);
+        ui->pushButton_AS_NameOk->setEnabled(false);
     }
 }
 
@@ -2058,23 +2089,23 @@ void Widget::on_lineEdit_AS_NameOrigin_textChanged(const QString &arg1)
     if(arg1 != gIPD.anime_season.seasons.at(gIPD.index_anime.s_row).origin)
     {
         ui->lineEdit_AS_NameOrigin->setStyleSheet("#lineEdit_AS_NameOrigin{background-color:#fcae74;}");
-        ui->pushButton_AS_NaneOriginOk->setEnabled(true);
+        ui->pushButton_AS_NameOriginOk->setEnabled(true);
     }
     else
     {
         ui->lineEdit_AS_NameOrigin->setStyleSheet("");
-        ui->pushButton_AS_NaneOriginOk->setEnabled(false);
+        ui->pushButton_AS_NameOriginOk->setEnabled(false);
     }
 }
 
 ///动漫季名称提交
-void Widget::on_pushButton_AS_NaneOk_clicked()
+void Widget::on_pushButton_AS_NameOk_clicked()
 {
     gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = true;
     gIPD.index_anime.e_click = false;
     ui->lineEdit_AS_Name->setStyleSheet("");
-    ui->pushButton_AS_NaneOk->setEnabled(false);
+    ui->pushButton_AS_NameOk->setEnabled(false);
     AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
     season.name = ui->lineEdit_AS_Name->text().trimmed();
     QVariant var_send;
@@ -2083,13 +2114,13 @@ void Widget::on_pushButton_AS_NaneOk_clicked()
 }
 
 ///动漫季原始名称提交
-void Widget::on_pushButton_AS_NaneOriginOk_clicked()
+void Widget::on_pushButton_AS_NameOriginOk_clicked()
 {
     gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = true;
     gIPD.index_anime.e_click = false;
     ui->lineEdit_AS_NameOrigin->setStyleSheet("");
-    ui->pushButton_AS_NaneOriginOk->setEnabled(false);
+    ui->pushButton_AS_NameOriginOk->setEnabled(false);
     AnimeSeasonData season = gIPD.anime_season.seasons.at(gIPD.index_anime.s_row);
     season.origin = ui->lineEdit_AS_NameOrigin->text().trimmed();
     QVariant var_send;
@@ -2312,23 +2343,23 @@ void Widget::on_lineEdit_AP_Keyword_textChanged(const QString &arg1)
     if(arg1 != gIPD.anime_ip.ips.at(gIPD.index_anime.p_row).keywords)
     {
         ui->lineEdit_AP_Keyword->setStyleSheet("#lineEdit_AP_Keyword{background-color:#fcae74;}");
-        ui->pushButton_AP_KeywordsOk->setEnabled(true);
+        ui->pushButton_AP_KeywordOk->setEnabled(true);
     }
     else
     {
         ui->lineEdit_AP_Keyword->setStyleSheet("");
-        ui->pushButton_AP_KeywordsOk->setEnabled(false);
+        ui->pushButton_AP_KeywordOk->setEnabled(false);
     }
 }
 
 ///动漫关键词提交
-void Widget::on_pushButton_AP_KeywordsOk_clicked()
+void Widget::on_pushButton_AP_KeywordOk_clicked()
 {
     gIPD.index_anime.p_click = true;
     gIPD.index_anime.s_click = false;
     gIPD.index_anime.e_click = false;
     ui->lineEdit_AP_Keyword->setStyleSheet("");
-    ui->pushButton_AP_KeywordsOk->setEnabled(false);
+    ui->pushButton_AP_KeywordOk->setEnabled(false);
     AnimeIpData ip = gIPD.anime_ip.ips.at(gIPD.index_anime.p_row);
     ip.keywords = ui->lineEdit_AP_Keyword->text().trimmed();
     QVariant var_send;

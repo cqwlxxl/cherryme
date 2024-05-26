@@ -89,13 +89,13 @@ private slots:
     void on_checkBox_AP_Display_clicked(bool checked);  //动漫公开提交
     void on_checkBox_AP_Zhuifan_clicked(bool checked);  //动漫追番提交
     void on_lineEdit_AP_Keyword_textChanged(const QString &arg1);   //动漫关键词改变
-    void on_pushButton_AP_KeywordsOk_clicked();                     //动漫关键词提交
+    void on_pushButton_AP_KeywordOk_clicked();                      //动漫关键词提交
     //anime操作季
     void on_comboBox_AS_Type_activated(int index);              //动漫类型改变
     void on_lineEdit_AS_Name_textChanged(const QString &arg1);  //动漫季名称改变
     void on_lineEdit_AS_NameOrigin_textChanged(const QString &arg1);  //动漫季原始名称改变
-    void on_pushButton_AS_NaneOk_clicked();                     //动漫季名称提交
-    void on_pushButton_AS_NaneOriginOk_clicked();               //动漫季原始名称提交
+    void on_pushButton_AS_NameOk_clicked();                     //动漫季名称提交
+    void on_pushButton_AS_NameOriginOk_clicked();               //动漫季原始名称提交
     void on_checkBox_AS_Display_clicked(bool checked);  //动漫季公开提交
     void on_checkBox_AS_ReleaseDateEnable_clicked(bool checked);    //动漫季发布日期有效
     void on_dateEdit_AS_ReleaseDate_dateChanged(const QDate &date); //动漫季发布日期改变

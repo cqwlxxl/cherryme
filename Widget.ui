@@ -2204,7 +2204,7 @@ QCheckBox::indicator:unchecked:disabled
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="hLayout_AP_Keywords">
+            <layout class="QHBoxLayout" name="hLayout_AP_Keyword">
              <item>
               <widget class="QLabel" name="label_AP_Keyword">
                <property name="minimumSize">
@@ -2235,7 +2235,7 @@ QCheckBox::indicator:unchecked:disabled
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_AP_KeywordsOk">
+              <widget class="QPushButton" name="pushButton_AP_KeywordOk">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -2252,7 +2252,7 @@ QCheckBox::indicator:unchecked:disabled
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">#pushButton_AP_KeywordsOk
+                <string notr="true">#pushButton_AP_KeywordOk
 {
   border: 0px;
 }</string>
@@ -2669,7 +2669,7 @@ QCheckBox::indicator:unchecked:disabled
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_AS_NaneOk">
+              <widget class="QPushButton" name="pushButton_AS_NameOk">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -2686,7 +2686,7 @@ QCheckBox::indicator:unchecked:disabled
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">#pushButton_AS_NaneOk
+                <string notr="true">#pushButton_AS_NameOk
 {
   border: 0px;
 }</string>
@@ -2711,7 +2711,7 @@ QCheckBox::indicator:unchecked:disabled
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="hLayout_AS_Name_2">
+            <layout class="QHBoxLayout" name="hLayout_AS_NameOrigin">
              <item>
               <widget class="QLabel" name="label_AS_NameOrigin">
                <property name="minimumSize">
@@ -2742,7 +2742,7 @@ QCheckBox::indicator:unchecked:disabled
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_AS_NaneOriginOk">
+              <widget class="QPushButton" name="pushButton_AS_NameOriginOk">
                <property name="enabled">
                 <bool>false</bool>
                </property>
@@ -2759,7 +2759,7 @@ QCheckBox::indicator:unchecked:disabled
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">#pushButton_AS_NaneOriginOk
+                <string notr="true">#pushButton_AS_NameOriginOk
 {
   border: 0px;
 }</string>
